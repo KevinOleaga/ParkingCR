@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="215" pageHeight="150" columnWidth="195" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="0" uuid="617972e8-b822-4f81-8544-8c8326c51a7d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM VI_GETVEHICLES WHERE "Tipo de vehiculo" LIKE '%Automóvil%'
+]]>
+	</queryString>
+	<field name="Placa" class="java.lang.String"/>
+	<field name="Tipo de vehiculo" class="java.lang.String"/>
+	<field name="Tipo de cliente" class="java.lang.String"/>
+	<field name="Fecha de entrada" class="java.lang.String"/>
+	<field name="Hora de entrada" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="195" height="60" backcolor="#000000" uuid="54c6aac0-31a4-459f-9520-df344e60ef09"/>
+				<image>
+					<reportElement x="15" y="0" width="60" height="60" uuid="8c97eea7-974a-48b3-bbd5-40cf521671c1"/>
+					<imageExpression><![CDATA["C:\\Users\\oleag\\Desktop\\CarList.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="84" y="0" width="111" height="60" forecolor="#FFFFFF" uuid="e49f8d90-86b2-425e-a3eb-e121bac9d490"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Lista de automóviles]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="102" y="0" width="51" height="20" uuid="f3297786-f607-466a-bc61-0eb67a8c4ac8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="0" width="60" height="20" uuid="ff9079b8-0ed5-4573-82b2-e8c5c6d109c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="0" width="42" height="20" uuid="ab1a991f-4502-4d1a-a302-419d513ace01"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="42" height="20" uuid="5342120d-df28-43ce-9f2b-5dd96bc376d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="193" height="1" uuid="7270f4ff-f05f-4e5b-afd7-99172417caad"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="152" y="0" width="43" height="20" uuid="5551ab5c-9b8d-4398-aaf7-f55f2717393a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Hora de entrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="42" height="20" uuid="318d933d-06c6-4dab-9c5f-e05fe3006e24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="0" width="60" height="20" uuid="335aa868-2fab-4b5a-9fd5-5d035e783b16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tipo de vehiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="0" width="51" height="20" uuid="3503a884-b2de-453a-8eb6-4a7186d1fa1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha de entrada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
