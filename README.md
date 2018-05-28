@@ -1,4 +1,4 @@
 # ParkingCR
-Sistema de administración de estacionamientos.
-Autor: Kevin Oleaga Garcia.
-Version: 1.0
+
+<img src="http://www.parqueos.org/images/logo.png" />
+<p>Sistema de administración de estacionamientos / Version: 1.0.
