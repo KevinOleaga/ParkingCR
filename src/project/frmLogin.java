@@ -13,8 +13,9 @@ public class frmLogin extends javax.swing.JFrame {
     String user = null, pass = null;
     cls_methods mt = new cls_methods();
 
-    public frmLogin() {
+    public frmLogin(){
         initComponents();
+        mt.printDailyRent();
         setLocationRelativeTo(null);
         pn_password.setVisible(false);
     }

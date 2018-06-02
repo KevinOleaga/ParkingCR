@@ -4,6 +4,7 @@ import java.awt.Color;
 import methods.cls_methods;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import Atxy2k.CustomTextField.RestrictedTextField;
+import GetDateTime.DateTime;
 
 /**
  * @author Kevin Oleaga Garcia
@@ -13,9 +14,10 @@ import Atxy2k.CustomTextField.RestrictedTextField;
 public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     Thread th;
-    String date, time;
     String plate = null;
+
     static String item = "item_1";
+    DateTime dt = new DateTime();
     cls_methods mt = new cls_methods();
 
     public frmAdmin() {
@@ -23,7 +25,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         // --------------------------------------------------------------------- COUNT VEHICLES
         lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-        lb_vehicles.setText(String.valueOf(mt.FN_CountVehicles()));
+        lb_cars.setText(String.valueOf(mt.FN_CountCars()));
         lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
 
         // --------------------------------------------------------------------- PANELS
@@ -80,8 +82,8 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         btn_payment = new javax.swing.JButton();
         lb_truckIcon = new javax.swing.JLabel();
         lb_trucks = new javax.swing.JLabel();
-        lb_vehicleIcon = new javax.swing.JLabel();
-        lb_vehicles = new javax.swing.JLabel();
+        lb_carIcon = new javax.swing.JLabel();
+        lb_cars = new javax.swing.JLabel();
         lb_motorcycleIcon = new javax.swing.JLabel();
         lb_motorcycles = new javax.swing.JLabel();
         pn_btnShowVehicles = new javax.swing.JPanel();
@@ -329,14 +331,14 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_trucks.setToolTipText("Cantidad de camiones.");
         pn_main.add(lb_trucks, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 530, 50, 50));
 
-        lb_vehicleIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Car 50px.png"))); // NOI18N
-        pn_main.add(lb_vehicleIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 490, 50, 50));
+        lb_carIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Car 50px.png"))); // NOI18N
+        pn_main.add(lb_carIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 490, 50, 50));
 
-        lb_vehicles.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_vehicles.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_vehicles.setText("0");
-        lb_vehicles.setToolTipText("Cantidad de automóviles.");
-        pn_main.add(lb_vehicles, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 530, 50, 50));
+        lb_cars.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_cars.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_cars.setText("0");
+        lb_cars.setToolTipText("Cantidad de automóviles.");
+        pn_main.add(lb_cars, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 530, 50, 50));
 
         lb_motorcycleIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Motorcycle 50px.png"))); // NOI18N
         pn_main.add(lb_motorcycleIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, 50, 50));
@@ -470,8 +472,8 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
             }
         });
         tbx_idTruck.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbx_idTruckKeyReleased(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbx_idTruckKeyTyped(evt);
             }
         });
         pn_inputTruck.add(tbx_idTruck, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 230, 40));
@@ -527,29 +529,36 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_titleCar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lb_titleCar.setForeground(new java.awt.Color(255, 255, 255));
         lb_titleCar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_titleCar.setText("Ingrese la placa del vehículo");
+        lb_titleCar.setText("Ingrese la placa del automóvil");
         pn_inputCar.add(lb_titleCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
         pn_inputCar.add(sp_inputTitleCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 970, 10));
 
         lb_textCar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lb_textCar.setForeground(new java.awt.Color(255, 255, 255));
-        lb_textCar.setText("Número de placa:");
-        pn_inputCar.add(lb_textCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, 40));
+        lb_textCar.setText("Placa del vehículo:");
+        pn_inputCar.add(lb_textCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 40));
 
         tbx_idCar.setBackground(new java.awt.Color(38, 50, 56));
         tbx_idCar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tbx_idCar.setForeground(new java.awt.Color(255, 255, 255));
         tbx_idCar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbx_idCar.setToolTipText("Ingrese la placa del automóvil.");
         tbx_idCar.setBorder(null);
         tbx_idCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbx_idCarActionPerformed(evt);
             }
         });
+        tbx_idCar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbx_idCarKeyTyped(evt);
+            }
+        });
         pn_inputCar.add(tbx_idCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 220, 40));
         pn_inputCar.add(sp_inputCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 220, 10));
 
         btn_calendarCar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Calendar 60px.png"))); // NOI18N
+        btn_calendarCar.setToolTipText("Renta Diaria / Nocturna.");
         btn_calendarCar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         btn_calendarCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_calendarCar.addActionListener(new java.awt.event.ActionListener() {
@@ -560,6 +569,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_inputCar.add(btn_calendarCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, -1, -1));
 
         btn_clockCar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clock 60px.png"))); // NOI18N
+        btn_clockCar.setToolTipText("Renta por horas.");
         btn_clockCar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         btn_clockCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_clockCar.addActionListener(new java.awt.event.ActionListener() {
@@ -569,7 +579,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         });
         pn_inputCar.add(btn_clockCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 70, -1, -1));
 
-        pn_car.add(pn_inputCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, 970, 170));
+        pn_car.add(pn_inputCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 1070, 170));
 
         pn_home.add(pn_car, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
 
@@ -598,28 +608,35 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_titleMotorcycle.setForeground(new java.awt.Color(255, 255, 255));
         lb_titleMotorcycle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titleMotorcycle.setText("Ingrese la placa del vehiculo");
-        pn_inputMotorcycle.add(lb_titleMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
-        pn_inputMotorcycle.add(sp_inputTitleMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 970, 10));
+        pn_inputMotorcycle.add(lb_titleMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 40));
+        pn_inputMotorcycle.add(sp_inputTitleMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1070, 10));
 
         lb_textMotorcycle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lb_textMotorcycle.setForeground(new java.awt.Color(255, 255, 255));
         lb_textMotorcycle.setText("Número de placa:");
-        pn_inputMotorcycle.add(lb_textMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, 40));
+        pn_inputMotorcycle.add(lb_textMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 40));
 
         tbx_idMotorcycle.setBackground(new java.awt.Color(38, 50, 56));
         tbx_idMotorcycle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tbx_idMotorcycle.setForeground(new java.awt.Color(255, 255, 255));
         tbx_idMotorcycle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbx_idMotorcycle.setToolTipText("Ingrese la placa de la motocicleta.");
         tbx_idMotorcycle.setBorder(null);
         tbx_idMotorcycle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbx_idMotorcycleActionPerformed(evt);
             }
         });
+        tbx_idMotorcycle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbx_idMotorcycleKeyTyped(evt);
+            }
+        });
         pn_inputMotorcycle.add(tbx_idMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 220, 40));
         pn_inputMotorcycle.add(sp_inputMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 220, 10));
 
         btn_calendarMotorcycle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Calendar 60px.png"))); // NOI18N
+        btn_calendarMotorcycle.setToolTipText("Renta Diaria / Nocturna.");
         btn_calendarMotorcycle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         btn_calendarMotorcycle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_calendarMotorcycle.addActionListener(new java.awt.event.ActionListener() {
@@ -630,6 +647,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_inputMotorcycle.add(btn_calendarMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, -1, -1));
 
         btn_clockMotorcycle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clock 60px.png"))); // NOI18N
+        btn_clockMotorcycle.setToolTipText("Renta por horas.");
         btn_clockMotorcycle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         btn_clockMotorcycle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_clockMotorcycle.addActionListener(new java.awt.event.ActionListener() {
@@ -639,7 +657,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         });
         pn_inputMotorcycle.add(btn_clockMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 70, -1, -1));
 
-        pn_motorcycle.add(pn_inputMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, 970, 170));
+        pn_motorcycle.add(pn_inputMotorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 1070, 170));
 
         pn_home.add(pn_motorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
 
@@ -1161,7 +1179,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     tbx_idCar.setText(null);
                     break;
                 case 1:
-                    lb_vehicles.setText(String.valueOf(mt.FN_CountVehicles()));
+                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
 
                     pn_main.setVisible(true);
                     pn_type.setVisible(false);
@@ -1187,7 +1205,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     tbx_idCar.setText(null);
                     break;
                 case 1:
-                    lb_vehicles.setText(String.valueOf(mt.FN_CountVehicles()));
+                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
 
                     pn_main.setVisible(true);
                     pn_type.setVisible(false);
@@ -1269,7 +1287,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private void lb_showVehiclesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_showVehiclesMouseExited
         pn_btnShowVehicles.setBackground(new Color(38, 50, 56));   // OFF
     }//GEN-LAST:event_lb_showVehiclesMouseExited
-    
+
     private void btn_calendarTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarTruckActionPerformed
         plate = tbx_idTruck.getText().toUpperCase();
 
@@ -1279,19 +1297,19 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
             byte success = mt.SP_NewVehicle(plate, 2, 1);
             switch (success) {
                 case 0:
-                tbx_idTruck.setText(null);
-                break;
+                    tbx_idTruck.setText(null);
+                    break;
                 case 1:
-                lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
+                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
 
-                pn_main.setVisible(true);
-                pn_type.setVisible(false);
-                pn_truck.setVisible(false);
-                pn_car.setVisible(false);
-                pn_motorcycle.setVisible(false);
-                pn_payment.setVisible(false);
-                tbx_idTruck.setText(null);
-                break;
+                    pn_main.setVisible(true);
+                    pn_type.setVisible(false);
+                    pn_truck.setVisible(false);
+                    pn_car.setVisible(false);
+                    pn_motorcycle.setVisible(false);
+                    pn_payment.setVisible(false);
+                    tbx_idTruck.setText(null);
+                    break;
             }
         }
     }//GEN-LAST:event_btn_calendarTruckActionPerformed
@@ -1334,7 +1352,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     tbx_idCar.setText(null);
                     break;
                 case 1:
-                    lb_vehicles.setText(String.valueOf(mt.FN_CountVehicles()));
+                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
 
                     pn_main.setVisible(true);
                     pn_type.setVisible(false);
@@ -1374,11 +1392,32 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_tbx_idMotorcycleActionPerformed
 
-    private void tbx_idTruckKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idTruckKeyReleased
-        // POR AQUI
-        
-        tbx_idTruck.setText(tbx_idTruck.getText().toUpperCase());
-    }//GEN-LAST:event_tbx_idTruckKeyReleased
+    private void tbx_idTruckKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idTruckKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLowerCase(c)) {
+            String cad = ("" + c).toUpperCase();
+            c = cad.charAt(0);
+            evt.setKeyChar(c);
+        }
+    }//GEN-LAST:event_tbx_idTruckKeyTyped
+
+    private void tbx_idCarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idCarKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLowerCase(c)) {
+            String cad = ("" + c).toUpperCase();
+            c = cad.charAt(0);
+            evt.setKeyChar(c);
+        }
+    }//GEN-LAST:event_tbx_idCarKeyTyped
+
+    private void tbx_idMotorcycleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idMotorcycleKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLowerCase(c)) {
+            String cad = ("" + c).toUpperCase();
+            c = cad.charAt(0);
+            evt.setKeyChar(c);
+        }
+    }//GEN-LAST:event_tbx_idMotorcycleKeyTyped
 
     public static void main(String args[]) {
         try {
@@ -1428,6 +1467,8 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel item_4;
     private javax.swing.JPanel item_5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lb_carIcon;
+    private javax.swing.JLabel lb_cars;
     private javax.swing.JLabel lb_fecha;
     private javax.swing.JLabel lb_hour;
     private javax.swing.JLabel lb_iconCar;
@@ -1459,8 +1500,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_titleTruck;
     private javax.swing.JLabel lb_truckIcon;
     private javax.swing.JLabel lb_trucks;
-    private javax.swing.JLabel lb_vehicleIcon;
-    private javax.swing.JLabel lb_vehicles;
     private javax.swing.JPanel pn_bottom;
     private javax.swing.JPanel pn_btnShowVehicles;
     private javax.swing.JPanel pn_car;
@@ -1495,8 +1534,8 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     public void run() {
         Thread ct = Thread.currentThread();
         while (ct == th) {
-            lb_hour.setText(mt.Get12hTime());
-            lb_fecha.setText(mt.GetDate());
+            lb_hour.setText(dt.Get12hTime());
+            lb_fecha.setText(dt.GetDate());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

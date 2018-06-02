@@ -1,13 +1,18 @@
 package methods;
 
+import GetDateTime.DateTime;
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JLabel;
@@ -37,6 +42,7 @@ import project.frmWarning;
  */
 public class cls_methods {
 
+    DateTime dt = new DateTime();
     public static boolean msgControl = false;
     public static boolean ShowListControl = false;
 
@@ -82,85 +88,64 @@ public class cls_methods {
         }
     }
 
-    public String GetDate() {
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return (dateFormat.format(date));
-    }
-
-    public String Get12hTime() {
-        Date date = new Date();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
-        return (timeFormat.format(date).toLowerCase());
-    }
-
-    public String Get12hFullTime() {
-        Date date = new Date();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss aa");
-        return (timeFormat.format(date).toLowerCase());
-    }
-
-    public String Get24hTime() {
-        Date date = new Date();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("H:mm:ss");
-        return (timeFormat.format(date).toLowerCase());
-    }
-
-    public String ConvertTo12h(String Time) {
-        String h = null;
-        switch (Time.substring(0, 2)) {
-            case "13":
-                h = "01" + Time.substring(2) + " pm";
-                break;
-            case "14":
-                h = "02" + Time.substring(2) + " pm";
-                break;
-            case "15":
-                h = "03" + Time.substring(2) + " pm";
-                break;
-            case "16":
-                h = "04" + Time.substring(2) + " pm";
-                break;
-            case "17":
-                h = "05" + Time.substring(2) + " pm";
-                break;
-            case "18":
-                h = "06" + Time.substring(2) + " pm";
-                break;
-            case "19":
-                h = "07" + Time.substring(2) + " pm";
-                break;
-            case "20":
-                h = "08" + Time.substring(2) + " pm";
-                break;
-            case "21":
-                h = "09" + Time.substring(2) + " pm";
-                break;
-            case "22":
-                h = "10" + Time.substring(2) + " pm";
-                break;
-            case "23":
-                h = "11" + Time.substring(2) + " pm";
-                break;
-            case "24":
-                h = "12" + Time.substring(2) + " pm";
-                break;
-            default:
-                break;
-        }
-        return h;
-    }
-
     public String Capitalize(String data) {
         return data.substring(0, 1).toUpperCase() + data.substring(1).toLowerCase();
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
     //-------------------------------------------------------------------------- Tickets    
+    public void printDailyRent() {
+        try {
+            JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("src/reports/rp_DailyRent.jasper");
+
+            String ParkingLotName = "Parqueo Chalit LyF S.A.";
+            String idParking = "3-101-213243";
+            String Telephone = "2221-7413";
+            String Plate = "AGV222";
+            String Type = "Camión";
+            String Payment = "5000";
+            
+            Map parameters = new HashMap();
+            parameters.put("NAME", ParkingLotName);
+            parameters.put("ID_PARKING", "Céd. Juridica: " + idParking);
+            parameters.put("TELEPHONE", "Teléfono: " + Telephone);
+            parameters.put("VALID_UNTIL", "Válido hasta: 01/06/2018 a las 08:00 pm");
+            parameters.put("DATE", dt.GetFullDate());
+            parameters.put("TIME", dt.Get12hFullTime());
+            parameters.put("PLATE", Plate);
+            parameters.put("TYPE", Type);
+            parameters.put("PAYMENT", "₡" + Payment);            
+            parameters.put("PRINT", "Impreso el " + dt.GetFullDate() + " a las " + dt.Get12hTime());
+
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
+            JasperPrintManager.printReport(print, false);
+        } catch (Exception ex) {
+            new frmError(ex.toString()).setVisible(true);
+        }
+    }
+
+
+
+
+
+
     public void printEntrance(String ID_VEHICLE, int ID_TYPETICKET, int ID_TYPEVEHICLE, String DATE, String TIME) {
         try {
             String TypeTicket = FN_GetTypeTicket(ID_TYPETICKET);
             String TypeVehicle = FN_GetTypeVehicle(ID_TYPEVEHICLE);
-            TIME = ConvertTo12h(TIME);
+            TIME = dt.ConvertTo12h(TIME);
 
             JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("src/reports/rp_Entrance.jasper");
 
@@ -261,7 +246,7 @@ public class cls_methods {
         return n;
     }
 
-    public int FN_CountVehicles() {
+    public int FN_CountCars() {
         int n = 0;
         try {
             CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountVehicles() }");
@@ -405,8 +390,8 @@ public class cls_methods {
                         success = 0;
                         break;
                     default:
-                        String DATE = GetDate();
-                        String TIME = Get24hTime();
+                        String DATE = dt.GetFullDate();
+                        String TIME = dt.Get24hTime();
 
                         switch (FN_IsPartner(ID_VEHICLE)) {
                             case 1:
@@ -436,7 +421,30 @@ public class cls_methods {
         return success;
     }
 
-    //-------------------------------------------------------------------------- Views
+    public void Billing(String Date, String Time) {
+        String CurrentDate = dt.GetDate();
+        String CurrentTime = dt.Get24hTime();
+
+        // DATE
+        int Day = Integer.parseInt(CurrentDate.substring(0, 2)) - Integer.parseInt(Date.substring(0, 2));
+        int Month = Integer.parseInt(CurrentDate.substring(3, 5)) - Integer.parseInt(Date.substring(3, 5));
+        int Year = Integer.parseInt(CurrentDate.substring(6)) - Integer.parseInt(Date.substring(6));
+
+        System.out.println(Day);
+        System.out.println(Month);
+        System.out.println(Year);
+        System.out.println(difDiasEntre2fechas(1996, 03, 10, 2018, 05, 29));
+    }
+
+    public long difDiasEntre2fechas(int Y1, int M1, int D1, int Y2, int M2, int D2) {
+        java.util.GregorianCalendar date = new java.util.GregorianCalendar(Y1, M1, D1);
+        java.util.GregorianCalendar date2 = new java.util.GregorianCalendar(Y2, M2, D2);
+        long difms = date2.getTimeInMillis() - date.getTimeInMillis();
+        long difd = difms / (1000 * 60 * 60 * 24);
+        return difd;
+    }
+
+//-------------------------------------------------------------------------- Views
     public void VI_GetVehicles(JTable tableName) {
         try {
             PreparedStatement st = Connect().prepareStatement("SELECT * FROM VI_GETVEHICLES");

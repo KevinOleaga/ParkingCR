@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="215" pageHeight="315" columnWidth="195" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="45136971-4819-4743-862f-7b84f33aa44f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="ID_PARKING" class="java.lang.String"/>
+	<parameter name="TELEPHONE" class="java.lang.String"/>
+	<parameter name="DATE" class="java.lang.String"/>
+	<parameter name="TIME" class="java.lang.String"/>
+	<parameter name="PLATE" class="java.lang.String"/>
+	<parameter name="TYPE" class="java.lang.String"/>
+	<parameter name="PRINT" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="60" height="60" uuid="b18d269b-2759-44d0-afb2-685880546d75"/>
+				<imageExpression><![CDATA["P:\\GitHub\\Java\\Parking CR\\System\\ParkingCR\\src\\images\\LogoTicket 60px.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="60" y="20" width="135" height="20" uuid="c0ef7b3c-4f63-4fa7-92c3-11e69453862f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ID_PARKING}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="40" width="135" height="20" uuid="07927445-5997-4985-98cc-1c57bee92e21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TELEPHONE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="135" height="20" uuid="8121c72a-7fc9-4a65-ba5d-7e97a5620714"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="222" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="195" height="23" uuid="99015b5d-067d-4c4e-9621-990f0df20c36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE CASUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="207" width="195" height="15" uuid="24d363bf-5657-4887-a1fe-21cf7b29444f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reguladora de Parqueos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="99" width="95" height="20" uuid="2e5c769b-e336-470a-94bb-23060e707906"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de vehículo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="155" width="195" height="20" uuid="fe3b6524-56fa-45f8-b44d-6df827bbbdd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PRINT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="177" width="195" height="15" uuid="58aa8ff7-769b-49c5-b657-332a04efc0d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[GRACIAS POR PREFERIRNOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="38" width="76" height="20" uuid="232afa80-7099-4909-8e83-a4b3afbb6f3c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="192" width="195" height="15" uuid="983566d3-b5df-4b1b-8167-fd1cae1978b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nos ajustamos a la Ley N° 7717]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="176" width="195" height="1" uuid="88bc8720-5431-4da3-92f9-45a8bd16cde3"/>
+			</line>
+			<textField>
+				<reportElement x="110" y="98" width="76" height="20" uuid="0c0b5fc2-f84b-4de5-b684-80ae6242e17e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TYPE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="59" width="95" height="20" uuid="b046d64a-87b4-4382-aff4-380fd57ef102"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora de entrada:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="39" width="95" height="20" uuid="4471358b-1a72-4820-a379-fc11ec3e0589"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de entrada:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="35" width="195" height="1" uuid="db6ae245-d69e-4f07-b0bb-001419d6ec1c"/>
+			</line>
+			<staticText>
+				<reportElement x="15" y="79" width="95" height="20" uuid="17fcbb99-78c4-452f-81aa-c15a55d0c98a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="121" width="195" height="1" uuid="0344ad6c-4784-42b4-97dd-cdb1d68e1cdd"/>
+			</line>
+			<textField>
+				<reportElement x="110" y="78" width="76" height="20" uuid="9af3025a-e836-479f-8510-81dcacfa4247"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PLATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="58" width="76" height="20" uuid="481c7bbc-2eff-4667-b772-f758284e29be"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TIME}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="5" width="195" height="1" uuid="9d6e4ace-796d-421a-ae9e-a3d5fc96d51a"/>
+			</line>
+			<componentElement>
+				<reportElement x="42" y="127" width="125" height="27" uuid="c1b79284-f571-44ec-8c59-3af3a40502e3"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{PLATE}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>
