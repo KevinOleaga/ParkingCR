@@ -13,9 +13,9 @@ public class frmLogin extends javax.swing.JFrame {
     String user = null, pass = null;
     cls_methods mt = new cls_methods();
 
-    public frmLogin(){
+    public frmLogin() {
         initComponents();
-        mt.printDailyRent();
+        mt.Connect();
         setLocationRelativeTo(null);
         pn_password.setVisible(false);
     }
@@ -95,6 +95,11 @@ public class frmLogin extends javax.swing.JFrame {
                 tbx_userActionPerformed(evt);
             }
         });
+        tbx_user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbx_userKeyTyped(evt);
+            }
+        });
         pn_user.add(tbx_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 55, 170, 25));
         pn_user.add(sp_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 200, 10));
 
@@ -144,6 +149,11 @@ public class frmLogin extends javax.swing.JFrame {
         tbx_password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbx_passwordActionPerformed(evt);
+            }
+        });
+        tbx_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbx_passwordKeyTyped(evt);
             }
         });
         pn_password.add(tbx_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 55, 170, 25));
@@ -222,7 +232,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void lb_nextMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_nextMousePressed
-        user = tbx_user.getText().toUpperCase();
+        user = tbx_user.getText();
 
         if (user.isEmpty()) {
             mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e intentelo nuevamente.");
@@ -239,7 +249,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_nextMousePressed
 
     private void lb_loginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_loginMousePressed
-        pass = tbx_password.getText().toUpperCase();
+        pass = tbx_password.getText();
 
         if (pass.isEmpty()) {
             mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e intentelo nuevamente.");
@@ -249,6 +259,7 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
+                            frmAdmin.username = user;
                             this.dispose();
                             break;
                         case 2:
@@ -297,7 +308,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_returnMouseExited
 
     private void tbx_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_userActionPerformed
-        user = tbx_user.getText().toUpperCase();
+        user = tbx_user.getText();
 
         if (user.isEmpty()) {
             mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e intentelo nuevamente.");
@@ -314,7 +325,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_tbx_userActionPerformed
 
     private void tbx_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_passwordActionPerformed
-        pass = tbx_password.getText().toUpperCase();
+        pass = tbx_password.getText();
 
         if (pass.isEmpty()) {
             mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e intentelo nuevamente.");
@@ -324,6 +335,7 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
+                            frmAdmin.username = user;
                             this.dispose();
                             break;
                         case 2:
@@ -337,6 +349,24 @@ public class frmLogin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tbx_passwordActionPerformed
+
+    private void tbx_userKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_userKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLowerCase(c)) {
+            String cad = ("" + c).toUpperCase();
+            c = cad.charAt(0);
+            evt.setKeyChar(c);
+        }
+    }//GEN-LAST:event_tbx_userKeyTyped
+
+    private void tbx_passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_passwordKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLowerCase(c)) {
+            String cad = ("" + c).toUpperCase();
+            c = cad.charAt(0);
+            evt.setKeyChar(c);
+        }
+    }//GEN-LAST:event_tbx_passwordKeyTyped
 
     public static void main(String args[]) {
         try {

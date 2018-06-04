@@ -2,9 +2,9 @@ package project;
 
 import java.awt.Color;
 import methods.cls_methods;
+import GetDateTime.DateTime;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import Atxy2k.CustomTextField.RestrictedTextField;
-import GetDateTime.DateTime;
 
 /**
  * @author Kevin Oleaga Garcia
@@ -16,6 +16,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     Thread th;
     String plate = null;
 
+    public static String username = null;
     static String item = "item_1";
     DateTime dt = new DateTime();
     cls_methods mt = new cls_methods();
@@ -399,6 +400,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         btn_truck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Truck 300px.png"))); // NOI18N
         btn_truck.setToolTipText("Camión.");
+        btn_truck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_truck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_truckActionPerformed(evt);
@@ -408,6 +410,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         btn_car.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Car 300px.jpg"))); // NOI18N
         btn_car.setToolTipText("Automóvil.");
+        btn_car.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_car.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_carActionPerformed(evt);
@@ -417,6 +420,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         btn_motorcycle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Motorcycle 300px.jpg"))); // NOI18N
         btn_motorcycle.setToolTipText("Motocicleta.");
+        btn_motorcycle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_motorcycle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_motorcycleActionPerformed(evt);
@@ -1094,6 +1098,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_car.setVisible(false);
         pn_motorcycle.setVisible(false);
         pn_payment.setVisible(false);
+        tbx_idTruck.requestFocus();
     }//GEN-LAST:event_btn_truckActionPerformed
 
     private void btn_carActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_carActionPerformed
@@ -1103,6 +1108,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_car.setVisible(true);
         pn_motorcycle.setVisible(false);
         pn_payment.setVisible(false);
+        tbx_idCar.requestFocus();
     }//GEN-LAST:event_btn_carActionPerformed
 
     private void btn_motorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_motorcycleActionPerformed
@@ -1112,6 +1118,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_car.setVisible(false);
         pn_motorcycle.setVisible(true);
         pn_payment.setVisible(false);
+        tbx_idMotorcycle.requestFocus();
     }//GEN-LAST:event_btn_motorcycleActionPerformed
 
     private void btn_returnTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnTypeActionPerformed
@@ -1133,17 +1140,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnTruckActionPerformed
 
     private void btn_clockTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockTruckActionPerformed
-        plate = tbx_idTruck.getText().toUpperCase();
+        plate = tbx_idTruck.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 1, 1);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "CLIENTE CASUAL", "CAMIÓN", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idTruck.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idTruck.setText(null);
+                    break;
+                default:
                     lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
 
                     pn_main.setVisible(true);
@@ -1168,17 +1179,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnCarActionPerformed
 
     private void btn_calendarCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarCarActionPerformed
-        plate = tbx_idCar.getText().toUpperCase();
+        plate = tbx_idCar.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 2, 2);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "RENTA DIARIA", "AUTOMÓVIL", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idCar.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idCar.setText(null);
+                    break;
+                default:
                     lb_cars.setText(String.valueOf(mt.FN_CountCars()));
 
                     pn_main.setVisible(true);
@@ -1194,17 +1209,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_calendarCarActionPerformed
 
     private void btn_clockCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockCarActionPerformed
-        plate = tbx_idCar.getText().toUpperCase();
+        plate = tbx_idCar.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 1, 2);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "CLIENTE CASUAL", "AUTOMÓVIL", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idCar.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idCar.setText(null);
+                    break;
+                default:
                     lb_cars.setText(String.valueOf(mt.FN_CountCars()));
 
                     pn_main.setVisible(true);
@@ -1229,17 +1248,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnMotorcycleActionPerformed
 
     private void btn_calendarMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarMotorcycleActionPerformed
-        plate = tbx_idMotorcycle.getText().toUpperCase();
+        plate = tbx_idMotorcycle.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 2, 3);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "RENTA DIARIA", "MOTOCICLETA", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idMotorcycle.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idMotorcycle.setText(null);
+                    break;
+                default:
                     lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
 
                     pn_main.setVisible(true);
@@ -1255,17 +1278,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_calendarMotorcycleActionPerformed
 
     private void btn_clockMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockMotorcycleActionPerformed
-        plate = tbx_idMotorcycle.getText().toUpperCase();
+        plate = tbx_idMotorcycle.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 1, 3);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "CLIENTE CASUAL", "MOTOCICLETA", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idMotorcycle.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idMotorcycle.setText(null);
+                    break;
+                default:
                     lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
 
                     pn_main.setVisible(true);
@@ -1289,17 +1316,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_lb_showVehiclesMouseExited
 
     private void btn_calendarTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarTruckActionPerformed
-        plate = tbx_idTruck.getText().toUpperCase();
+        plate = tbx_idTruck.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 2, 1);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "RENTA DIARIA", "CAMIÓN", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idTruck.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idTruck.setText(null);
+                    break;
+                default:
                     lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
 
                     pn_main.setVisible(true);
@@ -1315,17 +1346,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_calendarTruckActionPerformed
 
     private void tbx_idTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idTruckActionPerformed
-        plate = tbx_idTruck.getText().toUpperCase();
+        plate = tbx_idTruck.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 1, 1);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "CLIENTE CASUAL", "CAMIÓN", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idTruck.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idTruck.setText(null);
+                    break;
+                default:
                     lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
 
                     pn_main.setVisible(true);
@@ -1341,17 +1376,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_tbx_idTruckActionPerformed
 
     private void tbx_idCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idCarActionPerformed
-        plate = tbx_idCar.getText().toUpperCase();
+        plate = tbx_idCar.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 1, 2);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "CLIENTE CASUAL", "AUTOMÓVIL", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idCar.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idCar.setText(null);
+                    break;
+                default:
                     lb_cars.setText(String.valueOf(mt.FN_CountCars()));
 
                     pn_main.setVisible(true);
@@ -1367,17 +1406,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_tbx_idCarActionPerformed
 
     private void tbx_idMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idMotorcycleActionPerformed
-        plate = tbx_idMotorcycle.getText().toUpperCase();
+        plate = tbx_idMotorcycle.getText();
 
         if (plate.isEmpty()) {
             mt.Warning("No se a colocado ningún número de placa. \nDebe de digitar un número de placa para poder \ncontinuar.");
         } else {
-            byte success = mt.SP_NewVehicle(plate, 1, 3);
-            switch (success) {
-                case 0:
+            switch (mt.SP_NewVehicle(plate, "CLIENTE CASUAL", "MOTOCICLETA", username)) {
+                case "EXIST":
+                    mt.Warning("La placa " + plate + " se encuentra actualmente en el sistema.");
                     tbx_idMotorcycle.setText(null);
                     break;
-                case 1:
+                case "LOOCKED":
+                    mt.Warning("La placa " + plate + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idMotorcycle.setText(null);
+                    break;
+                default:
                     lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
 
                     pn_main.setVisible(true);

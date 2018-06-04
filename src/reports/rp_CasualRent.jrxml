@@ -6,6 +6,7 @@
 	<parameter name="NAME" class="java.lang.String"/>
 	<parameter name="ID_PARKING" class="java.lang.String"/>
 	<parameter name="TELEPHONE" class="java.lang.String"/>
+	<parameter name="TYPETICKET" class="java.lang.String"/>
 	<parameter name="DATE" class="java.lang.String"/>
 	<parameter name="TIME" class="java.lang.String"/>
 	<parameter name="PLATE" class="java.lang.String"/>
@@ -45,13 +46,6 @@
 	</title>
 	<detail>
 		<band height="222" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="9" width="195" height="23" uuid="99015b5d-067d-4c4e-9621-990f0df20c36"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="20" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CLIENTE CASUAL]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="1" y="207" width="195" height="15" uuid="24d363bf-5657-4887-a1fe-21cf7b29444f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -154,6 +148,13 @@
 					<jr:codeExpression><![CDATA[$P{PLATE}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
+			<textField>
+				<reportElement x="0" y="9" width="195" height="23" uuid="37fac560-563b-4331-8067-01e724dbac10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TYPETICKET}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
