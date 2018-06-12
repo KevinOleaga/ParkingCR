@@ -27,6 +27,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import project.frmError;
+import project.frmLocked;
 import project.frmSuccess;
 import project.frmWarning;
 
@@ -82,15 +83,56 @@ public class cls_methods {
         }
     }
 
-    public String Capitalize(String data) {
-        return data.substring(0, 1).toUpperCase() + data.substring(1).toLowerCase();
+    public void Locked(String data) {
+        if (msgControl == false) {
+            new frmLocked(data).setVisible(true);
+            msgControl = true;
+        }
     }
 
+    //-------------------------------------------------------------------------- Tickets    
+    public void printEntrance(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String DATE, String TIME) {
+        ArrayList<String> data = new ArrayList<>(3);
+
+        try {
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GET_CONFIGTICKET(?,?,?) }");
+            cs.registerOutParameter(1, Types.VARCHAR);
+            cs.registerOutParameter(2, Types.VARCHAR);
+            cs.registerOutParameter(3, Types.VARCHAR);
+            cs.execute();
+
+            for (int i = 1; i < 4; i++) {
+                data.add(cs.getString(i));
+            }
+
+            cs.close();
+
+            JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("src/reports/rp_CasualRent.jasper");
+
+            Map parameters = new HashMap();
+            parameters.put("NAME", data.get(1));
+            parameters.put("ID_PARKING", "Céd. Jurídica: " + data.get(0));
+            parameters.put("TELEPHONE", "Teléfono: " + data.get(2));
+
+            parameters.put("TYPETICKET", TYPETICKET);
+            parameters.put("DATE", DATE);
+            parameters.put("TIME", TIME);
+            parameters.put("PLATE", ID_VEHICLE);
+            parameters.put("TYPE", Capitalize(TYPEVEHICLE));
+            parameters.put("PRINT", "Impreso el " + DATE + " a las " + new DateTime().Get12hTime());
+
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
+            JasperPrintManager.printReport(print, false);
+        } catch (Exception ex) {
+            Error("Error 010: Ha ocurrido un problema en la impresión del \ntiquete. \nSi el problema persiste contacte al administrador.");
+        }
+    }
+ 
     //-------------------------------------------------------------------------- Functions
     public byte FN_Login01(String user) {
         byte exist = 0;
         try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_LOGIN01(?) }");
+            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_lOGIN01(?) }");
             cs.registerOutParameter(1, Types.NUMERIC);
             cs.setString(2, user);
             cs.execute();
@@ -148,7 +190,7 @@ public class cls_methods {
             ID_Role = cs.getInt(1);
             cs.close();
         } catch (Exception ex) {
-            Error("Error 004: Ha ocurrido un error al verificar el rol del usuario. \nSi el problema persiste contacte con el administrador.");
+            Error("Error 004: Ha ocurrido un problema al verificar el rol del \nusuario. \nSi el problema persiste contacte con el administrador.");
         }
         return ID_Role;
     }
@@ -163,7 +205,7 @@ public class cls_methods {
 
             cs.close();
         } catch (Exception ex) {
-            Error("Error 005: Ha ocurrido un error al verificar la \ncantidad de camiones. \nSi el problema persiste contacte al administrador.");
+            Error("Error 005: Ha ocurrido un problema al verificar la cantidad \nde camiones. \nSi el problema persiste contacte al administrador.");
         }
         return n;
     }
@@ -177,7 +219,7 @@ public class cls_methods {
             n = cs.getInt(1);
             cs.close();
         } catch (Exception ex) {
-            Error("Error 006: Ha ocurrido un error al verificar la \ncantidad de vehiculos. \nSi el problema persiste contacte al administrador.");
+            Error("Error 006: Ha ocurrido un problema al verificar la cantidad \nde vehículos. \nSi el problema persiste contacte al administrador.");
         }
         return n;
     }
@@ -191,41 +233,31 @@ public class cls_methods {
             n = cs.getInt(1);
             cs.close();
         } catch (Exception ex) {
-            Error("Error 007: Ha ocurrido un error al verificar la \ncantidad de motocicletas. \nSi el problema persiste contacte al administrador.");
+            Error("Error 007: Ha ocurrido un problema al verificar la cantidad \nde motocicletas. \nSi el problema persiste contacte al administrador.");
         }
         return n;
     }
 
-    public int FN_GetDailyPrice(String TYPEVEHICLE) {
-        int price = 0;
+    public byte FN_VehicleExist(String ID_VEHICLE) {
+        byte exist = 0;
         try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_GET_DAILYPRICE(?) }");
+            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_VEHICLEEXIST(?) }");
             cs.registerOutParameter(1, Types.NUMERIC);
-            cs.setString(2, TYPEVEHICLE);
+            cs.setString(2, ID_VEHICLE);
             cs.execute();
-            price = cs.getInt(1);
+            switch (cs.getInt(1)) {
+                case 1:
+                    exist = 1;
+                    break;
+            }
+
             cs.close();
         } catch (Exception ex) {
-            Error("Error 007: Ha ocurrido un error al verificar la \ncantidad de motocicletas. \nSi el problema persiste contacte al administrador.");
+            Error("Error 002: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
         }
-        return price;
+        return exist;
     }
-
-    public int FN_GetNightlyPrice(String TYPEVEHICLE) {
-        int price = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_GET_NIGHTLYPRICE(?) }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.setString(2, TYPEVEHICLE);
-            cs.execute();
-            price = cs.getInt(1);
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 007: Ha ocurrido un error al verificar la \ncantidad de motocicletas. \nSi el problema persiste contacte al administrador.");
-        }
-        return price;
-    }
-
+    
     //-------------------------------------------------------------------------- Stored Procedures
     public String SP_NewVehicle(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String USERNAME) {
 
@@ -267,70 +299,95 @@ public class cls_methods {
         return status;
     }
 
-    //-------------------------------------------------------------------------- Tickets    
-    public void printEntrance(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String DATE, String TIME) {
-        ArrayList<String> data = new ArrayList<>(3);
+    public ArrayList<String> SP_GetDetails(String ID_VEHICLE) {
+        ArrayList<String> data = new ArrayList<>(4);
 
         try {
-            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GET_CONFIGTICKET(?,?,?) }");
-            cs.registerOutParameter(1, Types.VARCHAR);
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GETDETAILS(?,?,?,?,?) }");
+            cs.setString(1, ID_VEHICLE);
             cs.registerOutParameter(2, Types.VARCHAR);
             cs.registerOutParameter(3, Types.VARCHAR);
+            cs.registerOutParameter(4, Types.VARCHAR);
+            cs.registerOutParameter(5, Types.VARCHAR);
             cs.execute();
-
-            for (int i = 1; i < 4; i++) {
+            
+            for (int i = 2; i < 6; i++) {
                 data.add(cs.getString(i));
             }
-
+            
             cs.close();
-
-            JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("src/reports/rp_CasualRent.jasper");
-
-            Map parameters = new HashMap();
-            parameters.put("NAME", data.get(1));
-            parameters.put("ID_PARKING", "Céd. Jurídica: " + data.get(0));
-            parameters.put("TELEPHONE", "Teléfono: " + data.get(2));
-
-            parameters.put("TYPETICKET", TYPETICKET);
-            parameters.put("DATE", DATE);
-            parameters.put("TIME", TIME);
-            parameters.put("PLATE", ID_VEHICLE);
-            parameters.put("TYPE", Capitalize(TYPEVEHICLE));
-            parameters.put("PRINT", "Impreso el " + DATE + " a las " + TIME);
-
-            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
-            JasperPrintManager.printReport(print, false);           
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             new frmError(ex.toString()).setVisible(true);
         }
+        return data;
     }
+    
+    
+    
 
-    public void printDailyRent(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String DATE, String TIME) {        
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void printDailyRent(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String DATE, String TIME) {
+    
+        
+        
+        
+        
+        int hour = Integer.parseInt(TIME.substring(0, 2));
+        int Daily = 0;
+        int Daily2 = 0;
+        
+     
+        
+        
+        
         int PAYMENT = 0;
-        String TYPE = null;
-        String END_RENT = null;
-        String VALID_UNTIL = null;
         ArrayList<String> data = new ArrayList<>(3);
-        int hour = Integer.parseInt(new DateTime().ConvertTo24h(TIME).substring(0,2));
+        String TYPE = null, END_RENT = null, VALID_UNTIL = null;
+
+        
         
         if (hour >= 6 && hour <= 8) {
             VALID_UNTIL = "Válido hasta: " + DATE + " a las " + END_RENT;
             TYPE = "RENTA DIARIA";
             PAYMENT = FN_GetDailyPrice(TYPEVEHICLE);
-        }
-        else{            
+        } else {
             TYPE = "RENTA NOCTURNA";
             PAYMENT = FN_GetNightlyPrice(TYPEVEHICLE);
             if (Integer.parseInt(DATE.substring(0, 2)) < 10) {
-                VALID_UNTIL = "Válido hasta: " + "0" + (Integer.parseInt(DATE.substring(0, 2))+1) + "/" +  DATE.substring(3) +" a las 06:00 am";
-            }
-            else{
-                VALID_UNTIL = "Válido hasta: " + (Integer.parseInt(DATE.substring(0, 2))+1) + DATE.substring(3) +" a las 06:00 am";
+                VALID_UNTIL = "Válido hasta: " + "0" + (Integer.parseInt(DATE.substring(0, 2)) + 1) + "/" + DATE.substring(3) + " a las 06:00 am";
+            } else {
+                VALID_UNTIL = "Válido hasta: " + (Integer.parseInt(DATE.substring(0, 2)) + 1) + DATE.substring(3) + " a las 06:00 am";
             }
         }
-            
-        
+
         try {
+            
+            printDailyRent(ID_VEHICLE, TYPETICKET, TYPEVEHICLE, DATE, new DateTime().ConvertTo12h(TIME));
+
+            
+            
             CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GET_CONFIGTICKET(?,?,?) }");
             cs.registerOutParameter(1, Types.VARCHAR);
             cs.registerOutParameter(2, Types.VARCHAR);
@@ -342,7 +399,18 @@ public class cls_methods {
             }
 
             cs.close();
-            
+
+
+
+
+
+
+
+
+
+
+
+
             JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("src/reports/rp_DailyRent.jasper");
 
             Map parameters = new HashMap();
@@ -365,14 +433,40 @@ public class cls_methods {
             new frmError(ex.toString()).setVisible(true);
         }
     }
+   
+    
+    public int FN_GetDailyPrice(String TYPEVEHICLE) {
+        int price = 0;
+        try {
+            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_GET_DAILYPRICE(?) }");
+            cs.registerOutParameter(1, Types.NUMERIC);
+            cs.setString(2, TYPEVEHICLE);
+            cs.execute();
+            price = cs.getInt(1);
+            cs.close();
+        } catch (Exception ex) {
+            Error("Error 007: Ha ocurrido un error al verificar la \ncantidad de motocicletas. \nSi el problema persiste contacte al administrador.");
+        }
+        return price;
+    }
 
-    
-    
-    
-    
-    
-    
-    
+    public int FN_GetNightlyPrice(String TYPEVEHICLE) {
+        int price = 0;
+        try {
+            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_GET_NIGHTLYPRICE(?) }");
+            cs.registerOutParameter(1, Types.NUMERIC);
+            cs.setString(2, TYPEVEHICLE);
+            cs.execute();
+            price = cs.getInt(1);
+            cs.close();
+        } catch (Exception ex) {
+            Error("Error 007: Ha ocurrido un error al verificar la \ncantidad de motocicletas. \nSi el problema persiste contacte al administrador.");
+        }
+        return price;
+    }
+
+
+
 //-------------------------------------------------------------------------- Views
     public void VI_GetVehicles(JTable tableName) {
         try {
@@ -474,13 +568,17 @@ public class cls_methods {
         tableName.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(data));
     }
-    
+
     public long difDiasEntre2fechas(int Y1, int M1, int D1, int Y2, int M2, int D2) {
         java.util.GregorianCalendar date = new java.util.GregorianCalendar(Y1, M1, D1);
         java.util.GregorianCalendar date2 = new java.util.GregorianCalendar(Y2, M2, D2);
         long difms = date2.getTimeInMillis() - date.getTimeInMillis();
         long difd = difms / (1000 * 60 * 60 * 24);
         return difd;
+    }
+
+    public String Capitalize(String data) {
+        return data.substring(0, 1).toUpperCase() + data.substring(1).toLowerCase();
     }
 
 }

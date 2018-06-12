@@ -235,7 +235,7 @@ public class frmLogin extends javax.swing.JFrame {
         user = tbx_user.getText();
 
         if (user.isEmpty()) {
-            mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e intentelo nuevamente.");
+            mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e inténtelo nuevamente.");
         } else {
             switch (mt.FN_Login01(user)) {
                 case 1:
@@ -252,7 +252,7 @@ public class frmLogin extends javax.swing.JFrame {
         pass = tbx_password.getText();
 
         if (pass.isEmpty()) {
-            mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e intentelo nuevamente.");
+            mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e inténtelo nuevamente.");
         } else {
             switch (mt.FN_Login02(user, pass)) {
                 case 1:
@@ -311,7 +311,7 @@ public class frmLogin extends javax.swing.JFrame {
         user = tbx_user.getText();
 
         if (user.isEmpty()) {
-            mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e intentelo nuevamente.");
+            mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e inténtelo nuevamente.");
         } else {
             switch (mt.FN_Login01(user)) {
                 case 1:
@@ -328,7 +328,7 @@ public class frmLogin extends javax.swing.JFrame {
         pass = tbx_password.getText();
 
         if (pass.isEmpty()) {
-            mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e intentelo nuevamente.");
+            mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e inténtelo nuevamente.");
         } else {
             switch (mt.FN_Login02(user, pass)) {
                 case 1:
