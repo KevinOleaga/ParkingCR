@@ -262,7 +262,7 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
-                            frmAdmin.username = mt.Encrypt(user);
+                            mt.username = mt.Encrypt(user);
                             this.dispose();
                             break;
                         case 2:
@@ -338,7 +338,7 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
-                            frmAdmin.username = mt.Encrypt(user);
+                            mt.username = mt.Encrypt(user);
                             this.dispose();
                             break;
                         case 2:

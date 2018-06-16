@@ -47,6 +47,8 @@ public class cls_methods {
     public static boolean msgControl = false;
     public static boolean ShowListControl = false;
     static String secretKey = "F6EWFHQW9JPFWQ0V8QWB";
+    public static String username = null;
+
 
     //-------------------------------------------------------------------------- DBA Settings
     String Host = "localhost";
@@ -308,8 +310,8 @@ public class cls_methods {
     }
 
     //-------------------------------------------------------------------------- Stored Procedures
-    public String SP_NewVehicle(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String USERNAME) {
-        String status = null;
+    public String SP_NewVehicle(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE) {        
+        String status = null;        
         String DATE = new DateTime().GetFullDate();
         String TIME = new DateTime().Get24hFullTime();
         
@@ -321,7 +323,7 @@ public class cls_methods {
             cs.setString(3, Encrypt(TYPETICKET));
             cs.setString(4, DATE);
             cs.setString(5, TIME);
-            cs.setString(6, USERNAME);
+            cs.setString(6, username);
             cs.execute();
             status = cs.getString(7);
             cs.close();
