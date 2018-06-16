@@ -2,6 +2,7 @@ package project;
 
 import java.awt.Color;
 import methods.cls_methods;
+import Atxy2k.CustomTextField.RestrictedTextField;
 
 /**
  * @author Kevin Oleaga Garcia
@@ -18,6 +19,8 @@ public class frmLogin extends javax.swing.JFrame {
         mt.Connect();
         setLocationRelativeTo(null);
         pn_password.setVisible(false);
+        new RestrictedTextField(tbx_user).setLimit(20);
+        new RestrictedTextField(tbx_password).setLimit(20);
     }
 
     @SuppressWarnings("unchecked")
@@ -259,7 +262,7 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
-                            frmAdmin.username = user;
+                            frmAdmin.username = mt.Encrypt(user);
                             this.dispose();
                             break;
                         case 2:
@@ -335,7 +338,7 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
-                            frmAdmin.username = user;
+                            frmAdmin.username = mt.Encrypt(user);
                             this.dispose();
                             break;
                         case 2:
