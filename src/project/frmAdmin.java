@@ -22,15 +22,11 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     public frmAdmin() {
         initComponents();
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
+        ClearPanels();
         pn_dashboard.setVisible(true);
-        pn_system.setVisible(false);
 
         /* ----------------------- DASHBOARD WIDGETS ------------------------ */
-        ArrayList<String> data = mt.SP_GetWidgetsInfo();        
-        lb_WidgetUsersTotal.setText(data.get(0));
-        lb_WidgetPartnersTotal.setText(data.get(1));
-        lb_WidgetBlockedTotal.setText(data.get(2));
-        lb_WidgetVehiclesTotal.setText(data.get(3));
+        GetWidgetsInfo();
 
         /* --------------------- SYSTEM PLATES LENGTH ----------------------- */
         new RestrictedTextField(tbx_idTruck).setLimit(8);
@@ -127,7 +123,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_inputTruck = new javax.swing.JPanel();
         lb_titleTruck = new javax.swing.JLabel();
         sp_inputTitleTruck = new javax.swing.JSeparator();
-        lb_Truck = new javax.swing.JLabel();
+        lb_truck = new javax.swing.JLabel();
         tbx_idTruck = new javax.swing.JTextField();
         sp_inputTruck = new javax.swing.JSeparator();
         btn_calendarTruck = new javax.swing.JButton();
@@ -674,10 +670,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_inputTruck.add(lb_titleTruck, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 40));
         pn_inputTruck.add(sp_inputTitleTruck, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1070, 10));
 
-        lb_Truck.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_Truck.setForeground(new java.awt.Color(255, 255, 255));
-        lb_Truck.setText("Placa del vehículo:");
-        pn_inputTruck.add(lb_Truck, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 40));
+        lb_truck.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_truck.setForeground(new java.awt.Color(255, 255, 255));
+        lb_truck.setText("Placa del vehículo:");
+        pn_inputTruck.add(lb_truck, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 40));
 
         tbx_idTruck.setBackground(new java.awt.Color(38, 50, 56));
         tbx_idTruck.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -1332,48 +1328,17 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_1MouseExited
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        switch (item) {
-            case "item_1":
-                item_1.setBackground(new Color(38, 50, 56));  // ON
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_2":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 50, 56));  // ON
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_3":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 50, 56));  // ON
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            default:
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-        }
+        SetMenuConfiguration();
     }//GEN-LAST:event_item_1MouseExited
 
     private void item_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_1MousePressed
         item = "item_1";
 
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        item_1.setBackground(new Color(38, 50, 56));  // ON
-        item_2.setBackground(new Color(38, 67, 72));  // OFF
-        item_3.setBackground(new Color(38, 67, 72));  // OFF
-        item_9.setBackground(new Color(102, 0, 0));   // OFF
+        SetMenuConfiguration();
 
         /* ----------------------- DASHBOARD WIDGETS ------------------------ */
-        lb_WidgetUsersTotal.setText(String.valueOf(mt.FN_CountUsers()));
-        lb_WidgetPartnersTotal.setText(String.valueOf(mt.FN_CountPartners()));
-        lb_WidgetBlockedTotal.setText(String.valueOf(mt.FN_CountBlackList()));
-        lb_WidgetVehiclesTotal.setText(String.valueOf(mt.FN_CountVehicles()));
+        GetWidgetsInfo();
 
         /* --------------------- PANELS CONFIGURATION ----------------------- */
         pn_dashboard.setVisible(true);
@@ -1390,32 +1355,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_9MouseExited
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        switch (item) {
-            case "item_1":
-                item_1.setBackground(new Color(38, 50, 56));  // ON
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_2":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 50, 56));  // ON
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_3":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 50, 56));  // ON
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            default:
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-        }
+        SetMenuConfiguration();
     }//GEN-LAST:event_item_9MouseExited
 
     private void item_9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_9MousePressed
@@ -1426,31 +1366,16 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_entranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entranceActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
         pn_type.setVisible(true);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
     }//GEN-LAST:event_btn_entranceActionPerformed
 
     private void btn_paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paymentActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
         pn_payment.setVisible(true);
-        pn_paymentDetails.setVisible(false);
     }//GEN-LAST:event_btn_paymentActionPerformed
 
     private void lb_showVehiclesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_showVehiclesMousePressed
@@ -1463,17 +1388,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_truckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_truckActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
-        pn_type.setVisible(false);
         pn_truck.setVisible(true);
-        pn_dailyRent.setVisible(true);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
 
         /* ---------------------------- OTHERS ------------------------------ */
         tbx_idTruck.requestFocus();
@@ -1481,16 +1398,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_carActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_carActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
         pn_car.setVisible(true);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
 
         /* ---------------------------- OTHERS ------------------------------ */
         tbx_idCar.requestFocus();
@@ -1498,16 +1408,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_motorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_motorcycleActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
         pn_motorcycle.setVisible(true);
-        pn_payment.setVisible(false);
 
         /* ---------------------------- OTHERS ------------------------------ */
         tbx_idMotorcycle.requestFocus();
@@ -1515,16 +1418,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_returnTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnTypeActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
         pn_main.setVisible(true);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
     }//GEN-LAST:event_btn_returnTypeActionPerformed
 
     private void btn_returnDailyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnDailyActionPerformed
@@ -1543,44 +1439,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnDailyActionPerformed
 
     private void btn_printPaymentDailyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printPaymentDailyActionPerformed
-        ID_VEHICLE = tbx_idTruck.getText();
 
-        /* --------------- ENTRY OF TRUCKS AS RENT FOR HOURS ---------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idTruck.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idTruck.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idTruck.setText(null);
-                    break;
-            }
-        }
     }//GEN-LAST:event_btn_printPaymentDailyActionPerformed
 
     private void btn_returnCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnCarActionPerformed
@@ -1598,70 +1457,12 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnCarActionPerformed
 
     private void btn_calendarCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarCarActionPerformed
-        if (!tbx_idCar.getText().isEmpty()) {
-            /* ---------------------- PANELS CONFIGURATION ---------------------- */
-            pn_dashboard.setVisible(false);
-            pn_system.setVisible(true);
 
-            /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-            pn_main.setVisible(false);
-            pn_type.setVisible(false);
-            pn_truck.setVisible(false);
-            pn_car.setVisible(false);
-            pn_motorcycle.setVisible(false);
-            pn_dailyRent.setVisible(true);
-            pn_payment.setVisible(false);
-
-            /* --------------------------- SET DATA ----------------------------- */
-            lb_dailyTypeVehicle.setText("Automóvil");
-            lb_dailyIdVehicle.setText(tbx_idCar.getText());
-            lb_dailyEntryDate.setText(new DateTime().GetFullDate());
-            lb_dailyEntryTime.setText(new DateTime().Get12hFullTime());
-        } else {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        }
     }//GEN-LAST:event_btn_calendarCarActionPerformed
 
     private void btn_clockCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockCarActionPerformed
         ID_VEHICLE = tbx_idCar.getText();
-
-        /* ---------------- ENTRY OF CARS AS RENT FOR HOURS ----------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "AUTOMÓVIL")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idCar.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idCar.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_dailyRent.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idCar.setText(null);
-                    break;
-            }
-        }
+        NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "AUTOMÓVIL");
     }//GEN-LAST:event_btn_clockCarActionPerformed
 
     private void btn_returnMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnMotorcycleActionPerformed
@@ -1679,70 +1480,13 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnMotorcycleActionPerformed
 
     private void btn_calendarMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarMotorcycleActionPerformed
-        if (!tbx_idMotorcycle.getText().isEmpty()) {
-            /* ---------------------- PANELS CONFIGURATION ---------------------- */
-            pn_dashboard.setVisible(false);
-            pn_system.setVisible(true);
 
-            /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-            pn_main.setVisible(false);
-            pn_type.setVisible(false);
-            pn_truck.setVisible(false);
-            pn_car.setVisible(false);
-            pn_motorcycle.setVisible(false);
-            pn_dailyRent.setVisible(true);
-            pn_payment.setVisible(false);
-
-            /* --------------------------- SET DATA ----------------------------- */
-            lb_dailyTypeVehicle.setText("Motocicleta");
-            lb_dailyIdVehicle.setText(tbx_idMotorcycle.getText());
-            lb_dailyEntryDate.setText(new DateTime().GetFullDate());
-            lb_dailyEntryTime.setText(new DateTime().Get12hFullTime());
-        } else {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        }
     }//GEN-LAST:event_btn_calendarMotorcycleActionPerformed
 
     private void btn_clockMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockMotorcycleActionPerformed
-        ID_VEHICLE = tbx_idMotorcycle.getText();
-
         /* ------------- ENTRY OF MOTORCYCLES AS RENT FOR HOURS ------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "MOTOCICLETA")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idMotorcycle.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idMotorcycle.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_dailyRent.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idMotorcycle.setText(null);
-                    break;
-            }
-        }
+        ID_VEHICLE = tbx_idMotorcycle.getText();
+        NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "MOTOCICLETA");
     }//GEN-LAST:event_btn_clockMotorcycleActionPerformed
 
     private void lb_showVehiclesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_showVehiclesMouseEntered
@@ -1755,86 +1499,13 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void tbx_idCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idCarActionPerformed
         ID_VEHICLE = tbx_idCar.getText();
-
-        /* ---------------- ENTRY OF CARS AS RENT FOR HOURS ----------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "AUTOMÓVIL")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idCar.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idCar.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_dailyRent.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idCar.setText(null);
-                    break;
-            }
-        }
+        NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "AUTOMÓVIL");
     }//GEN-LAST:event_tbx_idCarActionPerformed
 
     private void tbx_idMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idMotorcycleActionPerformed
-        ID_VEHICLE = tbx_idMotorcycle.getText();
-
         /* ------------- ENTRY OF MOTORCYCLES AS RENT FOR HOURS ------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "MOTOCICLETA")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idMotorcycle.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idMotorcycle.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_dailyRent.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idMotorcycle.setText(null);
-                    break;
-            }
-        }
+        ID_VEHICLE = tbx_idMotorcycle.getText();
+        NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "MOTOCICLETA");
     }//GEN-LAST:event_tbx_idMotorcycleActionPerformed
 
     private void tbx_idCarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idCarKeyTyped
@@ -1895,42 +1566,14 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MouseExited
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        switch (item) {
-            case "item_1":
-                item_1.setBackground(new Color(38, 50, 56));  // ON
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_2":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 50, 56));  // ON
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_3":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 50, 56));  // ON
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            default:
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-        }
+        SetMenuConfiguration();
     }//GEN-LAST:event_item_3MouseExited
 
     private void item_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MousePressed
         item = "item_3";
 
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        item_1.setBackground(new Color(38, 67, 72));  // OFF
-        item_2.setBackground(new Color(38, 67, 72));  // OFF
-        item_3.setBackground(new Color(38, 50, 56));  // ON
-        item_9.setBackground(new Color(102, 0, 0));   // OFF
+        SetMenuConfiguration();
 
         /* --------------------- PANELS CONFIGURATION ----------------------- */
     }//GEN-LAST:event_item_3MousePressed
@@ -1945,47 +1588,17 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_2MouseExited
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        switch (item) {
-            case "item_1":
-                item_1.setBackground(new Color(38, 50, 56));  // ON
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_2":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 50, 56));  // ON
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_3":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 50, 56));  // ON
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            default:
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-        }
+        SetMenuConfiguration();
     }//GEN-LAST:event_item_2MouseExited
 
     private void item_2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_2MousePressed
         item = "item_2";
 
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        item_1.setBackground(new Color(38, 67, 72));  // OFF
-        item_2.setBackground(new Color(38, 50, 56));  // ON
-        item_3.setBackground(new Color(38, 67, 72));  // OFF
-        item_9.setBackground(new Color(102, 0, 0));   // OFF
+        SetMenuConfiguration();
 
         /* ------------------------ VEHICLE COUNTER ------------------------- */
-        lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-        lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-        lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
+        GetVehiclesCount();
 
         /* --------------------- PANELS CONFIGURATION ----------------------- */
         pn_dashboard.setVisible(false);
@@ -2001,45 +1614,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_item_2MousePressed
 
     private void tbx_idTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idTruckActionPerformed
+        /* ------------- ENTRY OF MOTORCYCLES AS RENT FOR HOURS ------------- */
         ID_VEHICLE = tbx_idTruck.getText();
-
-        /* --------------- ENTRY OF TRUCKS AS RENT FOR HOURS ---------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idTruck.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idTruck.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_dailyRent.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idTruck.setText(null);
-                    break;
-            }
-        }
+        NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN");
     }//GEN-LAST:event_tbx_idTruckActionPerformed
 
     private void tbx_idTruckKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idTruckKeyTyped
@@ -2053,84 +1630,33 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_tbx_idTruckKeyTyped
 
     private void btn_calendarTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarTruckActionPerformed
+        /* ----------------- ENTRY OF TRUCKS AS DAILY RENT ------------------ */
         if (!tbx_idTruck.getText().isEmpty()) {
-            /* ---------------------- PANELS CONFIGURATION ---------------------- */
-            pn_dashboard.setVisible(false);
-            pn_system.setVisible(true);
-
-            /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-            pn_main.setVisible(false);
-            pn_type.setVisible(false);
-            pn_truck.setVisible(false);
-            pn_car.setVisible(false);
-            pn_motorcycle.setVisible(false);
-            pn_dailyRent.setVisible(true);
-            pn_payment.setVisible(false);
-
-            /* --------------------------- SET DATA ----------------------------- */
             lb_dailyTypeVehicle.setText("Camión");
             lb_dailyIdVehicle.setText(tbx_idTruck.getText());
             lb_dailyEntryDate.setText(new DateTime().GetFullDate());
             lb_dailyEntryTime.setText(new DateTime().Get12hFullTime());
+            
+            /* -------------------- PANELS CONFIGURATION -------------------- */
+            ClearPanels();
+            pn_system.setVisible(true);
+            pn_dailyRent.setVisible(true);
         } else {
             mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
         }
     }//GEN-LAST:event_btn_calendarTruckActionPerformed
 
     private void btn_clockTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockTruckActionPerformed
-        ID_VEHICLE = tbx_idTruck.getText();
-
         /* --------------- ENTRY OF TRUCKS AS RENT FOR HOURS ---------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idTruck.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idTruck.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_dailyRent.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idTruck.setText(null);
-                    break;
-            }
-        }
+        ID_VEHICLE = tbx_idTruck.getText();
+        NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN");
     }//GEN-LAST:event_btn_clockTruckActionPerformed
 
     private void btn_returnTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnTruckActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
         pn_type.setVisible(true);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
     }//GEN-LAST:event_btn_returnTruckActionPerformed
 
     private void btn_lessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lessActionPerformed
@@ -2161,11 +1687,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_showDetailsActionPerformed
 
     private void tbx_idVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idVehicleActionPerformed
-
-
-
-
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tbx_idVehicleActionPerformed
@@ -2249,7 +1770,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_TotalTimeData;
     private javax.swing.JLabel lb_TotalTimeRounded;
     private javax.swing.JLabel lb_TotalTimeRoundedData;
-    private javax.swing.JLabel lb_Truck;
     private javax.swing.JLabel lb_TypeTicket;
     private javax.swing.JLabel lb_TypeTicketData;
     private javax.swing.JLabel lb_TypeVehicle;
@@ -2319,6 +1839,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_titlePaymentDaily;
     private javax.swing.JLabel lb_titleTruck;
     private javax.swing.JLabel lb_titleTruck7;
+    private javax.swing.JLabel lb_truck;
     private javax.swing.JLabel lb_truckIcon;
     private javax.swing.JLabel lb_trucks;
     private javax.swing.JPanel pn_WidgetBlocked;
@@ -2384,5 +1905,115 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
             } catch (InterruptedException e) {
             }
         }
+    }
+
+    private void SetMenuConfiguration() {
+        switch (item) {
+            case "item_1":
+                item_1.setBackground(new Color(38, 50, 56));  // ON
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            case "item_2":
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 50, 56));  // ON
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            case "item_3":
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 50, 56));  // ON
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            default:
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+        }
+    }
+
+    private void GetWidgetsInfo() {
+        ArrayList<String> data = mt.SP_GetWidgetsInfo();
+
+        lb_WidgetUsersTotal.setText(data.get(0));
+        lb_WidgetPartnersTotal.setText(data.get(1));
+        lb_WidgetBlockedTotal.setText(data.get(2));
+        lb_WidgetVehiclesTotal.setText(data.get(3));
+    }
+
+    private void GetVehiclesCount() {
+        ArrayList<String> data = mt.SP_GetVehiclesCount();
+
+        lb_trucks.setText(data.get(0));
+        lb_cars.setText(data.get(1));
+        lb_motorcycles.setText(data.get(2));
+    }
+
+    private void RestorePlate(String TypeVehicle) {
+        switch (TypeVehicle) {
+            case "CAMIÓN":
+                tbx_idTruck.setText(null);
+                break;
+            case "AUTOMÓVIL":
+                tbx_idCar.setText(null);
+                break;
+            case "MOTOCICLETA":
+                tbx_idCar.setText(null);
+                break;
+        }
+    }
+
+    private void NewVehicle(String ID_VEHICLE, String TypeTicket, String TypeVehicle) {
+        if (ID_VEHICLE.isEmpty()) {
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+        } else {
+            switch (mt.SP_NewVehicle(ID_VEHICLE, TypeTicket, TypeVehicle)) {
+                case "EXIST":
+                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
+                    RestorePlate(TypeVehicle);
+                    break;
+                case "LOCKED":
+                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
+                    RestorePlate(TypeVehicle);
+                    break;
+                default:
+                    /* ---------------- PANELS CONFIGURATION ---------------- */
+                    pn_dashboard.setVisible(false);
+                    pn_system.setVisible(true);
+
+                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
+                    pn_main.setVisible(true);
+                    pn_type.setVisible(false);
+                    pn_truck.setVisible(false);
+                    pn_car.setVisible(false);
+                    pn_motorcycle.setVisible(false);
+                    pn_payment.setVisible(false);
+
+                    /* ------------------ VEHICLE COUNTER ------------------- */
+                    GetVehiclesCount();
+
+                    /* ---------------------- OTHERS ------------------------ */
+                    RestorePlate(TypeVehicle);
+                    break;
+            }
+        }
+    }
+
+    private void ClearPanels() {
+        /* ---------------------- PANELS CONFIGURATION ---------------------- */
+        pn_dashboard.setVisible(false);
+        pn_system.setVisible(false);
+
+        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
+        pn_main.setVisible(false);
+        pn_type.setVisible(false);
+        pn_truck.setVisible(false);
+        pn_car.setVisible(false);
+        pn_motorcycle.setVisible(false);
+        pn_payment.setVisible(false);
     }
 }

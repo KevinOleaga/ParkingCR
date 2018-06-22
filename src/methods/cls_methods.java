@@ -332,9 +332,38 @@ public class cls_methods {
         return data;
     }
     
+    public ArrayList SP_GetVehiclesCount(){
+        ArrayList<String> data = new ArrayList<>(3);
+
+        try {
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GetVehiclesCount(?,?,?) }");
+            cs.registerOutParameter(1, Types.NUMERIC);
+            cs.registerOutParameter(2, Types.NUMERIC);
+            cs.registerOutParameter(3, Types.NUMERIC);
+            cs.execute();
+
+            for (int i = 1; i < 4; i++) {
+                data.add(String.valueOf(cs.getInt(i)));
+            }
+
+            cs.close();
+        }catch(Exception ex){
+            
+        }
+        return data;
+    }
         
-    
-    
+    public void Calculator(){
+        String Time = new DateTime().Get24hFullTime();
+        
+        int hours, minutes, seconds;
+        int v_hour, v_minute, v_second;
+        
+        v_hour = Integer.parseInt(Time.substring(0, 2));
+        v_minute = Integer.parseInt(Time.substring(3, 5));
+        v_second = Integer.parseInt(Time.substring(7, 8));
+        System.out.println(v_hour + " " + v_minute + " " + v_second);
+    }
     
     
     
@@ -436,7 +465,7 @@ public class cls_methods {
             JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
             JasperPrintManager.printReport(print, false);
         } catch (Exception ex) {
-            Error("Error 010: Ha ocurrido un problema en la impresión del \ntiquete. \nSi el problema persiste contacte al administrador.");
+            Error(ex + "Error 010: Ha ocurrido un problema en la impresión del \ntiquete. \nSi el problema persiste contacte al administrador.");
         }
     }
 
