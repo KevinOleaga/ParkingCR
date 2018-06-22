@@ -44,10 +44,10 @@ import project.frmWarning;
  */
 public class cls_methods {
 
+    public static String USERNAME = null;
     public static boolean msgControl = false;
     public static boolean ShowListControl = false;
-    static String secretKey = "F6EWFHQW9JPFWQ0V8QWB";
-    public static String username = null;
+    private static String secretKey = "F6EWFHQW9JPFWQ0V8QWB";
 
 
     //-------------------------------------------------------------------------- DBA Settings
@@ -144,7 +144,6 @@ public class cls_methods {
     public byte FN_Login01(String user) {
         byte exist = 0;
         try {
-            System.out.println(Encrypt(user));
             CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_lOGIN01(?) }");
             cs.registerOutParameter(1, Types.NUMERIC);
             cs.setString(2, Encrypt(user));
@@ -310,6 +309,60 @@ public class cls_methods {
     }
 
     //-------------------------------------------------------------------------- Stored Procedures
+
+    public ArrayList SP_GetWidgetsInfo(){
+        ArrayList<String> data = new ArrayList<>(4);
+
+        try {
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GetWidgetsInfo(?,?,?,?) }");
+            cs.registerOutParameter(1, Types.NUMERIC);
+            cs.registerOutParameter(2, Types.NUMERIC);
+            cs.registerOutParameter(3, Types.NUMERIC);
+            cs.registerOutParameter(4, Types.NUMERIC);
+            cs.execute();
+
+            for (int i = 1; i < 5; i++) {
+                data.add(String.valueOf(cs.getInt(i)));
+            }
+
+            cs.close();
+        }catch(Exception ex){
+            
+        }
+        return data;
+    }
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    public void SP_History(String USERNAME, String DESCRIPTION, String DATAENTERED) {        
+        try {            
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_HISTORY(?,?,?) }");
+            cs.setString(1, USERNAME);
+            cs.setString(2, DESCRIPTION);
+            cs.setString(3, DATAENTERED);
+            cs.execute();
+            cs.close();
+        } catch (Exception ex) {
+            Error(ex + ex.getMessage() + "Error 012: Ha ocurrido un error al ingresar un \nnuevo vehículo en el sistema. \nSi el problema persiste contacte al administrador.");
+        }
+    }
+    
+    public void SetHistory(String DESCRIPTION, String DataEntered) {        
+        if (USERNAME == null) {
+            SP_History("NAXAg7BtqIDVtqFR5TFj1pwdX68nWShQN324pHVR86w=", DESCRIPTION, DataEntered);
+        }else{
+            SP_History(USERNAME, DESCRIPTION, DataEntered);
+        }        
+    }
+    
+
+
     public String SP_NewVehicle(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE) {        
         String status = null;        
         String DATE = new DateTime().GetFullDate();
@@ -323,12 +376,12 @@ public class cls_methods {
             cs.setString(3, Encrypt(TYPETICKET));
             cs.setString(4, DATE);
             cs.setString(5, TIME);
-            cs.setString(6, username);
+            cs.setString(6, USERNAME);
             cs.execute();
             status = cs.getString(7);
             cs.close();
 
-/*            switch (status) {
+            switch (status) {
                 case "PARTNER":
                     printEntrance(ID_VEHICLE, "SOCIO", TYPEVEHICLE, DATE, new DateTime().ConvertTo12h(TIME));
                     break;
@@ -343,19 +396,14 @@ public class cls_methods {
                     }
                     break;
             }
-  */      } catch (Exception ex) {
+        } catch (Exception ex) {
             Error(ex + ex.getMessage() + "Error 012: Ha ocurrido un error al ingresar un \nnuevo vehículo en el sistema. \nSi el problema persiste contacte al administrador.");
         }
         return status;
     }
     
-    
-    
-    
-    
-    
     //-------------------------------------------------------------------------- Tickets    
-    public void printEntrance(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String DATE, String TIME) {
+    public void printEntrance(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String ENTRYDATE, String ENTRYTIME) {
         ArrayList<String> data = new ArrayList<>(3);
 
         try {
@@ -366,7 +414,7 @@ public class cls_methods {
             cs.execute();
 
             for (int i = 1; i < 4; i++) {
-                data.add(cs.getString(i));
+                data.add(Decrypt(cs.getString(i)));
             }
 
             cs.close();
@@ -379,11 +427,11 @@ public class cls_methods {
             parameters.put("TELEPHONE", "Teléfono: " + data.get(2));
 
             parameters.put("TYPETICKET", TYPETICKET);
-            parameters.put("DATE", DATE);
-            parameters.put("TIME", TIME);
-            parameters.put("PLATE", ID_VEHICLE);
-            parameters.put("TYPE", Capitalize(TYPEVEHICLE));
-            parameters.put("PRINT", "Impreso el " + DATE + " a las " + new DateTime().Get12hTime());
+            parameters.put("ENTRYDATE", ENTRYDATE);
+            parameters.put("ENTRYTIME", ENTRYTIME);
+            parameters.put("ID_VEHICLE", ID_VEHICLE);
+            parameters.put("TYPEVEHICLE", Capitalize(TYPEVEHICLE));
+            parameters.put("PRINT", "Impreso el " + ENTRYDATE + " a las " + new DateTime().Get12hTime());
 
             JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
             JasperPrintManager.printReport(print, false);
@@ -392,63 +440,27 @@ public class cls_methods {
         }
     }
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    public byte FN_VehicleExist(String ID_VEHICLE) {
-        byte exist = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_VEHICLEEXIST(?) }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.setString(2, ID_VEHICLE);
-            cs.execute();
-            switch (cs.getInt(1)) {
-                case 1:
-                    exist = 1;
-                    break;
-            }
-
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 002: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
-        }
-        return exist;
-    }
-
-
-    public ArrayList<String> SP_GetDetails(String ID_VEHICLE) {
-        ArrayList<String> data = new ArrayList<>(4);
+    public void printDailyRent(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String ENTRYDATE, String ENTRYTIME) {
+        ArrayList<String> data = new ArrayList<>(3);
 
         try {
-            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GETDETAILS(?,?,?,?,?) }");
-            cs.setString(1, ID_VEHICLE);
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GET_CONFIGTICKET(?,?,?) }");
+            cs.registerOutParameter(1, Types.VARCHAR);
             cs.registerOutParameter(2, Types.VARCHAR);
             cs.registerOutParameter(3, Types.VARCHAR);
-            cs.registerOutParameter(4, Types.VARCHAR);
-            cs.registerOutParameter(5, Types.VARCHAR);
             cs.execute();
 
-            for (int i = 2; i < 6; i++) {
-                data.add(cs.getString(i));
+            for (int i = 1; i < 4; i++) {
+                data.add(Decrypt(cs.getString(i)));
             }
 
             cs.close();
         } catch (Exception ex) {
             new frmError(ex.toString()).setVisible(true);
         }
-        return data;
-    }
-
-    public void printDailyRent(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String DATE, String TIME) {
-
-        int hour = Integer.parseInt(TIME.substring(0, 2));
+        
+        
+/*        int hour = Integer.parseInt(TIME.substring(0, 2));
         int Daily = 0;
         int Daily2 = 0;
 
@@ -504,10 +516,70 @@ public class cls_methods {
 
             JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
             JasperPrintManager.printReport(print, false);
+  */     
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+
+    public byte FN_VehicleExist(String ID_VEHICLE) {
+        byte exist = 0;
+        try {
+            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_VEHICLEEXIST(?) }");
+            cs.registerOutParameter(1, Types.NUMERIC);
+            cs.setString(2, ID_VEHICLE);
+            cs.execute();
+            switch (cs.getInt(1)) {
+                case 1:
+                    exist = 1;
+                    break;
+                    }
+
+            cs.close();
+        } catch (Exception ex) {
+            Error("Error 002: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
+        }
+        return exist;
+    }
+
+
+    public ArrayList<String> SP_GetDetails(String ID_VEHICLE) {
+        ArrayList<String> data = new ArrayList<>(4);
+
+        try {
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GETDETAILS(?,?,?,?,?) }");
+            cs.setString(1, ID_VEHICLE);
+            cs.registerOutParameter(2, Types.VARCHAR);
+            cs.registerOutParameter(3, Types.VARCHAR);
+            cs.registerOutParameter(4, Types.VARCHAR);
+            cs.registerOutParameter(5, Types.VARCHAR);
+            cs.execute();
+
+            for (int i = 2; i < 6; i++) {
+                data.add(cs.getString(i));
+            }
+
+            cs.close();
         } catch (Exception ex) {
             new frmError(ex.toString()).setVisible(true);
         }
+        return data;
     }
+
 
     public int FN_GetDailyPrice(String TYPEVEHICLE) {
         int price = 0;

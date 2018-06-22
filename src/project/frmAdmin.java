@@ -14,11 +14,10 @@ import Atxy2k.CustomTextField.RestrictedTextField;
  */
 public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
-    cls_methods mt = new cls_methods();
-
     Thread th;
-    static String ID_VEHICLE = null;
-    static String item = "item_1";
+    static String item = "item_1", ID_VEHICLE = null;
+
+    cls_methods mt = new cls_methods();
 
     public frmAdmin() {
         initComponents();
@@ -27,10 +26,11 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_system.setVisible(false);
 
         /* ----------------------- DASHBOARD WIDGETS ------------------------ */
-        lb_WidgetUsersTotal.setText(String.valueOf(mt.FN_CountUsers()));
-        lb_WidgetPartnersTotal.setText(String.valueOf(mt.FN_CountPartners()));
-        lb_WidgetBlockedTotal.setText(String.valueOf(mt.FN_CountBlackList()));
-        lb_WidgetVehiclesTotal.setText(String.valueOf(mt.FN_CountVehicles()));
+        ArrayList<String> data = mt.SP_GetWidgetsInfo();        
+        lb_WidgetUsersTotal.setText(data.get(0));
+        lb_WidgetPartnersTotal.setText(data.get(1));
+        lb_WidgetBlockedTotal.setText(data.get(2));
+        lb_WidgetVehiclesTotal.setText(data.get(3));
 
         /* --------------------- SYSTEM PLATES LENGTH ----------------------- */
         new RestrictedTextField(tbx_idTruck).setLimit(8);
@@ -127,7 +127,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_inputTruck = new javax.swing.JPanel();
         lb_titleTruck = new javax.swing.JLabel();
         sp_inputTitleTruck = new javax.swing.JSeparator();
-        lb_textTruck = new javax.swing.JLabel();
+        lb_Truck = new javax.swing.JLabel();
         tbx_idTruck = new javax.swing.JTextField();
         sp_inputTruck = new javax.swing.JSeparator();
         btn_calendarTruck = new javax.swing.JButton();
@@ -154,15 +154,49 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         sp_inputMotorcycle = new javax.swing.JSeparator();
         btn_calendarMotorcycle = new javax.swing.JButton();
         btn_clockMotorcycle = new javax.swing.JButton();
+        pn_dailyRent = new javax.swing.JPanel();
+        btn_returnDaily = new javax.swing.JButton();
+        pn_dataDaily = new javax.swing.JPanel();
+        lb_titleDataDaily = new javax.swing.JLabel();
+        sp_dataDaily = new javax.swing.JSeparator();
+        lb_dailyType = new javax.swing.JLabel();
+        lb_dailyTypeVehicle = new javax.swing.JLabel();
+        lb_dailyId = new javax.swing.JLabel();
+        lb_dailyIdVehicle = new javax.swing.JLabel();
+        lb_dailyEntryD = new javax.swing.JLabel();
+        lb_dailyEntryDate = new javax.swing.JLabel();
+        lb_dailyEntryT = new javax.swing.JLabel();
+        lb_dailyEntryTime = new javax.swing.JLabel();
+        lb_dailyDepartureD = new javax.swing.JLabel();
+        lb_dailyDepartureDate = new javax.swing.JLabel();
+        lb_dailyDepartureT = new javax.swing.JLabel();
+        lb_dailyDepartureTime = new javax.swing.JLabel();
+        btn_less = new javax.swing.JButton();
+        btn_more = new javax.swing.JButton();
+        pn_paymentDaily = new javax.swing.JPanel();
+        lb_titlePaymentDaily = new javax.swing.JLabel();
+        sp_paymentDaily = new javax.swing.JSeparator();
+        btn_printPaymentDaily = new javax.swing.JButton();
+        lb_titleTruck7 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         pn_payment = new javax.swing.JPanel();
-        btn_returnPayment = new javax.swing.JButton();
         pn_paymentInput = new javax.swing.JPanel();
+        btn_returnPaymentInput = new javax.swing.JButton();
+        pn_paymentInputData = new javax.swing.JPanel();
         lb_paymentInputTitle = new javax.swing.JLabel();
         sp_paymentInput = new javax.swing.JSeparator();
-        lb_plate = new javax.swing.JLabel();
+        lb_idVehicle = new javax.swing.JLabel();
         tbx_idVehicle = new javax.swing.JTextField();
         sp_idVehicle = new javax.swing.JSeparator();
         btn_showDetails = new javax.swing.JButton();
+        pn_paymentData = new javax.swing.JPanel();
+        lb_paymentInputTitless = new javax.swing.JLabel();
+        sp_paymentInputss = new javax.swing.JSeparator();
+        lb_platess = new javax.swing.JLabel();
+        tbx_idVehicless = new javax.swing.JTextField();
+        sp_idVehicless = new javax.swing.JSeparator();
+        btn_showDetailsss = new javax.swing.JButton();
         pn_paymentDetails = new javax.swing.JPanel();
         lb_EntryDate = new javax.swing.JLabel();
         lb_EntryDateData = new javax.swing.JLabel();
@@ -640,10 +674,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_inputTruck.add(lb_titleTruck, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 40));
         pn_inputTruck.add(sp_inputTitleTruck, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1070, 10));
 
-        lb_textTruck.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_textTruck.setForeground(new java.awt.Color(255, 255, 255));
-        lb_textTruck.setText("Placa del vehículo:");
-        pn_inputTruck.add(lb_textTruck, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 40));
+        lb_Truck.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_Truck.setForeground(new java.awt.Color(255, 255, 255));
+        lb_Truck.setText("Placa del vehículo:");
+        pn_inputTruck.add(lb_Truck, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 40));
 
         tbx_idTruck.setBackground(new java.awt.Color(38, 50, 56));
         tbx_idTruck.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -846,44 +880,209 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         pn_system.add(pn_motorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
 
+        pn_dailyRent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_returnDaily.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Return 60px.png"))); // NOI18N
+        btn_returnDaily.setToolTipText("Volver.");
+        btn_returnDaily.setBorder(null);
+        btn_returnDaily.setBorderPainted(false);
+        btn_returnDaily.setContentAreaFilled(false);
+        btn_returnDaily.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_returnDaily.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_returnDailyActionPerformed(evt);
+            }
+        });
+        pn_dailyRent.add(btn_returnDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 60, 60));
+
+        pn_dataDaily.setBackground(new java.awt.Color(38, 50, 56));
+        pn_dataDaily.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lb_titleDataDaily.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_titleDataDaily.setForeground(new java.awt.Color(255, 255, 255));
+        lb_titleDataDaily.setText("Datos del vehículo");
+        pn_dataDaily.add(lb_titleDataDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 40));
+        pn_dataDaily.add(sp_dataDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1070, 10));
+
+        lb_dailyType.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyType.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyType.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_dailyType.setText("Tipo de vehículo:");
+        pn_dataDaily.add(lb_dailyType, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 160, 40));
+
+        lb_dailyTypeVehicle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyTypeVehicle.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyTypeVehicle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pn_dataDaily.add(lb_dailyTypeVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 110, 40));
+
+        lb_dailyId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyId.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_dailyId.setText("Placa del vehículo:");
+        pn_dataDaily.add(lb_dailyId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 160, 40));
+
+        lb_dailyIdVehicle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyIdVehicle.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyIdVehicle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pn_dataDaily.add(lb_dailyIdVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 110, 40));
+
+        lb_dailyEntryD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyEntryD.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyEntryD.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_dailyEntryD.setText("Fecha de entrada:");
+        pn_dataDaily.add(lb_dailyEntryD, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 160, 40));
+
+        lb_dailyEntryDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyEntryDate.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyEntryDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pn_dataDaily.add(lb_dailyEntryDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 110, 40));
+
+        lb_dailyEntryT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyEntryT.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyEntryT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_dailyEntryT.setText("Hora de entrada:");
+        pn_dataDaily.add(lb_dailyEntryT, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 160, 40));
+
+        lb_dailyEntryTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyEntryTime.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyEntryTime.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pn_dataDaily.add(lb_dailyEntryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, 110, 40));
+
+        lb_dailyDepartureD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyDepartureD.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyDepartureD.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_dailyDepartureD.setText("Fecha de salida:");
+        pn_dataDaily.add(lb_dailyDepartureD, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 160, 40));
+
+        lb_dailyDepartureDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyDepartureDate.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyDepartureDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pn_dataDaily.add(lb_dailyDepartureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 110, 40));
+
+        lb_dailyDepartureT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyDepartureT.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyDepartureT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_dailyDepartureT.setText("Hora de salida:");
+        pn_dataDaily.add(lb_dailyDepartureT, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 160, 40));
+
+        lb_dailyDepartureTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_dailyDepartureTime.setForeground(new java.awt.Color(255, 255, 255));
+        lb_dailyDepartureTime.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pn_dataDaily.add(lb_dailyDepartureTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 180, 110, 40));
+
+        btn_less.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Subtract 60px.png"))); // NOI18N
+        btn_less.setToolTipText("Renta Diaria / Nocturna.");
+        btn_less.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        btn_less.setContentAreaFilled(false);
+        btn_less.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_less.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lessActionPerformed(evt);
+            }
+        });
+        pn_dataDaily.add(btn_less, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, -1, -1));
+
+        btn_more.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Plus 60px.png"))); // NOI18N
+        btn_more.setToolTipText("Renta por horas.");
+        btn_more.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        btn_more.setContentAreaFilled(false);
+        btn_more.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_more.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_moreActionPerformed(evt);
+            }
+        });
+        pn_dataDaily.add(btn_more, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 70, -1, -1));
+
+        pn_dailyRent.add(pn_dataDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 1070, 320));
+
+        pn_paymentDaily.setBackground(new java.awt.Color(38, 50, 56));
+        pn_paymentDaily.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lb_titlePaymentDaily.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_titlePaymentDaily.setForeground(new java.awt.Color(255, 255, 255));
+        lb_titlePaymentDaily.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titlePaymentDaily.setText("Total  a cancelar");
+        pn_paymentDaily.add(lb_titlePaymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 40));
+        pn_paymentDaily.add(sp_paymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1070, 10));
+
+        btn_printPaymentDaily.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clock 60px.png"))); // NOI18N
+        btn_printPaymentDaily.setToolTipText("Renta por horas.");
+        btn_printPaymentDaily.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        btn_printPaymentDaily.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_printPaymentDaily.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_printPaymentDailyActionPerformed(evt);
+            }
+        });
+        pn_paymentDaily.add(btn_printPaymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
+
+        lb_titleTruck7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_titleTruck7.setForeground(new java.awt.Color(255, 255, 255));
+        lb_titleTruck7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_titleTruck7.setText("Monto:");
+        pn_paymentDaily.add(lb_titleTruck7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 130, 40));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel2.setText("5000");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 420, 60));
+
+        pn_paymentDaily.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 660, 60));
+
+        pn_dailyRent.add(pn_paymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 1070, 170));
+
+        pn_system.add(pn_dailyRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
+
         pn_payment.setPreferredSize(new java.awt.Dimension(1130, 640));
         pn_payment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_returnPayment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Return 60px.png"))); // NOI18N
-        btn_returnPayment.setToolTipText("Volver.");
-        btn_returnPayment.setBorder(null);
-        btn_returnPayment.setBorderPainted(false);
-        btn_returnPayment.setContentAreaFilled(false);
-        btn_returnPayment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_returnPayment.addActionListener(new java.awt.event.ActionListener() {
+        pn_paymentInput.setPreferredSize(new java.awt.Dimension(1130, 640));
+        pn_paymentInput.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_returnPaymentInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Return 60px.png"))); // NOI18N
+        btn_returnPaymentInput.setToolTipText("Volver.");
+        btn_returnPaymentInput.setBorder(null);
+        btn_returnPaymentInput.setBorderPainted(false);
+        btn_returnPaymentInput.setContentAreaFilled(false);
+        btn_returnPaymentInput.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_returnPaymentInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_returnPaymentActionPerformed(evt);
+                btn_returnPaymentInputActionPerformed(evt);
             }
         });
-        pn_payment.add(btn_returnPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 60, 60));
+        pn_paymentInput.add(btn_returnPaymentInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 60, 60));
 
-        pn_paymentInput.setBackground(new java.awt.Color(38, 50, 56));
-        pn_paymentInput.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_paymentInputData.setBackground(new java.awt.Color(38, 50, 56));
+        pn_paymentInputData.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lb_paymentInputTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lb_paymentInputTitle.setForeground(new java.awt.Color(255, 255, 255));
         lb_paymentInputTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_paymentInputTitle.setText("Digite la placa del vehículo");
-        pn_paymentInput.add(lb_paymentInputTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
-        pn_paymentInput.add(sp_paymentInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 970, 10));
+        pn_paymentInputData.add(lb_paymentInputTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
+        pn_paymentInputData.add(sp_paymentInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 970, 10));
 
-        lb_plate.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        lb_plate.setForeground(new java.awt.Color(255, 255, 255));
-        lb_plate.setText("Placa del vehículo:");
-        pn_paymentInput.add(lb_plate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 50));
+        lb_idVehicle.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lb_idVehicle.setForeground(new java.awt.Color(255, 255, 255));
+        lb_idVehicle.setText("Placa del vehículo:");
+        pn_paymentInputData.add(lb_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 50));
 
         tbx_idVehicle.setBackground(new java.awt.Color(38, 50, 56));
         tbx_idVehicle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tbx_idVehicle.setForeground(new java.awt.Color(255, 255, 255));
         tbx_idVehicle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tbx_idVehicle.setBorder(null);
-        pn_paymentInput.add(tbx_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 220, 40));
-        pn_paymentInput.add(sp_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 220, 10));
+        tbx_idVehicle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbx_idVehicleActionPerformed(evt);
+            }
+        });
+        pn_paymentInputData.add(tbx_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 220, 40));
+        pn_paymentInputData.add(sp_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 220, 10));
 
         btn_showDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Continue 60px.png"))); // NOI18N
         btn_showDetails.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
@@ -893,7 +1092,44 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                 btn_showDetailsActionPerformed(evt);
             }
         });
-        pn_paymentInput.add(btn_showDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, -1, -1));
+        pn_paymentInputData.add(btn_showDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, -1, -1));
+
+        pn_paymentInput.add(pn_paymentInputData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 970, 180));
+
+        pn_payment.add(pn_paymentInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
+
+        pn_paymentData.setBackground(new java.awt.Color(38, 50, 56));
+        pn_paymentData.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lb_paymentInputTitless.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lb_paymentInputTitless.setForeground(new java.awt.Color(255, 255, 255));
+        lb_paymentInputTitless.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_paymentInputTitless.setText("Digite la placa del vehículo");
+        pn_paymentData.add(lb_paymentInputTitless, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
+        pn_paymentData.add(sp_paymentInputss, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 970, 10));
+
+        lb_platess.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lb_platess.setForeground(new java.awt.Color(255, 255, 255));
+        lb_platess.setText("Placa del vehículo:");
+        pn_paymentData.add(lb_platess, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 50));
+
+        tbx_idVehicless.setBackground(new java.awt.Color(38, 50, 56));
+        tbx_idVehicless.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tbx_idVehicless.setForeground(new java.awt.Color(255, 255, 255));
+        tbx_idVehicless.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbx_idVehicless.setBorder(null);
+        pn_paymentData.add(tbx_idVehicless, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 220, 40));
+        pn_paymentData.add(sp_idVehicless, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 220, 10));
+
+        btn_showDetailsss.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Continue 60px.png"))); // NOI18N
+        btn_showDetailsss.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        btn_showDetailsss.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_showDetailsss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_showDetailsssActionPerformed(evt);
+            }
+        });
+        pn_paymentData.add(btn_showDetailsss, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, -1, -1));
 
         pn_paymentDetails.setBackground(new java.awt.Color(255, 255, 255));
         pn_paymentDetails.setForeground(new java.awt.Color(153, 0, 0));
@@ -1041,9 +1277,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         btn_showDetailsaaa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pn_paymentDetails.add(btn_showDetailsaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, -1, -1));
 
-        pn_paymentInput.add(pn_paymentDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 930, 380));
+        pn_paymentData.add(pn_paymentDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 930, 380));
 
-        pn_payment.add(pn_paymentInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 970, 580));
+        pn_payment.add(pn_paymentData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 970, 580));
 
         pn_system.add(pn_payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
 
@@ -1234,6 +1470,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_main.setVisible(false);
         pn_type.setVisible(false);
         pn_truck.setVisible(true);
+        pn_dailyRent.setVisible(true);
         pn_car.setVisible(false);
         pn_motorcycle.setVisible(false);
         pn_payment.setVisible(false);
@@ -1290,21 +1527,22 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_payment.setVisible(false);
     }//GEN-LAST:event_btn_returnTypeActionPerformed
 
-    private void btn_returnTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnTruckActionPerformed
+    private void btn_returnDailyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnDailyActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
         pn_dashboard.setVisible(false);
         pn_system.setVisible(true);
 
         /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
         pn_main.setVisible(false);
-        pn_type.setVisible(true);
-        pn_truck.setVisible(false);
+        pn_type.setVisible(false);
+        pn_truck.setVisible(true);
+        pn_dailyRent.setVisible(false);
         pn_car.setVisible(false);
         pn_motorcycle.setVisible(false);
         pn_payment.setVisible(false);
-    }//GEN-LAST:event_btn_returnTruckActionPerformed
+    }//GEN-LAST:event_btn_returnDailyActionPerformed
 
-    private void btn_clockTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockTruckActionPerformed
+    private void btn_printPaymentDailyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printPaymentDailyActionPerformed
         ID_VEHICLE = tbx_idTruck.getText();
 
         /* --------------- ENTRY OF TRUCKS AS RENT FOR HOURS ---------------- */
@@ -1343,7 +1581,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     break;
             }
         }
-    }//GEN-LAST:event_btn_clockTruckActionPerformed
+    }//GEN-LAST:event_btn_printPaymentDailyActionPerformed
 
     private void btn_returnCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnCarActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
@@ -1360,43 +1598,27 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnCarActionPerformed
 
     private void btn_calendarCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarCarActionPerformed
-        ID_VEHICLE = tbx_idCar.getText();
+        if (!tbx_idCar.getText().isEmpty()) {
+            /* ---------------------- PANELS CONFIGURATION ---------------------- */
+            pn_dashboard.setVisible(false);
+            pn_system.setVisible(true);
 
-        /* -------------- ENTRY OF CARS AS DAILY/NIGHTLY RENT  -------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+            /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
+            pn_main.setVisible(false);
+            pn_type.setVisible(false);
+            pn_truck.setVisible(false);
+            pn_car.setVisible(false);
+            pn_motorcycle.setVisible(false);
+            pn_dailyRent.setVisible(true);
+            pn_payment.setVisible(false);
+
+            /* --------------------------- SET DATA ----------------------------- */
+            lb_dailyTypeVehicle.setText("Automóvil");
+            lb_dailyIdVehicle.setText(tbx_idCar.getText());
+            lb_dailyEntryDate.setText(new DateTime().GetFullDate());
+            lb_dailyEntryTime.setText(new DateTime().Get12hFullTime());
         } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "RENTA DIARIA", "AUTOMÓVIL")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idCar.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idCar.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idCar.setText(null);
-                    break;
-            }
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
         }
     }//GEN-LAST:event_btn_calendarCarActionPerformed
 
@@ -1427,6 +1649,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     pn_truck.setVisible(false);
                     pn_car.setVisible(false);
                     pn_motorcycle.setVisible(false);
+                    pn_dailyRent.setVisible(false);
                     pn_payment.setVisible(false);
 
                     /* ------------------ VEHICLE COUNTER ------------------- */
@@ -1456,44 +1679,27 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_returnMotorcycleActionPerformed
 
     private void btn_calendarMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarMotorcycleActionPerformed
-        ID_VEHICLE = tbx_idMotorcycle.getText();
+        if (!tbx_idMotorcycle.getText().isEmpty()) {
+            /* ---------------------- PANELS CONFIGURATION ---------------------- */
+            pn_dashboard.setVisible(false);
+            pn_system.setVisible(true);
 
-        /* ----------- ENTRY OF MOTORCYCLES AS DAILY/NIGHTLY RENT  ---------- */        
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+            /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
+            pn_main.setVisible(false);
+            pn_type.setVisible(false);
+            pn_truck.setVisible(false);
+            pn_car.setVisible(false);
+            pn_motorcycle.setVisible(false);
+            pn_dailyRent.setVisible(true);
+            pn_payment.setVisible(false);
+
+            /* --------------------------- SET DATA ----------------------------- */
+            lb_dailyTypeVehicle.setText("Motocicleta");
+            lb_dailyIdVehicle.setText(tbx_idMotorcycle.getText());
+            lb_dailyEntryDate.setText(new DateTime().GetFullDate());
+            lb_dailyEntryTime.setText(new DateTime().Get12hFullTime());
         } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "RENTA DIARIA", "MOTOCICLETA")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idMotorcycle.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idMotorcycle.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idMotorcycle.setText(null);
-                    break;
-
-            }
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
         }
     }//GEN-LAST:event_btn_calendarMotorcycleActionPerformed
 
@@ -1514,7 +1720,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     tbx_idMotorcycle.setText(null);
                     break;
                 default:
-                                        /* ---------------- PANELS CONFIGURATION ---------------- */
+                    /* ---------------- PANELS CONFIGURATION ---------------- */
                     pn_dashboard.setVisible(false);
                     pn_system.setVisible(true);
 
@@ -1524,6 +1730,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     pn_truck.setVisible(false);
                     pn_car.setVisible(false);
                     pn_motorcycle.setVisible(false);
+                    pn_dailyRent.setVisible(false);
                     pn_payment.setVisible(false);
 
                     /* ------------------ VEHICLE COUNTER ------------------- */
@@ -1545,88 +1752,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private void lb_showVehiclesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_showVehiclesMouseExited
         pn_btnShowVehicles.setBackground(new Color(38, 50, 56));   // OFF
     }//GEN-LAST:event_lb_showVehiclesMouseExited
-
-    private void btn_calendarTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarTruckActionPerformed
-        ID_VEHICLE = tbx_idTruck.getText();
-
-        /* ------------- ENTRY OF TRUCKS AS DAILY/NIGHTLY RENT  ------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "RENTA DIARIA", "CAMIÓN")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idTruck.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idTruck.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idTruck.setText(null);
-                    break;
-            }
-        }
-    }//GEN-LAST:event_btn_calendarTruckActionPerformed
-
-    private void tbx_idTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idTruckActionPerformed
-        ID_VEHICLE = tbx_idTruck.getText();
-
-        /* --------------- ENTRY OF TRUCKS AS RENT FOR HOURS ---------------- */
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN")) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    tbx_idTruck.setText(null);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    tbx_idTruck.setText(null);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
-                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
-                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    tbx_idTruck.setText(null);
-                    break;
-            }
-        }
-    }//GEN-LAST:event_tbx_idTruckActionPerformed
 
     private void tbx_idCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idCarActionPerformed
         ID_VEHICLE = tbx_idCar.getText();
@@ -1655,6 +1780,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     pn_truck.setVisible(false);
                     pn_car.setVisible(false);
                     pn_motorcycle.setVisible(false);
+                    pn_dailyRent.setVisible(false);
                     pn_payment.setVisible(false);
 
                     /* ------------------ VEHICLE COUNTER ------------------- */
@@ -1685,7 +1811,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
                     tbx_idMotorcycle.setText(null);
                     break;
-                default: 
+                default:
                     /* ---------------- PANELS CONFIGURATION ---------------- */
                     pn_dashboard.setVisible(false);
                     pn_system.setVisible(true);
@@ -1696,6 +1822,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     pn_truck.setVisible(false);
                     pn_car.setVisible(false);
                     pn_motorcycle.setVisible(false);
+                    pn_dailyRent.setVisible(false);
                     pn_payment.setVisible(false);
 
                     /* ------------------ VEHICLE COUNTER ------------------- */
@@ -1709,16 +1836,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
             }
         }
     }//GEN-LAST:event_tbx_idMotorcycleActionPerformed
-
-    private void tbx_idTruckKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idTruckKeyTyped
-        /* ---------------------- CONVERT TO UPPERCASE ---------------------- */
-        char c = evt.getKeyChar();
-        if (Character.isLowerCase(c)) {
-            String cad = ("" + c).toUpperCase();
-            c = cad.charAt(0);
-            evt.setKeyChar(c);
-        }
-    }//GEN-LAST:event_tbx_idTruckKeyTyped
 
     private void tbx_idCarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idCarKeyTyped
         /* ---------------------- CONVERT TO UPPERCASE ---------------------- */
@@ -1740,22 +1857,8 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_tbx_idMotorcycleKeyTyped
 
-    private void btn_returnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnPaymentActionPerformed
-        /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
-        pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(true);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
-    }//GEN-LAST:event_btn_returnPaymentActionPerformed
-
-    private void btn_showDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showDetailsActionPerformed
-        ID_VEHICLE = tbx_idVehicle.getText();
+    private void btn_showDetailsssActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showDetailsssActionPerformed
+        ID_VEHICLE = tbx_idVehicless.getText();
         ArrayList<String> data = new ArrayList<>(4);
 
         if (ID_VEHICLE.isEmpty()) {
@@ -1780,7 +1883,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         }
 
         pn_paymentDetails.setVisible(true);
-    }//GEN-LAST:event_btn_showDetailsActionPerformed
+    }//GEN-LAST:event_btn_showDetailsssActionPerformed
 
     private void item_3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
@@ -1897,6 +2000,176 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_payment.setVisible(false);
     }//GEN-LAST:event_item_2MousePressed
 
+    private void tbx_idTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idTruckActionPerformed
+        ID_VEHICLE = tbx_idTruck.getText();
+
+        /* --------------- ENTRY OF TRUCKS AS RENT FOR HOURS ---------------- */
+        if (ID_VEHICLE.isEmpty()) {
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+        } else {
+            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN")) {
+                case "EXIST":
+                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
+                    tbx_idTruck.setText(null);
+                    break;
+                case "LOCKED":
+                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idTruck.setText(null);
+                    break;
+                default:
+                    /* ---------------- PANELS CONFIGURATION ---------------- */
+                    pn_dashboard.setVisible(false);
+                    pn_system.setVisible(true);
+
+                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
+                    pn_main.setVisible(true);
+                    pn_type.setVisible(false);
+                    pn_truck.setVisible(false);
+                    pn_car.setVisible(false);
+                    pn_motorcycle.setVisible(false);
+                    pn_dailyRent.setVisible(false);
+                    pn_payment.setVisible(false);
+
+                    /* ------------------ VEHICLE COUNTER ------------------- */
+                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
+                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
+                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
+
+                    /* ---------------------- OTHERS ------------------------ */
+                    tbx_idTruck.setText(null);
+                    break;
+            }
+        }
+    }//GEN-LAST:event_tbx_idTruckActionPerformed
+
+    private void tbx_idTruckKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idTruckKeyTyped
+        /* ---------------------- CONVERT TO UPPERCASE ---------------------- */
+        char c = evt.getKeyChar();
+        if (Character.isLowerCase(c)) {
+            String cad = ("" + c).toUpperCase();
+            c = cad.charAt(0);
+            evt.setKeyChar(c);
+        }
+    }//GEN-LAST:event_tbx_idTruckKeyTyped
+
+    private void btn_calendarTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarTruckActionPerformed
+        if (!tbx_idTruck.getText().isEmpty()) {
+            /* ---------------------- PANELS CONFIGURATION ---------------------- */
+            pn_dashboard.setVisible(false);
+            pn_system.setVisible(true);
+
+            /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
+            pn_main.setVisible(false);
+            pn_type.setVisible(false);
+            pn_truck.setVisible(false);
+            pn_car.setVisible(false);
+            pn_motorcycle.setVisible(false);
+            pn_dailyRent.setVisible(true);
+            pn_payment.setVisible(false);
+
+            /* --------------------------- SET DATA ----------------------------- */
+            lb_dailyTypeVehicle.setText("Camión");
+            lb_dailyIdVehicle.setText(tbx_idTruck.getText());
+            lb_dailyEntryDate.setText(new DateTime().GetFullDate());
+            lb_dailyEntryTime.setText(new DateTime().Get12hFullTime());
+        } else {
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+        }
+    }//GEN-LAST:event_btn_calendarTruckActionPerformed
+
+    private void btn_clockTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockTruckActionPerformed
+        ID_VEHICLE = tbx_idTruck.getText();
+
+        /* --------------- ENTRY OF TRUCKS AS RENT FOR HOURS ---------------- */
+        if (ID_VEHICLE.isEmpty()) {
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+        } else {
+            switch (mt.SP_NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "CAMIÓN")) {
+                case "EXIST":
+                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
+                    tbx_idTruck.setText(null);
+                    break;
+                case "LOCKED":
+                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
+                    tbx_idTruck.setText(null);
+                    break;
+                default:
+                    /* ---------------- PANELS CONFIGURATION ---------------- */
+                    pn_dashboard.setVisible(false);
+                    pn_system.setVisible(true);
+
+                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
+                    pn_main.setVisible(true);
+                    pn_type.setVisible(false);
+                    pn_truck.setVisible(false);
+                    pn_car.setVisible(false);
+                    pn_motorcycle.setVisible(false);
+                    pn_dailyRent.setVisible(false);
+                    pn_payment.setVisible(false);
+
+                    /* ------------------ VEHICLE COUNTER ------------------- */
+                    lb_trucks.setText(String.valueOf(mt.FN_CountTrucks()));
+                    lb_cars.setText(String.valueOf(mt.FN_CountCars()));
+                    lb_motorcycles.setText(String.valueOf(mt.FN_CountMotorcycles()));
+
+                    /* ---------------------- OTHERS ------------------------ */
+                    tbx_idTruck.setText(null);
+                    break;
+            }
+        }
+    }//GEN-LAST:event_btn_clockTruckActionPerformed
+
+    private void btn_returnTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnTruckActionPerformed
+        /* ---------------------- PANELS CONFIGURATION ---------------------- */
+        pn_dashboard.setVisible(false);
+        pn_system.setVisible(true);
+
+        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
+        pn_main.setVisible(false);
+        pn_type.setVisible(true);
+        pn_truck.setVisible(false);
+        pn_car.setVisible(false);
+        pn_motorcycle.setVisible(false);
+        pn_payment.setVisible(false);
+    }//GEN-LAST:event_btn_returnTruckActionPerformed
+
+    private void btn_lessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lessActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_lessActionPerformed
+
+    private void btn_moreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_moreActionPerformed
+
+    private void btn_returnPaymentInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnPaymentInputActionPerformed
+        /* ---------------------- PANELS CONFIGURATION ---------------------- */
+        pn_dashboard.setVisible(false);
+        pn_system.setVisible(true);
+
+        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
+        pn_main.setVisible(true);
+        pn_type.setVisible(false);
+        pn_truck.setVisible(false);
+        pn_car.setVisible(false);
+        pn_dailyRent.setVisible(false);
+        pn_motorcycle.setVisible(false);
+        pn_payment.setVisible(false);
+    }//GEN-LAST:event_btn_returnPaymentInputActionPerformed
+
+    private void btn_showDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showDetailsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_showDetailsActionPerformed
+
+    private void tbx_idVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idVehicleActionPerformed
+
+
+
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbx_idVehicleActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -1931,26 +2204,33 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_clockMotorcycle;
     private javax.swing.JButton btn_clockTruck;
     private javax.swing.JButton btn_entrance;
+    private javax.swing.JButton btn_less;
+    private javax.swing.JButton btn_more;
     private javax.swing.JButton btn_motorcycle;
     private javax.swing.JButton btn_payment;
+    private javax.swing.JButton btn_printPaymentDaily;
     private javax.swing.JButton btn_returnCar;
+    private javax.swing.JButton btn_returnDaily;
     private javax.swing.JButton btn_returnMotorcycle;
-    private javax.swing.JButton btn_returnPayment;
+    private javax.swing.JButton btn_returnPaymentInput;
     private javax.swing.JButton btn_returnTruck;
     private javax.swing.JButton btn_returnType;
     private javax.swing.JButton btn_showDetails;
     private javax.swing.JButton btn_showDetails2;
     private javax.swing.JButton btn_showDetailsaaa;
+    private javax.swing.JButton btn_showDetailsss;
     private javax.swing.JButton btn_truck;
     private javax.swing.JPanel item_1;
     private javax.swing.JPanel item_2;
     private javax.swing.JPanel item_3;
     private javax.swing.JPanel item_9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lb_DepartureDate;
@@ -1969,6 +2249,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_TotalTimeData;
     private javax.swing.JLabel lb_TotalTimeRounded;
     private javax.swing.JLabel lb_TotalTimeRoundedData;
+    private javax.swing.JLabel lb_Truck;
     private javax.swing.JLabel lb_TypeTicket;
     private javax.swing.JLabel lb_TypeTicketData;
     private javax.swing.JLabel lb_TypeVehicle;
@@ -1995,11 +2276,24 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_WidgetVehiclesTotal;
     private javax.swing.JLabel lb_carIcon;
     private javax.swing.JLabel lb_cars;
+    private javax.swing.JLabel lb_dailyDepartureD;
+    private javax.swing.JLabel lb_dailyDepartureDate;
+    private javax.swing.JLabel lb_dailyDepartureT;
+    private javax.swing.JLabel lb_dailyDepartureTime;
+    private javax.swing.JLabel lb_dailyEntryD;
+    private javax.swing.JLabel lb_dailyEntryDate;
+    private javax.swing.JLabel lb_dailyEntryT;
+    private javax.swing.JLabel lb_dailyEntryTime;
+    private javax.swing.JLabel lb_dailyId;
+    private javax.swing.JLabel lb_dailyIdVehicle;
+    private javax.swing.JLabel lb_dailyType;
+    private javax.swing.JLabel lb_dailyTypeVehicle;
     private javax.swing.JLabel lb_fecha;
     private javax.swing.JLabel lb_hour;
     private javax.swing.JLabel lb_iconCar;
     private javax.swing.JLabel lb_iconMotorcycle;
     private javax.swing.JLabel lb_iconTruck;
+    private javax.swing.JLabel lb_idVehicle;
     private javax.swing.JLabel lb_imgTop;
     private javax.swing.JLabel lb_item1;
     private javax.swing.JLabel lb_item2;
@@ -2013,15 +2307,18 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_motorcycles;
     private javax.swing.JLabel lb_name;
     private javax.swing.JLabel lb_paymentInputTitle;
-    private javax.swing.JLabel lb_plate;
+    private javax.swing.JLabel lb_paymentInputTitless;
+    private javax.swing.JLabel lb_platess;
     private javax.swing.JLabel lb_showVehicles;
     private javax.swing.JLabel lb_textCar;
     private javax.swing.JLabel lb_textMotorcycle;
-    private javax.swing.JLabel lb_textTruck;
     private javax.swing.JLabel lb_title;
     private javax.swing.JLabel lb_titleCar;
+    private javax.swing.JLabel lb_titleDataDaily;
     private javax.swing.JLabel lb_titleMotorcycle;
+    private javax.swing.JLabel lb_titlePaymentDaily;
     private javax.swing.JLabel lb_titleTruck;
+    private javax.swing.JLabel lb_titleTruck7;
     private javax.swing.JLabel lb_truckIcon;
     private javax.swing.JLabel lb_trucks;
     private javax.swing.JPanel pn_WidgetBlocked;
@@ -2032,7 +2329,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_btnShowVehicles;
     private javax.swing.JPanel pn_calculator;
     private javax.swing.JPanel pn_car;
+    private javax.swing.JPanel pn_dailyRent;
     private javax.swing.JPanel pn_dashboard;
+    private javax.swing.JPanel pn_dataDaily;
     private javax.swing.JPanel pn_inputCar;
     private javax.swing.JPanel pn_inputMotorcycle;
     private javax.swing.JPanel pn_inputTruck;
@@ -2040,8 +2339,11 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_menu;
     private javax.swing.JPanel pn_motorcycle;
     private javax.swing.JPanel pn_payment;
+    private javax.swing.JPanel pn_paymentDaily;
+    private javax.swing.JPanel pn_paymentData;
     private javax.swing.JPanel pn_paymentDetails;
     private javax.swing.JPanel pn_paymentInput;
+    private javax.swing.JPanel pn_paymentInputData;
     private javax.swing.JPanel pn_stats;
     private javax.swing.JPanel pn_system;
     private javax.swing.JPanel pn_truck;
@@ -2050,8 +2352,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator sp_WidgetPartners;
     private javax.swing.JSeparator sp_WidgetUsers;
     private javax.swing.JSeparator sp_WidgetVehicles;
+    private javax.swing.JSeparator sp_dataDaily;
     private javax.swing.JSeparator sp_date;
     private javax.swing.JSeparator sp_idVehicle;
+    private javax.swing.JSeparator sp_idVehicless;
     private javax.swing.JSeparator sp_inputCar;
     private javax.swing.JSeparator sp_inputMotorcycle;
     private javax.swing.JSeparator sp_inputTitleCar;
@@ -2059,11 +2363,14 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator sp_inputTitleTruck;
     private javax.swing.JSeparator sp_inputTruck;
     private javax.swing.JSeparator sp_menu;
+    private javax.swing.JSeparator sp_paymentDaily;
     private javax.swing.JSeparator sp_paymentInput;
+    private javax.swing.JSeparator sp_paymentInputss;
     private javax.swing.JTextField tbx_idCar;
     private javax.swing.JTextField tbx_idMotorcycle;
     private javax.swing.JTextField tbx_idTruck;
     private javax.swing.JTextField tbx_idVehicle;
+    private javax.swing.JTextField tbx_idVehicless;
     // End of variables declaration//GEN-END:variables
 
     @Override

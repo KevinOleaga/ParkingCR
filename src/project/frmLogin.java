@@ -16,9 +16,14 @@ public class frmLogin extends javax.swing.JFrame {
 
     public frmLogin() {
         initComponents();
+        /* ------------- ESTABLISH CONNECTION WITH THE DATABASE ------------- */
         mt.Connect();
-        setLocationRelativeTo(null);
+        
+        /* ---------------------- PANELS CONFIGURATION ---------------------- */
         pn_password.setVisible(false);
+
+        /* ----------------------------- OTHERS ----------------------------- */
+        setLocationRelativeTo(null);
         new RestrictedTextField(tbx_user).setLimit(20);
         new RestrictedTextField(tbx_password).setLimit(20);
     }
@@ -231,10 +236,12 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+        /* ----------------------------- CLOSE ------------------------------ */
         System.exit(1);
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void lb_nextMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_nextMousePressed
+        /* ----------------------- USER VERIFICATION ------------------------ */
         user = tbx_user.getText();
 
         if (user.isEmpty()) {
@@ -252,6 +259,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_nextMousePressed
 
     private void lb_loginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_loginMousePressed
+        /* ------------------ USER & PASSWORD VERIFICATION ------------------ */
         pass = tbx_password.getText();
 
         if (pass.isEmpty()) {
@@ -262,11 +270,12 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
-                            mt.username = mt.Encrypt(user);
+                            cls_methods.USERNAME = mt.Encrypt(user);
                             this.dispose();
                             break;
                         case 2:
                             new frmUser().setVisible(true);
+                            cls_methods.USERNAME = mt.Encrypt(user);
                             this.dispose();
                             break;
                     }
@@ -278,6 +287,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_loginMousePressed
 
     private void lb_returnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_returnMousePressed
+        /* --------------------- RETURN TO USER PANEL ----------------------- */
         user = null;
         pass = null;
         tbx_user.setText(null);
@@ -287,11 +297,11 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_returnMousePressed
 
     private void lb_nextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_nextMouseEntered
-        pn_btnNext.setBackground(new Color(69, 90, 100));  //ON
+        pn_btnNext.setBackground(new Color(69, 90, 100));   //ON
     }//GEN-LAST:event_lb_nextMouseEntered
 
     private void lb_nextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_nextMouseExited
-        pn_btnNext.setBackground(new Color(38, 50, 56));  //OFF
+        pn_btnNext.setBackground(new Color(38, 50, 56));    //OFF
     }//GEN-LAST:event_lb_nextMouseExited
 
     private void lb_loginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_loginMouseEntered
@@ -299,11 +309,11 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_loginMouseEntered
 
     private void lb_loginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_loginMouseExited
-        pn_btnLogin.setBackground(new Color(38, 50, 56));  //OFF
+        pn_btnLogin.setBackground(new Color(38, 50, 56));   //OFF
     }//GEN-LAST:event_lb_loginMouseExited
 
     private void lb_returnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_returnMouseEntered
-        pn_btnReturn.setBackground(new Color(69, 90, 100));  //ON
+        pn_btnReturn.setBackground(new Color(69, 90, 100)); //ON
     }//GEN-LAST:event_lb_returnMouseEntered
 
     private void lb_returnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_returnMouseExited
@@ -311,6 +321,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_returnMouseExited
 
     private void tbx_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_userActionPerformed
+        /* ----------------------- USER VERIFICATION ------------------------ */
         user = tbx_user.getText();
 
         if (user.isEmpty()) {
@@ -328,6 +339,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_tbx_userActionPerformed
 
     private void tbx_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_passwordActionPerformed
+        /* ------------------ USER & PASSWORD VERIFICATION ------------------ */
         pass = tbx_password.getText();
 
         if (pass.isEmpty()) {
@@ -338,11 +350,12 @@ public class frmLogin extends javax.swing.JFrame {
                     switch (mt.FN_GetRole(user, pass)) {
                         case 1:
                             new frmAdmin().setVisible(true);
-                            mt.username = mt.Encrypt(user);
+                            cls_methods.USERNAME = mt.Encrypt(user);
                             this.dispose();
                             break;
                         case 2:
                             new frmUser().setVisible(true);
+                            cls_methods.USERNAME = mt.Encrypt(user);
                             this.dispose();
                             break;
                     }
@@ -354,6 +367,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_tbx_passwordActionPerformed
 
     private void tbx_userKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_userKeyTyped
+        /* ---------------------- CONVERT TO UPPERCASE ---------------------- */
         char c = evt.getKeyChar();
         if (Character.isLowerCase(c)) {
             String cad = ("" + c).toUpperCase();
@@ -363,6 +377,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_tbx_userKeyTyped
 
     private void tbx_passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_passwordKeyTyped
+        /* ---------------------- CONVERT TO UPPERCASE ---------------------- */
         char c = evt.getKeyChar();
         if (Character.isLowerCase(c)) {
             String cad = ("" + c).toUpperCase();

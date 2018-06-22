@@ -7,10 +7,10 @@
 	<parameter name="ID_PARKING" class="java.lang.String"/>
 	<parameter name="TELEPHONE" class="java.lang.String"/>
 	<parameter name="TYPETICKET" class="java.lang.String"/>
-	<parameter name="DATE" class="java.lang.String"/>
-	<parameter name="TIME" class="java.lang.String"/>
-	<parameter name="PLATE" class="java.lang.String"/>
-	<parameter name="TYPE" class="java.lang.String"/>
+	<parameter name="ENTRYDATE" class="java.lang.String"/>
+	<parameter name="ENTRYTIME" class="java.lang.String"/>
+	<parameter name="ID_VEHICLE" class="java.lang.String"/>
+	<parameter name="TYPEVEHICLE" class="java.lang.String"/>
 	<parameter name="PRINT" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -79,7 +79,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{DATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ENTRYDATE}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="192" width="195" height="15" uuid="983566d3-b5df-4b1b-8167-fd1cae1978b9"/>
@@ -96,7 +96,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{TYPE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{TYPEVEHICLE}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="15" y="59" width="95" height="20" uuid="b046d64a-87b4-4382-aff4-380fd57ef102"/>
@@ -130,14 +130,14 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{PLATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ID_VEHICLE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="110" y="58" width="76" height="20" uuid="481c7bbc-2eff-4667-b772-f758284e29be"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{TIME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ENTRYTIME}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="5" width="195" height="1" uuid="9d6e4ace-796d-421a-ae9e-a3d5fc96d51a"/>
@@ -145,7 +145,7 @@
 			<componentElement>
 				<reportElement x="42" y="127" width="125" height="27" uuid="c1b79284-f571-44ec-8c59-3af3a40502e3"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="false" checksumRequired="false">
-					<jr:codeExpression><![CDATA[$P{PLATE}]]></jr:codeExpression>
+					<jr:codeExpression><![CDATA[$P{ID_VEHICLE}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<textField>
