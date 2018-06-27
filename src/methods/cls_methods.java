@@ -1,19 +1,22 @@
 package methods;
 
+import CustomDateTime.GetDateTime;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
-import GetDateTime.DateTime;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JLabel;
@@ -48,7 +51,6 @@ public class cls_methods {
     public static boolean msgControl = false;
     public static boolean ShowListControl = false;
     private static String secretKey = "F6EWFHQW9JPFWQ0V8QWB";
-
 
     //-------------------------------------------------------------------------- DBA Settings
     String Host = "localhost";
@@ -148,7 +150,7 @@ public class cls_methods {
             cs.registerOutParameter(1, Types.NUMERIC);
             cs.setString(2, Encrypt(user));
             cs.execute();
-            
+
             switch (cs.getInt(1)) {
                 case 1:
                     exist = 1;
@@ -158,10 +160,10 @@ public class cls_methods {
                     exist = 0;
                     break;
             }
-            
+
             cs.close();
         } catch (Exception ex) {
-            Error(ex+ "Error 004: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
+            Error(ex + "Error 004: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
         }
         return exist;
     }
@@ -174,7 +176,7 @@ public class cls_methods {
             cs.setString(2, Encrypt(user));
             cs.setString(3, Encrypt(password));
             cs.execute();
-            
+
             switch (cs.getInt(1)) {
                 case 1:
                     exist = 1;
@@ -184,7 +186,7 @@ public class cls_methods {
                     exist = 0;
                     break;
             }
-            
+
             cs.close();
         } catch (Exception ex) {
             Error("Error 005: Ha ocurrido un problema al validar la contraseña. \nSi el problema persiste contacte con el administrador.");
@@ -251,7 +253,7 @@ public class cls_methods {
         }
         return n;
     }
-    
+
     public int FN_CountUsers() {
         int n = 0;
         try {
@@ -265,7 +267,7 @@ public class cls_methods {
         }
         return n;
     }
-    
+
     public int FN_CountPartners() {
         int n = 0;
         try {
@@ -309,8 +311,7 @@ public class cls_methods {
     }
 
     //-------------------------------------------------------------------------- Stored Procedures
-
-    public ArrayList SP_GetWidgetsInfo(){
+    public ArrayList SP_GetWidgetsInfo() {
         ArrayList<String> data = new ArrayList<>(4);
 
         try {
@@ -326,13 +327,13 @@ public class cls_methods {
             }
 
             cs.close();
-        }catch(Exception ex){
-            
+        } catch (Exception ex) {
+
         }
         return data;
     }
-    
-    public ArrayList SP_GetVehiclesCount(){
+
+    public ArrayList SP_GetVehiclesCount() {
         ArrayList<String> data = new ArrayList<>(3);
 
         try {
@@ -347,30 +348,229 @@ public class cls_methods {
             }
 
             cs.close();
-        }catch(Exception ex){
-            
+        } catch (Exception ex) {
+
         }
         return data;
     }
-        
-    public void Calculator(){
-        String Time = new DateTime().Get24hFullTime();
-        
-        int hours, minutes, seconds;
-        int v_hour, v_minute, v_second;
-        
-        v_hour = Integer.parseInt(Time.substring(0, 2));
-        v_minute = Integer.parseInt(Time.substring(3, 5));
-        v_second = Integer.parseInt(Time.substring(7, 8));
-        System.out.println(v_hour + " " + v_minute + " " + v_second);
+
+    public int GetLimitOfDays(int Month, int Years) {
+        int Limit = 0;
+        GregorianCalendar ca = new GregorianCalendar();
+
+        switch (Month) {
+            case 2:
+                if (ca.isLeapYear(Years)) {
+                    Limit = 29;
+                } else {
+                    Limit = 28;
+                }
+                break;
+            case 4:
+                Limit = 30;
+                break;
+            case 6:
+                Limit = 30;
+                break;
+            case 9:
+                Limit = 30;
+                break;
+            case 11:
+                Limit = 30;
+                break;
+            default:
+                Limit = 31;
+                break;
+        }
+        return Limit;
     }
-    
-    
-    
-    
-    
-    public void SP_History(String USERNAME, String DESCRIPTION, String DATAENTERED) {        
-        try {            
+
+    public void SP() {
+        ArrayList<String> data = new ArrayList<>(2);
+
+        String EntryTime = "19:59:00";
+        String DepartureTime = "20:10:00";
+
+        String EntryDate = "01/02/2017";
+        String DepartureDate = "01/01/2019";
+
+        int Hours = Integer.parseInt(EntryTime.substring(0, 2));
+        int Minutes = Integer.parseInt(EntryTime.substring(3, 5));
+        int Seconds = Integer.parseInt(EntryTime.substring(6, 8));
+
+        int Days = Integer.parseInt(EntryDate.substring(0, 2));
+        int Months = Integer.parseInt(EntryDate.substring(3, 5));
+        int Years = Integer.parseInt(EntryDate.substring(6, 10));
+        String Date = "";
+
+        String total = "";
+        int res1 = 0;
+        int Limit = 0;
+
+        do {
+            Days++;
+
+            /* ----------------- GET LIMIT OF DAYS PER MONTH ---------------- */
+            Limit = GetLimitOfDays(Months, Years);
+
+            /* ------------------------ CALCULATOR -------------------------- */
+            if (Days == Limit + 1) {
+                Months++;
+                Days = 1;
+            }
+
+            if (Months == 13) {
+                Years++;
+                Months = 1;
+            }
+
+            /* --------------- SET DATE FORMAT 01/01/2000 ------------------- */
+            if (Days < 10) {
+                Date = "0" + Days + "/";
+            } else {
+                Date = Days + "/";
+            }
+
+            if (Months < 10) {
+                Date = Date + "0" + Months + "/";
+            } else {
+                Date = Date + Months + "/";
+            }
+
+            Date = Date + Years;
+
+            res1++;
+            System.out.println(Date + " - " + DepartureDate + " - " + (res1 * 86400));
+        } while (!Date.equals(DepartureDate));
+        res1 = res1 * 86400;
+        do {
+            Seconds++;
+
+            if (Seconds == 60) {
+                Minutes++;
+                Seconds = 00;
+            }
+
+            if (Minutes == 60) {
+                Hours++;
+                Minutes = 0;
+            }
+
+            if (Hours < 10) {
+                total = "0" + Hours + ":";
+            } else {
+                total = Hours + ":";
+            }
+
+            if (Minutes < 10) {
+                total = total + "0" + Minutes + ":";
+            } else {
+                total = total + Minutes + ":";
+            }
+
+            if (Seconds < 10) {
+                total = total + "0" + Seconds;
+            } else {
+                total = total + Seconds;
+            }
+
+            res1++;
+            System.out.println("Total: " + total + " Segundos: " + res1);
+        } while (!total.equals(DepartureTime));
+
+        System.out.println("Res: " + ConvertSecondsToHours(res1));
+    }
+
+    public String ConvertSecondsToHours(int V_Seconds) {
+        int Hours = V_Seconds / 3600;
+        int Minutes = (V_Seconds - (3600 * Hours)) / 60;
+        int Seconds = V_Seconds - ((Hours * 3600) + (Minutes * 60));
+
+        return GetTimeFormat(Hours, Minutes, Seconds);
+    }
+
+    public String GetTimeFormat(int Hours, int Minutes, int Seconds) {
+        String total = "";
+        if (Hours < 10) {
+            total = "0" + Hours + ":";
+        } else {
+            total = Hours + ":";
+        }
+
+        if (Minutes < 10) {
+            total = total + "0" + Minutes + ":";
+        } else {
+            total = total + Minutes + ":";
+        }
+
+        if (Seconds < 10) {
+            total = total + "0" + Seconds;
+        } else {
+            total = total + Seconds;
+        }
+        return total;
+    }
+
+    public ArrayList SP_GetTicketInfo(String ID_VEHICLE) {
+        ArrayList<String> data = new ArrayList<>(8);
+
+        try {
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GetTicketInfo(?,?,?,?,?,?,?,?,?) }");
+            cs.setString(1, Encrypt(ID_VEHICLE));
+            cs.registerOutParameter(2, Types.VARCHAR);
+            cs.registerOutParameter(3, Types.VARCHAR);
+            cs.registerOutParameter(4, Types.VARCHAR);
+            cs.registerOutParameter(5, Types.VARCHAR);
+            cs.registerOutParameter(6, Types.VARCHAR);
+            cs.registerOutParameter(7, Types.VARCHAR);
+            cs.registerOutParameter(8, Types.VARCHAR);
+            cs.registerOutParameter(9, Types.VARCHAR);
+            cs.execute();
+
+            for (int i = 2; i < 10; i++) {
+                data.add(cs.getString(i));
+            }
+
+            cs.close();
+        } catch (Exception ex) {
+
+        }
+        return data;
+    }
+
+    public int MakePositive(int data) {
+        if (data <= 0) {
+            data = data * -1;
+        }
+        return data;
+    }
+
+    public int CalcPayment(String Time) {
+        System.out.println(Time);
+        int h = Integer.parseInt(Time.substring(0, 1));
+        int m = Integer.parseInt(Time.substring(5, 7));
+        int s = Integer.parseInt(Time.substring(12, 14));
+
+        int total = 0;
+        if (h == 0) {
+            if (m >= 5) {                                              //MARGEN DE 5 MINUTOS
+                total = 900;                                               //LA PRIMERA HORA SE COBRA COMPLETA
+            } else {
+                total = 0;
+            }
+        } else if (h >= 1) {
+            total = 900 * h;
+            if (m >= 5 && m <= 30) {
+                total = total + 350;
+            } else if (m >= 5 && m >= 30) {
+                total = total + 900;
+            }
+        }
+        return total;
+    }
+
+    public void SP_History(String USERNAME, String DESCRIPTION, String DATAENTERED) {
+        try {
             CallableStatement cs = Connect().prepareCall("{ call STPR.SP_HISTORY(?,?,?) }");
             cs.setString(1, USERNAME);
             cs.setString(2, DESCRIPTION);
@@ -381,30 +581,28 @@ public class cls_methods {
             Error(ex + ex.getMessage() + "Error 012: Ha ocurrido un error al ingresar un \nnuevo vehículo en el sistema. \nSi el problema persiste contacte al administrador.");
         }
     }
-    
-    public void SetHistory(String DESCRIPTION, String DataEntered) {        
+
+    public void SetHistory(String DESCRIPTION, String DataEntered) {
         if (USERNAME == null) {
             SP_History("NAXAg7BtqIDVtqFR5TFj1pwdX68nWShQN324pHVR86w=", DESCRIPTION, DataEntered);
-        }else{
+        } else {
             SP_History(USERNAME, DESCRIPTION, DataEntered);
-        }        
+        }
     }
-    
 
+    public String SP_NewVehicle(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE) {
+        String status = null;
+        String DATE = new GetDateTime().GetDate();
+        String TIME = new GetDateTime().Get24hFullTime();
 
-    public String SP_NewVehicle(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE) {        
-        String status = null;        
-        String DATE = new DateTime().GetFullDate();
-        String TIME = new DateTime().Get24hFullTime();
-        
         try {
             CallableStatement cs = Connect().prepareCall("{ call STPR.SP_NEWVEHICLE(?,?,?,?,?,?,?) }");
             cs.registerOutParameter(7, Types.VARCHAR);
             cs.setString(1, Encrypt(ID_VEHICLE));
             cs.setString(2, Encrypt(TYPEVEHICLE));
             cs.setString(3, Encrypt(TYPETICKET));
-            cs.setString(4, DATE);
-            cs.setString(5, TIME);
+            cs.setString(4, Encrypt(DATE));
+            cs.setString(5, Encrypt(TIME));
             cs.setString(6, USERNAME);
             cs.execute();
             status = cs.getString(7);
@@ -412,15 +610,15 @@ public class cls_methods {
 
             switch (status) {
                 case "PARTNER":
-                    printEntrance(ID_VEHICLE, "SOCIO", TYPEVEHICLE, DATE, new DateTime().ConvertTo12h(TIME));
+                    printEntrance(ID_VEHICLE, "SOCIO", TYPEVEHICLE, DATE, new GetDateTime().ConvertTo12h(TIME));
                     break;
                 case "OK":
                     switch (TYPETICKET) {
                         case "RENTA DIARIA":
-                            printDailyRent(ID_VEHICLE, TYPETICKET, TYPEVEHICLE, DATE, new DateTime().ConvertTo12h(TIME));
+                            printDailyRent(ID_VEHICLE, TYPETICKET, TYPEVEHICLE, DATE, new GetDateTime().ConvertTo12h(TIME));
                             break;
                         case "CLIENTE CASUAL":
-                            printEntrance(ID_VEHICLE, TYPETICKET, TYPEVEHICLE, DATE, new DateTime().ConvertTo12h(TIME));
+                            printEntrance(ID_VEHICLE, TYPETICKET, TYPEVEHICLE, DATE, new GetDateTime().ConvertTo12h(TIME));
                             break;
                     }
                     break;
@@ -430,13 +628,13 @@ public class cls_methods {
         }
         return status;
     }
-    
+
     //-------------------------------------------------------------------------- Tickets    
     public void printEntrance(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String ENTRYDATE, String ENTRYTIME) {
         ArrayList<String> data = new ArrayList<>(3);
 
         try {
-            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GET_CONFIGTICKET(?,?,?) }");
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GetConfigTicket(?,?,?) }");
             cs.registerOutParameter(1, Types.VARCHAR);
             cs.registerOutParameter(2, Types.VARCHAR);
             cs.registerOutParameter(3, Types.VARCHAR);
@@ -460,7 +658,7 @@ public class cls_methods {
             parameters.put("ENTRYTIME", ENTRYTIME);
             parameters.put("ID_VEHICLE", ID_VEHICLE);
             parameters.put("TYPEVEHICLE", Capitalize(TYPEVEHICLE));
-            parameters.put("PRINT", "Impreso el " + ENTRYDATE + " a las " + new DateTime().Get12hTime());
+            parameters.put("PRINT", "Impreso el " + ENTRYDATE + " a las " + new GetDateTime().Get12hTime());
 
             JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
             JasperPrintManager.printReport(print, false);
@@ -487,9 +685,8 @@ public class cls_methods {
         } catch (Exception ex) {
             new frmError(ex.toString()).setVisible(true);
         }
-        
-        
-/*        int hour = Integer.parseInt(TIME.substring(0, 2));
+
+        /*        int hour = Integer.parseInt(TIME.substring(0, 2));
         int Daily = 0;
         int Daily2 = 0;
 
@@ -545,25 +742,8 @@ public class cls_methods {
 
             JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
             JasperPrintManager.printReport(print, false);
-  */     
-    
-    
-    
-    
-    
-    
-  
-    
-    
-    
+         */
     }
-    
-    
-    
-    
-    
-    
-    
 
     public byte FN_VehicleExist(String ID_VEHICLE) {
         byte exist = 0;
@@ -576,7 +756,7 @@ public class cls_methods {
                 case 1:
                     exist = 1;
                     break;
-                    }
+            }
 
             cs.close();
         } catch (Exception ex) {
@@ -584,7 +764,6 @@ public class cls_methods {
         }
         return exist;
     }
-
 
     public ArrayList<String> SP_GetDetails(String ID_VEHICLE) {
         ArrayList<String> data = new ArrayList<>(4);
@@ -608,7 +787,6 @@ public class cls_methods {
         }
         return data;
     }
-
 
     public int FN_GetDailyPrice(String TYPEVEHICLE) {
         int price = 0;

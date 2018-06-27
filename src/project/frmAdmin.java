@@ -3,7 +3,7 @@ package project;
 import java.awt.Color;
 import java.util.ArrayList;
 import methods.cls_methods;
-import GetDateTime.DateTime;
+import CustomDateTime.GetDateTime;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import Atxy2k.CustomTextField.RestrictedTextField;
 
@@ -32,6 +32,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         new RestrictedTextField(tbx_idTruck).setLimit(8);
         new RestrictedTextField(tbx_idCar).setLimit(8);
         new RestrictedTextField(tbx_idMotorcycle).setLimit(8);
+        new RestrictedTextField(tbx_idVehicle).setLimit(8);
 
         /* ----------------------- MENU CONFIGURATION ----------------------- */
         item_1.setBackground(new Color(38, 50, 56));  // ON
@@ -187,12 +188,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         sp_idVehicle = new javax.swing.JSeparator();
         btn_showDetails = new javax.swing.JButton();
         pn_paymentData = new javax.swing.JPanel();
+        btn_returnData = new javax.swing.JButton();
+        pn_paymentInputData1 = new javax.swing.JPanel();
         lb_paymentInputTitless = new javax.swing.JLabel();
-        sp_paymentInputss = new javax.swing.JSeparator();
-        lb_platess = new javax.swing.JLabel();
-        tbx_idVehicless = new javax.swing.JTextField();
-        sp_idVehicless = new javax.swing.JSeparator();
-        btn_showDetailsss = new javax.swing.JButton();
+        sp_paymentInputss1 = new javax.swing.JSeparator();
         pn_paymentDetails = new javax.swing.JPanel();
         lb_EntryDate = new javax.swing.JLabel();
         lb_EntryDateData = new javax.swing.JLabel();
@@ -214,10 +213,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_MarginData = new javax.swing.JLabel();
         lb_TotalTimeRounded = new javax.swing.JLabel();
         lb_TotalTimeRoundedData = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        btn_showDetails2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        lb_payment = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btn_showDetails3 = new javax.swing.JButton();
         btn_showDetailsaaa = new javax.swing.JButton();
         pn_bottom = new javax.swing.JPanel();
         lb_name = new javax.swing.JLabel();
@@ -1065,10 +1064,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_idVehicle.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lb_idVehicle.setForeground(new java.awt.Color(255, 255, 255));
         lb_idVehicle.setText("Placa del vehículo:");
-        pn_paymentInputData.add(lb_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 50));
+        pn_paymentInputData.add(lb_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, 50));
 
         tbx_idVehicle.setBackground(new java.awt.Color(38, 50, 56));
-        tbx_idVehicle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tbx_idVehicle.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         tbx_idVehicle.setForeground(new java.awt.Color(255, 255, 255));
         tbx_idVehicle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tbx_idVehicle.setBorder(null);
@@ -1077,10 +1076,16 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                 tbx_idVehicleActionPerformed(evt);
             }
         });
-        pn_paymentInputData.add(tbx_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 220, 40));
-        pn_paymentInputData.add(sp_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 220, 10));
+        tbx_idVehicle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbx_idVehicleKeyTyped(evt);
+            }
+        });
+        pn_paymentInputData.add(tbx_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 270, 50));
+        pn_paymentInputData.add(sp_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 270, 10));
 
         btn_showDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Continue 60px.png"))); // NOI18N
+        btn_showDetails.setToolTipText("Ver detalles");
         btn_showDetails.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         btn_showDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_showDetails.addActionListener(new java.awt.event.ActionListener() {
@@ -1088,194 +1093,179 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                 btn_showDetailsActionPerformed(evt);
             }
         });
-        pn_paymentInputData.add(btn_showDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, -1, -1));
+        pn_paymentInputData.add(btn_showDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, -1, -1));
 
-        pn_paymentInput.add(pn_paymentInputData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 970, 180));
+        pn_paymentInput.add(pn_paymentInputData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 970, 180));
 
         pn_payment.add(pn_paymentInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
 
-        pn_paymentData.setBackground(new java.awt.Color(38, 50, 56));
+        pn_paymentData.setBackground(new java.awt.Color(244, 243, 239));
+        pn_paymentData.setMinimumSize(new java.awt.Dimension(1130, 740));
+        pn_paymentData.setPreferredSize(new java.awt.Dimension(1130, 740));
         pn_paymentData.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_returnData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Return 60px.png"))); // NOI18N
+        btn_returnData.setToolTipText("Volver.");
+        btn_returnData.setBorder(null);
+        btn_returnData.setBorderPainted(false);
+        btn_returnData.setContentAreaFilled(false);
+        btn_returnData.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_returnData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_returnDataActionPerformed(evt);
+            }
+        });
+        pn_paymentData.add(btn_returnData, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 60, 60));
+
+        pn_paymentInputData1.setBackground(new java.awt.Color(38, 50, 56));
+        pn_paymentInputData1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lb_paymentInputTitless.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lb_paymentInputTitless.setForeground(new java.awt.Color(255, 255, 255));
         lb_paymentInputTitless.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_paymentInputTitless.setText("Digite la placa del vehículo");
-        pn_paymentData.add(lb_paymentInputTitless, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
-        pn_paymentData.add(sp_paymentInputss, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 970, 10));
-
-        lb_platess.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        lb_platess.setForeground(new java.awt.Color(255, 255, 255));
-        lb_platess.setText("Placa del vehículo:");
-        pn_paymentData.add(lb_platess, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 50));
-
-        tbx_idVehicless.setBackground(new java.awt.Color(38, 50, 56));
-        tbx_idVehicless.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        tbx_idVehicless.setForeground(new java.awt.Color(255, 255, 255));
-        tbx_idVehicless.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tbx_idVehicless.setBorder(null);
-        pn_paymentData.add(tbx_idVehicless, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 220, 40));
-        pn_paymentData.add(sp_idVehicless, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 220, 10));
-
-        btn_showDetailsss.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Continue 60px.png"))); // NOI18N
-        btn_showDetailsss.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        btn_showDetailsss.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_showDetailsss.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_showDetailsssActionPerformed(evt);
-            }
-        });
-        pn_paymentData.add(btn_showDetailsss, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, -1, -1));
+        lb_paymentInputTitless.setText("Información del vehículo");
+        pn_paymentInputData1.add(lb_paymentInputTitless, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
+        pn_paymentInputData1.add(sp_paymentInputss1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 970, 10));
 
         pn_paymentDetails.setBackground(new java.awt.Color(255, 255, 255));
         pn_paymentDetails.setForeground(new java.awt.Color(153, 0, 0));
         pn_paymentDetails.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lb_EntryDate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_EntryDate.setForeground(new java.awt.Color(153, 0, 0));
+        lb_EntryDate.setForeground(new java.awt.Color(0, 102, 0));
         lb_EntryDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_EntryDate.setText("Fecha de entrada:");
-        pn_paymentDetails.add(lb_EntryDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 220, -1));
+        pn_paymentDetails.add(lb_EntryDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 210, 30));
 
         lb_EntryDateData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_EntryDateData.setForeground(new java.awt.Color(0, 102, 0));
         lb_EntryDateData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_EntryDateData.setText("01/01/2000");
-        pn_paymentDetails.add(lb_EntryDateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 140, -1));
+        pn_paymentDetails.add(lb_EntryDateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 140, 30));
 
         lb_EntryTime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_EntryTime.setForeground(new java.awt.Color(153, 0, 0));
+        lb_EntryTime.setForeground(new java.awt.Color(0, 102, 0));
         lb_EntryTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_EntryTime.setText("Hora de entrada:");
-        pn_paymentDetails.add(lb_EntryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 220, -1));
+        pn_paymentDetails.add(lb_EntryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 75, 210, 30));
 
         lb_EntryTimeData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_EntryTimeData.setForeground(new java.awt.Color(0, 102, 0));
         lb_EntryTimeData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_EntryTimeData.setText("12:00:00 pm");
-        pn_paymentDetails.add(lb_EntryTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 150, -1));
+        pn_paymentDetails.add(lb_EntryTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 75, 150, 30));
 
         lb_DepartureDate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_DepartureDate.setForeground(new java.awt.Color(153, 0, 0));
         lb_DepartureDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_DepartureDate.setText("Fecha de salida:");
         lb_DepartureDate.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        pn_paymentDetails.add(lb_DepartureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 220, -1));
+        pn_paymentDetails.add(lb_DepartureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 210, 30));
 
         lb_DepartureDateData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_DepartureDateData.setForeground(new java.awt.Color(153, 0, 0));
         lb_DepartureDateData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_DepartureDateData.setText("01/01/2000");
-        pn_paymentDetails.add(lb_DepartureDateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 140, -1));
+        pn_paymentDetails.add(lb_DepartureDateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 140, 30));
 
         lb_DepartureTime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_DepartureTime.setForeground(new java.awt.Color(153, 0, 0));
         lb_DepartureTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_DepartureTime.setText("Hora de salida:");
-        pn_paymentDetails.add(lb_DepartureTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 220, -1));
+        pn_paymentDetails.add(lb_DepartureTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 145, 210, 30));
 
         lb_DepartureTimeData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_DepartureTimeData.setForeground(new java.awt.Color(153, 0, 0));
         lb_DepartureTimeData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_DepartureTimeData.setText("12:00:00 pm");
-        pn_paymentDetails.add(lb_DepartureTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 150, -1));
+        pn_paymentDetails.add(lb_DepartureTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 145, 150, 30));
 
         lb_TotalTime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_TotalTime.setForeground(new java.awt.Color(153, 0, 0));
         lb_TotalTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TotalTime.setText("Tiempo de estadia:");
-        pn_paymentDetails.add(lb_TotalTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 220, -1));
+        pn_paymentDetails.add(lb_TotalTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 220, 30));
 
         lb_TotalTimeData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_TotalTimeData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_TotalTimeData.setText("12 Hr 00 Min 00 Sec");
-        pn_paymentDetails.add(lb_TotalTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 230, -1));
+        pn_paymentDetails.add(lb_TotalTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 240, 30));
 
         lb_Plate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_Plate.setForeground(new java.awt.Color(153, 0, 0));
         lb_Plate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Plate.setText("Placa:");
-        pn_paymentDetails.add(lb_Plate, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, -1));
+        pn_paymentDetails.add(lb_Plate, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, 70, 30));
 
         lb_PlateData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_PlateData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_PlateData.setText("12345678");
-        pn_paymentDetails.add(lb_PlateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, -1));
+        pn_paymentDetails.add(lb_PlateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 140, 30));
 
         lb_TypeVehicle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_TypeVehicle.setForeground(new java.awt.Color(153, 0, 0));
         lb_TypeVehicle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TypeVehicle.setText("Tipo de vehículo:");
-        pn_paymentDetails.add(lb_TypeVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 200, -1));
+        pn_paymentDetails.add(lb_TypeVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 75, 200, 30));
 
         lb_TypeVehicleData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_TypeVehicleData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_TypeVehicleData.setText("Motocicleta");
-        pn_paymentDetails.add(lb_TypeVehicleData, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 70, -1, -1));
+        pn_paymentDetails.add(lb_TypeVehicleData, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 75, 150, 30));
 
         lb_TypeTicket.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_TypeTicket.setForeground(new java.awt.Color(153, 0, 0));
         lb_TypeTicket.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TypeTicket.setText("Tipo de cliente:");
-        pn_paymentDetails.add(lb_TypeTicket, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 180, -1));
+        pn_paymentDetails.add(lb_TypeTicket, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 180, 30));
 
         lb_TypeTicketData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_TypeTicketData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_TypeTicketData.setText("Renta Diaria");
-        pn_paymentDetails.add(lb_TypeTicketData, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, 150, -1));
+        pn_paymentDetails.add(lb_TypeTicketData, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 170, 30));
 
         lb_Margin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_Margin.setForeground(new java.awt.Color(153, 0, 0));
         lb_Margin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Margin.setText("Margen:");
-        pn_paymentDetails.add(lb_Margin, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 100, -1));
+        pn_paymentDetails.add(lb_Margin, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 100, 30));
 
         lb_MarginData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_MarginData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_MarginData.setText("5 Minutos");
-        pn_paymentDetails.add(lb_MarginData, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 130, -1));
+        pn_paymentDetails.add(lb_MarginData, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 180, 140, 30));
 
         lb_TotalTimeRounded.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_TotalTimeRounded.setForeground(new java.awt.Color(153, 0, 0));
         lb_TotalTimeRounded.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TotalTimeRounded.setText("Tiempo a cobrar:");
-        pn_paymentDetails.add(lb_TotalTimeRounded, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 200, -1));
+        pn_paymentDetails.add(lb_TotalTimeRounded, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 145, 200, 30));
 
         lb_TotalTimeRoundedData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_TotalTimeRoundedData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_TotalTimeRoundedData.setText("5.0 H");
-        pn_paymentDetails.add(lb_TotalTimeRoundedData, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 190, 60, -1));
+        pn_paymentDetails.add(lb_TotalTimeRoundedData, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 145, 60, 30));
 
-        jPanel1.setBackground(new java.awt.Color(38, 50, 56));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.setBackground(new java.awt.Color(38, 50, 56));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("$5000000");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 230, 100));
+        lb_payment.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lb_payment.setForeground(new java.awt.Color(255, 255, 255));
+        lb_payment.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel3.add(lb_payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 290, 100));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Total a pagar:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 340, 100));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Total a pagar:");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 340, 100));
 
-        btn_showDetails2.setBackground(new java.awt.Color(38, 50, 56));
-        btn_showDetails2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/information 50px.png"))); // NOI18N
-        btn_showDetails2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        btn_showDetails2.setContentAreaFilled(false);
-        btn_showDetails2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(btn_showDetails2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, -1, -1));
-
-        pn_paymentDetails.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 750, 100));
+        btn_showDetails3.setBackground(new java.awt.Color(38, 50, 56));
+        btn_showDetails3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/information 50px.png"))); // NOI18N
+        btn_showDetails3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        btn_showDetails3.setContentAreaFilled(false);
+        btn_showDetails3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel3.add(btn_showDetails3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 25, -1, -1));
 
         btn_showDetailsaaa.setBackground(new java.awt.Color(38, 50, 56));
         btn_showDetailsaaa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print 50px.png"))); // NOI18N
         btn_showDetailsaaa.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(38, 50, 56), 2, true));
         btn_showDetailsaaa.setContentAreaFilled(false);
         btn_showDetailsaaa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pn_paymentDetails.add(btn_showDetailsaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, -1, -1));
+        jPanel3.add(btn_showDetailsaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 25, -1, -1));
 
-        pn_paymentData.add(pn_paymentDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 930, 380));
+        pn_paymentDetails.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 870, 100));
 
-        pn_payment.add(pn_paymentData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 970, 580));
+        pn_paymentInputData1.add(pn_paymentDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 930, 370));
+
+        pn_paymentData.add(pn_paymentInputData1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 970, 480));
+
+        pn_payment.add(pn_paymentData, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
+        pn_paymentData.getAccessibleContext().setAccessibleName("");
 
         pn_system.add(pn_payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
 
@@ -1376,6 +1366,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         ClearPanels();
         pn_system.setVisible(true);
         pn_payment.setVisible(true);
+        pn_paymentInput.setVisible(true);
+
+        /* ---------------------------- OTHERS ------------------------------ */
+        tbx_idVehicle.requestFocus();
     }//GEN-LAST:event_btn_paymentActionPerformed
 
     private void lb_showVehiclesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_showVehiclesMousePressed
@@ -1444,42 +1438,37 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_returnCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnCarActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
         pn_type.setVisible(true);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
+
+        /* ----------------------------- OTHERS ----------------------------- */
+        tbx_idCar.setText(null);
     }//GEN-LAST:event_btn_returnCarActionPerformed
 
     private void btn_calendarCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarCarActionPerformed
+        /* ------------------ ENTRY OF CARS AS DAILY RENT ------------------- */
 
     }//GEN-LAST:event_btn_calendarCarActionPerformed
 
     private void btn_clockCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockCarActionPerformed
+        /* ---------------- ENTRY OF CARS AS RENT FOR HOURS ----------------- */
         ID_VEHICLE = tbx_idCar.getText();
         NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "AUTOMÓVIL");
     }//GEN-LAST:event_btn_clockCarActionPerformed
 
     private void btn_returnMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnMotorcycleActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
         pn_type.setVisible(true);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
+
+        /* ----------------------------- OTHERS ----------------------------- */
+        tbx_idMotorcycle.setText(null);
     }//GEN-LAST:event_btn_returnMotorcycleActionPerformed
 
     private void btn_calendarMotorcycleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarMotorcycleActionPerformed
+        /* -------------- ENTRY OF MOTORCYCLES AS DAILY RENT ---------------- */
 
     }//GEN-LAST:event_btn_calendarMotorcycleActionPerformed
 
@@ -1498,6 +1487,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_lb_showVehiclesMouseExited
 
     private void tbx_idCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idCarActionPerformed
+        /* ---------------- ENTRY OF CARS AS RENT FOR HOURS ----------------- */
         ID_VEHICLE = tbx_idCar.getText();
         NewVehicle(ID_VEHICLE, "CLIENTE CASUAL", "AUTOMÓVIL");
     }//GEN-LAST:event_tbx_idCarActionPerformed
@@ -1527,34 +1517,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
             evt.setKeyChar(c);
         }
     }//GEN-LAST:event_tbx_idMotorcycleKeyTyped
-
-    private void btn_showDetailsssActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showDetailsssActionPerformed
-        ID_VEHICLE = tbx_idVehicless.getText();
-        ArrayList<String> data = new ArrayList<>(4);
-
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.FN_VehicleExist(ID_VEHICLE)) {
-                case 0:
-                    mt.Warning("La placa " + ID_VEHICLE + " no se encuentra actualmente en el sistema. \nPor favor verifique la placa del vehículo e inténtelo nuevamente..");
-                    break;
-                case 1:
-                    data = mt.SP_GetDetails(ID_VEHICLE);
-                    lb_EntryDateData.setText(data.get(2));
-                    lb_EntryTimeData.setText(new DateTime().ConvertTo12h(data.get(3)));
-                    lb_DepartureDateData.setText(new DateTime().GetFullDate());
-                    lb_DepartureTimeData.setText(new DateTime().Get12hFullTime());
-                    lb_PlateData.setText(ID_VEHICLE);
-                    lb_TypeVehicleData.setText(mt.Capitalize(data.get(0)));
-                    lb_TypeTicketData.setText(mt.Capitalize(data.get(1)));
-                    lb_MarginData.setText("null");
-                    break;
-            }
-        }
-
-        pn_paymentDetails.setVisible(true);
-    }//GEN-LAST:event_btn_showDetailsssActionPerformed
 
     private void item_3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
@@ -1631,19 +1593,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_calendarTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calendarTruckActionPerformed
         /* ----------------- ENTRY OF TRUCKS AS DAILY RENT ------------------ */
-        if (!tbx_idTruck.getText().isEmpty()) {
-            lb_dailyTypeVehicle.setText("Camión");
-            lb_dailyIdVehicle.setText(tbx_idTruck.getText());
-            lb_dailyEntryDate.setText(new DateTime().GetFullDate());
-            lb_dailyEntryTime.setText(new DateTime().Get12hFullTime());
-            
-            /* -------------------- PANELS CONFIGURATION -------------------- */
-            ClearPanels();
-            pn_system.setVisible(true);
-            pn_dailyRent.setVisible(true);
-        } else {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        }
+
     }//GEN-LAST:event_btn_calendarTruckActionPerformed
 
     private void btn_clockTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clockTruckActionPerformed
@@ -1657,6 +1607,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         ClearPanels();
         pn_system.setVisible(true);
         pn_type.setVisible(true);
+
+        /* ----------------------------- OTHERS ----------------------------- */
+        tbx_idTruck.setText(null);
     }//GEN-LAST:event_btn_returnTruckActionPerformed
 
     private void btn_lessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lessActionPerformed
@@ -1669,27 +1622,70 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void btn_returnPaymentInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnPaymentInputActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
         pn_main.setVisible(true);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_dailyRent.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
+
+        /* ----------------------------- OTHERS ----------------------------- */
+        tbx_idVehicle.setText(null);
     }//GEN-LAST:event_btn_returnPaymentInputActionPerformed
 
     private void btn_showDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showDetailsActionPerformed
-        // TODO add your handling code here:
+        ID_VEHICLE = tbx_idVehicle.getText();
+
+        if (!ID_VEHICLE.isEmpty()) {
+            /* -------------------- PANELS CONFIGURATION -------------------- */
+            ClearPanels();
+            pn_system.setVisible(true);
+            pn_payment.setVisible(true);
+            pn_paymentData.setVisible(true);
+
+            /* -------------------------- SET DATA -------------------------- */
+            ArrayList<String> data = mt.SP_GetTicketInfo(ID_VEHICLE);
+
+            lb_EntryDateData.setText(data.get(0));
+            lb_EntryTimeData.setText(data.get(1));
+            lb_DepartureDateData.setText(data.get(2));
+            lb_DepartureTimeData.setText(data.get(3));
+            lb_TotalTimeData.setText(data.get(4));
+
+            lb_PlateData.setText(ID_VEHICLE);
+
+
+            lb_TypeVehicleData.setText(mt.Capitalize(mt.Decrypt(data.get(5))));
+            lb_TypeTicketData.setText(mt.Capitalize(mt.Decrypt(data.get(6))));
+
+//            lb_payment.setText(String.valueOf(mt.CalcPayment(lb_TotalTimeData.getText())));
+
+            lb_MarginData.setText(data.get(7));
+        }
     }//GEN-LAST:event_btn_showDetailsActionPerformed
 
     private void tbx_idVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idVehicleActionPerformed
 
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tbx_idVehicleActionPerformed
+
+    private void tbx_idVehicleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idVehicleKeyTyped
+        /* ---------------------- CONVERT TO UPPERCASE ---------------------- */
+        char c = evt.getKeyChar();
+        if (Character.isLowerCase(c)) {
+            String cad = ("" + c).toUpperCase();
+            c = cad.charAt(0);
+            evt.setKeyChar(c);
+        }
+    }//GEN-LAST:event_tbx_idVehicleKeyTyped
+
+    private void btn_returnDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnDataActionPerformed
+        /* ---------------------- PANELS CONFIGURATION ---------------------- */
+        ClearPanels();
+        pn_system.setVisible(true);
+        pn_payment.setVisible(true);
+        pn_paymentInput.setVisible(true);
+
+        /* ----------------------------- OTHERS ----------------------------- */
+        tbx_idVehicle.setText(null);
+    }//GEN-LAST:event_btn_returnDataActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -1732,26 +1728,25 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_printPaymentDaily;
     private javax.swing.JButton btn_returnCar;
     private javax.swing.JButton btn_returnDaily;
+    private javax.swing.JButton btn_returnData;
     private javax.swing.JButton btn_returnMotorcycle;
     private javax.swing.JButton btn_returnPaymentInput;
     private javax.swing.JButton btn_returnTruck;
     private javax.swing.JButton btn_returnType;
     private javax.swing.JButton btn_showDetails;
-    private javax.swing.JButton btn_showDetails2;
+    private javax.swing.JButton btn_showDetails3;
     private javax.swing.JButton btn_showDetailsaaa;
-    private javax.swing.JButton btn_showDetailsss;
     private javax.swing.JButton btn_truck;
     private javax.swing.JPanel item_1;
     private javax.swing.JPanel item_2;
     private javax.swing.JPanel item_3;
     private javax.swing.JPanel item_9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lb_DepartureDate;
@@ -1826,9 +1821,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_motorcycleIcon;
     private javax.swing.JLabel lb_motorcycles;
     private javax.swing.JLabel lb_name;
+    private javax.swing.JLabel lb_payment;
     private javax.swing.JLabel lb_paymentInputTitle;
     private javax.swing.JLabel lb_paymentInputTitless;
-    private javax.swing.JLabel lb_platess;
     private javax.swing.JLabel lb_showVehicles;
     private javax.swing.JLabel lb_textCar;
     private javax.swing.JLabel lb_textMotorcycle;
@@ -1865,6 +1860,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_paymentDetails;
     private javax.swing.JPanel pn_paymentInput;
     private javax.swing.JPanel pn_paymentInputData;
+    private javax.swing.JPanel pn_paymentInputData1;
     private javax.swing.JPanel pn_stats;
     private javax.swing.JPanel pn_system;
     private javax.swing.JPanel pn_truck;
@@ -1876,7 +1872,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator sp_dataDaily;
     private javax.swing.JSeparator sp_date;
     private javax.swing.JSeparator sp_idVehicle;
-    private javax.swing.JSeparator sp_idVehicless;
     private javax.swing.JSeparator sp_inputCar;
     private javax.swing.JSeparator sp_inputMotorcycle;
     private javax.swing.JSeparator sp_inputTitleCar;
@@ -1886,23 +1881,82 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator sp_menu;
     private javax.swing.JSeparator sp_paymentDaily;
     private javax.swing.JSeparator sp_paymentInput;
-    private javax.swing.JSeparator sp_paymentInputss;
+    private javax.swing.JSeparator sp_paymentInputss1;
     private javax.swing.JTextField tbx_idCar;
     private javax.swing.JTextField tbx_idMotorcycle;
     private javax.swing.JTextField tbx_idTruck;
     private javax.swing.JTextField tbx_idVehicle;
-    private javax.swing.JTextField tbx_idVehicless;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void run() {
         Thread ct = Thread.currentThread();
         while (ct == th) {
-            lb_hour.setText(new DateTime().Get12hFullTime());
-            lb_fecha.setText(new DateTime().GetFullDate());
+            lb_hour.setText(new GetDateTime().Get12hFullTime());
+            lb_fecha.setText(new GetDateTime().GetDate());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
+            }
+        }
+    }
+
+    private void GetWidgetsInfo() {
+        ArrayList<String> data = mt.SP_GetWidgetsInfo();
+
+        lb_WidgetUsersTotal.setText(data.get(0));
+        lb_WidgetPartnersTotal.setText(data.get(1));
+        lb_WidgetBlockedTotal.setText(data.get(2));
+        lb_WidgetVehiclesTotal.setText(data.get(3));
+    }
+
+    private void GetVehiclesCount() {
+        ArrayList<String> data = mt.SP_GetVehiclesCount();
+
+        lb_trucks.setText(data.get(0));
+        lb_cars.setText(data.get(1));
+        lb_motorcycles.setText(data.get(2));
+    }
+
+    private void RestorePlate(String TypeVehicle) {
+        switch (TypeVehicle) {
+            case "CAMIÓN":
+                tbx_idTruck.setText(null);
+                break;
+            case "AUTOMÓVIL":
+                tbx_idCar.setText(null);
+                break;
+            case "MOTOCICLETA":
+                tbx_idMotorcycle.setText(null);
+                break;
+        }
+    }
+
+    private void NewVehicle(String ID_VEHICLE, String TypeTicket, String TypeVehicle) {
+        if (ID_VEHICLE.isEmpty()) {
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+        } else {
+            switch (mt.SP_NewVehicle(ID_VEHICLE, TypeTicket, TypeVehicle)) {
+                case "EXIST":
+                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
+                    RestorePlate(TypeVehicle);
+                    break;
+                case "LOCKED":
+                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
+                    RestorePlate(TypeVehicle);
+                    break;
+                default:
+                    /* ---------------- PANELS CONFIGURATION ---------------- */
+                    ClearPanels();
+                    pn_system.setVisible(true);
+                    pn_main.setVisible(true);
+
+                    /* ------------------ VEHICLE COUNTER ------------------- */
+                    GetVehiclesCount();
+
+                    /* ---------------------- OTHERS ------------------------ */
+                    RestorePlate(TypeVehicle);
+                    break;
             }
         }
     }
@@ -1936,73 +1990,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         }
     }
 
-    private void GetWidgetsInfo() {
-        ArrayList<String> data = mt.SP_GetWidgetsInfo();
-
-        lb_WidgetUsersTotal.setText(data.get(0));
-        lb_WidgetPartnersTotal.setText(data.get(1));
-        lb_WidgetBlockedTotal.setText(data.get(2));
-        lb_WidgetVehiclesTotal.setText(data.get(3));
-    }
-
-    private void GetVehiclesCount() {
-        ArrayList<String> data = mt.SP_GetVehiclesCount();
-
-        lb_trucks.setText(data.get(0));
-        lb_cars.setText(data.get(1));
-        lb_motorcycles.setText(data.get(2));
-    }
-
-    private void RestorePlate(String TypeVehicle) {
-        switch (TypeVehicle) {
-            case "CAMIÓN":
-                tbx_idTruck.setText(null);
-                break;
-            case "AUTOMÓVIL":
-                tbx_idCar.setText(null);
-                break;
-            case "MOTOCICLETA":
-                tbx_idCar.setText(null);
-                break;
-        }
-    }
-
-    private void NewVehicle(String ID_VEHICLE, String TypeTicket, String TypeVehicle) {
-        if (ID_VEHICLE.isEmpty()) {
-            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
-        } else {
-            switch (mt.SP_NewVehicle(ID_VEHICLE, TypeTicket, TypeVehicle)) {
-                case "EXIST":
-                    mt.Warning("La placa " + ID_VEHICLE + " se encuentra actualmente en el sistema. \nNo pueden existir 2 o más vehículos con la misma placa.");
-                    RestorePlate(TypeVehicle);
-                    break;
-                case "LOCKED":
-                    mt.Locked("La placa " + ID_VEHICLE + " tiene prohibido el ingreso al \nestacionamiento.");
-                    RestorePlate(TypeVehicle);
-                    break;
-                default:
-                    /* ---------------- PANELS CONFIGURATION ---------------- */
-                    pn_dashboard.setVisible(false);
-                    pn_system.setVisible(true);
-
-                    /* ------------ SYSTEM PANEL CONFIGURATION -------------- */
-                    pn_main.setVisible(true);
-                    pn_type.setVisible(false);
-                    pn_truck.setVisible(false);
-                    pn_car.setVisible(false);
-                    pn_motorcycle.setVisible(false);
-                    pn_payment.setVisible(false);
-
-                    /* ------------------ VEHICLE COUNTER ------------------- */
-                    GetVehiclesCount();
-
-                    /* ---------------------- OTHERS ------------------------ */
-                    RestorePlate(TypeVehicle);
-                    break;
-            }
-        }
-    }
-
     private void ClearPanels() {
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
         pn_dashboard.setVisible(false);
@@ -2014,6 +2001,11 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_truck.setVisible(false);
         pn_car.setVisible(false);
         pn_motorcycle.setVisible(false);
+        pn_dailyRent.setVisible(false);
         pn_payment.setVisible(false);
+
+        /* ----------------- PAYMENT PANEL CONFIGURATION -------------------- */
+        pn_paymentInput.setVisible(false);
+        pn_paymentData.setVisible(false);
     }
 }
