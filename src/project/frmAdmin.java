@@ -15,7 +15,8 @@ import Atxy2k.CustomTextField.RestrictedTextField;
 public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     Thread th;
-    static String item = "item_1", ID_VEHICLE = null;
+    private static String item = "item_1";
+    private static String ID_VEHICLE = null;
 
     cls_methods mt = new cls_methods();
 
@@ -66,40 +67,40 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_logoItem9 = new javax.swing.JLabel();
         lb_item9 = new javax.swing.JLabel();
         pn_dashboard = new javax.swing.JPanel();
-        pn_WidgetUsers = new javax.swing.JPanel();
-        lb_WidgetUsersIcon = new javax.swing.JLabel();
-        lb_WidgetUsersTitle = new javax.swing.JLabel();
-        lb_WidgetUsersTotal = new javax.swing.JLabel();
-        sp_WidgetUsers = new javax.swing.JSeparator();
-        lb_WidgetUsersFooterIcon = new javax.swing.JLabel();
-        lb_WidgetUsersFooterTitle = new javax.swing.JLabel();
-        pn_WidgetPartners = new javax.swing.JPanel();
-        lb_WidgetPartnersIcon = new javax.swing.JLabel();
-        lb_WidgetPartnersTitle = new javax.swing.JLabel();
-        lb_WidgetPartnersTotal = new javax.swing.JLabel();
-        sp_WidgetPartners = new javax.swing.JSeparator();
-        lb_WidgetPartnersFooterIcon = new javax.swing.JLabel();
-        lb_WidgetPartnersFooterTitle = new javax.swing.JLabel();
-        pn_WidgetBlocked = new javax.swing.JPanel();
-        lb_WidgetBlockedIcon = new javax.swing.JLabel();
-        lb_WidgetBlockedTitle = new javax.swing.JLabel();
-        lb_WidgetBlockedTotal = new javax.swing.JLabel();
-        sp_WidgetBlocked = new javax.swing.JSeparator();
-        lb_WidgetBlockedFooterIcon = new javax.swing.JLabel();
-        lb_WidgetBlockedFooterTitle = new javax.swing.JLabel();
-        pn_WidgetVehicles = new javax.swing.JPanel();
-        lb_WidgetVehiclesIcon = new javax.swing.JLabel();
-        lb_WidgetVehiclesTitle = new javax.swing.JLabel();
-        lb_WidgetVehiclesTotal = new javax.swing.JLabel();
-        sp_WidgetVehicles = new javax.swing.JSeparator();
-        lb_WidgetVehiclesFooterIcon = new javax.swing.JLabel();
-        lb_WidgetVehiclesFooterTitle = new javax.swing.JLabel();
+        pn_widgetUsers = new javax.swing.JPanel();
+        lb_widgetUsersIcon = new javax.swing.JLabel();
+        lb_widgetUsersTitle = new javax.swing.JLabel();
+        lb_widgetUsersTotal = new javax.swing.JLabel();
+        sp_widgetUsers = new javax.swing.JSeparator();
+        lb_widgetUsersFooterIcon = new javax.swing.JLabel();
+        lb_widgetUsersFooterTitle = new javax.swing.JLabel();
+        pn_widgetPartners = new javax.swing.JPanel();
+        lb_widgetPartnersIcon = new javax.swing.JLabel();
+        lb_widgetPartnersTitle = new javax.swing.JLabel();
+        lb_widgetPartnersTotal = new javax.swing.JLabel();
+        sp_widgetPartners = new javax.swing.JSeparator();
+        lb_widgetPartnersFooterIcon = new javax.swing.JLabel();
+        lb_widgetPartnersFooterTitle = new javax.swing.JLabel();
+        pn_widgetBlocked = new javax.swing.JPanel();
+        lb_widgetBlockedIcon = new javax.swing.JLabel();
+        lb_widgetBlockedTitle = new javax.swing.JLabel();
+        lb_widgetBlockedTotal = new javax.swing.JLabel();
+        sp_widgetBlocked = new javax.swing.JSeparator();
+        lb_widgetBlockedFooterIcon = new javax.swing.JLabel();
+        lb_widgetBlockedFooterTitle = new javax.swing.JLabel();
+        pn_widgetVehicles = new javax.swing.JPanel();
+        lb_widgetVehiclesIcon = new javax.swing.JLabel();
+        lb_widgetVehiclesTitle = new javax.swing.JLabel();
+        lb_widgetVehiclesTotal = new javax.swing.JLabel();
+        sp_widgetVehicles = new javax.swing.JSeparator();
+        lb_widgetVehiclesFooterIcon = new javax.swing.JLabel();
+        lb_widgetVehiclesFooterTitle = new javax.swing.JLabel();
         pn_stats = new javax.swing.JPanel();
         pn_calculator = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
+        pn_empty1 = new javax.swing.JPanel();
+        pn_empty2 = new javax.swing.JPanel();
+        pn_empty3 = new javax.swing.JPanel();
+        pn_empty4 = new javax.swing.JPanel();
         pn_system = new javax.swing.JPanel();
         pn_main = new javax.swing.JPanel();
         btn_entrance = new javax.swing.JButton();
@@ -344,127 +345,127 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_dashboard.setBackground(new java.awt.Color(244, 243, 239));
         pn_dashboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pn_WidgetUsers.setBackground(new java.awt.Color(255, 255, 255));
-        pn_WidgetUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_widgetUsers.setBackground(new java.awt.Color(255, 255, 255));
+        pn_widgetUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lb_WidgetUsersIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Users 70px.png"))); // NOI18N
-        pn_WidgetUsers.add(lb_WidgetUsersIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
+        lb_widgetUsersIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Users 70px.png"))); // NOI18N
+        pn_widgetUsers.add(lb_widgetUsersIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
 
-        lb_WidgetUsersTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_WidgetUsersTitle.setForeground(new java.awt.Color(243, 187, 69));
-        lb_WidgetUsersTitle.setText("Usuarios");
-        pn_WidgetUsers.add(lb_WidgetUsersTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+        lb_widgetUsersTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_widgetUsersTitle.setForeground(new java.awt.Color(243, 187, 69));
+        lb_widgetUsersTitle.setText("Usuarios");
+        pn_widgetUsers.add(lb_widgetUsersTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
 
-        lb_WidgetUsersTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_WidgetUsersTotal.setForeground(new java.awt.Color(243, 187, 69));
-        lb_WidgetUsersTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_WidgetUsersTotal.setText("0");
-        pn_WidgetUsers.add(lb_WidgetUsersTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
+        lb_widgetUsersTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_widgetUsersTotal.setForeground(new java.awt.Color(243, 187, 69));
+        lb_widgetUsersTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_widgetUsersTotal.setText("0");
+        pn_widgetUsers.add(lb_widgetUsersTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
 
-        sp_WidgetUsers.setForeground(new java.awt.Color(164, 158, 147));
-        pn_WidgetUsers.add(sp_WidgetUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
+        sp_widgetUsers.setForeground(new java.awt.Color(164, 158, 147));
+        pn_widgetUsers.add(sp_widgetUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
 
-        lb_WidgetUsersFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
-        pn_WidgetUsers.add(lb_WidgetUsersFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
+        lb_widgetUsersFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
+        pn_widgetUsers.add(lb_widgetUsersFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
 
-        lb_WidgetUsersFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        lb_WidgetUsersFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
-        lb_WidgetUsersFooterTitle.setText("Actualizado");
-        pn_WidgetUsers.add(lb_WidgetUsersFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
+        lb_widgetUsersFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lb_widgetUsersFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
+        lb_widgetUsersFooterTitle.setText("Actualizado");
+        pn_widgetUsers.add(lb_widgetUsersFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
 
-        pn_dashboard.add(pn_WidgetUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 35, 255, 140));
+        pn_dashboard.add(pn_widgetUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 35, 255, 140));
 
-        pn_WidgetPartners.setBackground(new java.awt.Color(255, 255, 255));
-        pn_WidgetPartners.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_widgetPartners.setBackground(new java.awt.Color(255, 255, 255));
+        pn_widgetPartners.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lb_WidgetPartnersIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Partner 70px.png"))); // NOI18N
-        pn_WidgetPartners.add(lb_WidgetPartnersIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
+        lb_widgetPartnersIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Partner 70px.png"))); // NOI18N
+        pn_widgetPartners.add(lb_widgetPartnersIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
 
-        lb_WidgetPartnersTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_WidgetPartnersTitle.setForeground(new java.awt.Color(122, 194, 154));
-        lb_WidgetPartnersTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_WidgetPartnersTitle.setText("Socios");
-        pn_WidgetPartners.add(lb_WidgetPartnersTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 120, -1));
+        lb_widgetPartnersTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_widgetPartnersTitle.setForeground(new java.awt.Color(122, 194, 154));
+        lb_widgetPartnersTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_widgetPartnersTitle.setText("Socios");
+        pn_widgetPartners.add(lb_widgetPartnersTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 120, -1));
 
-        lb_WidgetPartnersTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_WidgetPartnersTotal.setForeground(new java.awt.Color(122, 194, 154));
-        lb_WidgetPartnersTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_WidgetPartnersTotal.setText("0");
-        pn_WidgetPartners.add(lb_WidgetPartnersTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
+        lb_widgetPartnersTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_widgetPartnersTotal.setForeground(new java.awt.Color(122, 194, 154));
+        lb_widgetPartnersTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_widgetPartnersTotal.setText("0");
+        pn_widgetPartners.add(lb_widgetPartnersTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
 
-        sp_WidgetPartners.setForeground(new java.awt.Color(164, 158, 147));
-        pn_WidgetPartners.add(sp_WidgetPartners, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
+        sp_widgetPartners.setForeground(new java.awt.Color(164, 158, 147));
+        pn_widgetPartners.add(sp_widgetPartners, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
 
-        lb_WidgetPartnersFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
-        pn_WidgetPartners.add(lb_WidgetPartnersFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
+        lb_widgetPartnersFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
+        pn_widgetPartners.add(lb_widgetPartnersFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
 
-        lb_WidgetPartnersFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        lb_WidgetPartnersFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
-        lb_WidgetPartnersFooterTitle.setText("Actualizado");
-        pn_WidgetPartners.add(lb_WidgetPartnersFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
+        lb_widgetPartnersFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lb_widgetPartnersFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
+        lb_widgetPartnersFooterTitle.setText("Actualizado");
+        pn_widgetPartners.add(lb_widgetPartnersFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
 
-        pn_dashboard.add(pn_WidgetPartners, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 35, 255, 140));
+        pn_dashboard.add(pn_widgetPartners, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 35, 255, 140));
 
-        pn_WidgetBlocked.setBackground(new java.awt.Color(255, 255, 255));
-        pn_WidgetBlocked.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_widgetBlocked.setBackground(new java.awt.Color(255, 255, 255));
+        pn_widgetBlocked.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lb_WidgetBlockedIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Locked 70px.png"))); // NOI18N
-        pn_WidgetBlocked.add(lb_WidgetBlockedIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
+        lb_widgetBlockedIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Locked 70px.png"))); // NOI18N
+        pn_widgetBlocked.add(lb_widgetBlockedIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
 
-        lb_WidgetBlockedTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_WidgetBlockedTitle.setForeground(new java.awt.Color(235, 94, 40));
-        lb_WidgetBlockedTitle.setText("Bloqueados");
-        pn_WidgetBlocked.add(lb_WidgetBlockedTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 10, 135, -1));
+        lb_widgetBlockedTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_widgetBlockedTitle.setForeground(new java.awt.Color(235, 94, 40));
+        lb_widgetBlockedTitle.setText("Bloqueados");
+        pn_widgetBlocked.add(lb_widgetBlockedTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 10, 135, -1));
 
-        lb_WidgetBlockedTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_WidgetBlockedTotal.setForeground(new java.awt.Color(235, 94, 40));
-        lb_WidgetBlockedTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_WidgetBlockedTotal.setText("0");
-        pn_WidgetBlocked.add(lb_WidgetBlockedTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
+        lb_widgetBlockedTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_widgetBlockedTotal.setForeground(new java.awt.Color(235, 94, 40));
+        lb_widgetBlockedTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_widgetBlockedTotal.setText("0");
+        pn_widgetBlocked.add(lb_widgetBlockedTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
 
-        sp_WidgetBlocked.setForeground(new java.awt.Color(164, 158, 147));
-        pn_WidgetBlocked.add(sp_WidgetBlocked, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
+        sp_widgetBlocked.setForeground(new java.awt.Color(164, 158, 147));
+        pn_widgetBlocked.add(sp_widgetBlocked, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
 
-        lb_WidgetBlockedFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
-        pn_WidgetBlocked.add(lb_WidgetBlockedFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
+        lb_widgetBlockedFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
+        pn_widgetBlocked.add(lb_widgetBlockedFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
 
-        lb_WidgetBlockedFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        lb_WidgetBlockedFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
-        lb_WidgetBlockedFooterTitle.setText("Actualizado");
-        pn_WidgetBlocked.add(lb_WidgetBlockedFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
+        lb_widgetBlockedFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lb_widgetBlockedFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
+        lb_widgetBlockedFooterTitle.setText("Actualizado");
+        pn_widgetBlocked.add(lb_widgetBlockedFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
 
-        pn_dashboard.add(pn_WidgetBlocked, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 35, 255, 140));
+        pn_dashboard.add(pn_widgetBlocked, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 35, 255, 140));
 
-        pn_WidgetVehicles.setBackground(new java.awt.Color(255, 255, 255));
-        pn_WidgetVehicles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_widgetVehicles.setBackground(new java.awt.Color(255, 255, 255));
+        pn_widgetVehicles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lb_WidgetVehiclesIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vehicles 70px.png"))); // NOI18N
-        pn_WidgetVehicles.add(lb_WidgetVehiclesIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
+        lb_widgetVehiclesIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vehicles 70px.png"))); // NOI18N
+        pn_widgetVehicles.add(lb_widgetVehiclesIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 70, 70));
 
-        lb_WidgetVehiclesTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lb_WidgetVehiclesTitle.setForeground(new java.awt.Color(104, 179, 200));
-        lb_WidgetVehiclesTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_WidgetVehiclesTitle.setText("Vehículos");
-        pn_WidgetVehicles.add(lb_WidgetVehiclesTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 120, -1));
+        lb_widgetVehiclesTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_widgetVehiclesTitle.setForeground(new java.awt.Color(104, 179, 200));
+        lb_widgetVehiclesTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_widgetVehiclesTitle.setText("Vehículos");
+        pn_widgetVehicles.add(lb_widgetVehiclesTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 120, -1));
 
-        lb_WidgetVehiclesTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_WidgetVehiclesTotal.setForeground(new java.awt.Color(104, 179, 200));
-        lb_WidgetVehiclesTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_WidgetVehiclesTotal.setText("0");
-        pn_WidgetVehicles.add(lb_WidgetVehiclesTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
+        lb_widgetVehiclesTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lb_widgetVehiclesTotal.setForeground(new java.awt.Color(104, 179, 200));
+        lb_widgetVehiclesTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_widgetVehiclesTotal.setText("0");
+        pn_widgetVehicles.add(lb_widgetVehiclesTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, -1));
 
-        sp_WidgetVehicles.setForeground(new java.awt.Color(164, 158, 147));
-        pn_WidgetVehicles.add(sp_WidgetVehicles, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
+        sp_widgetVehicles.setForeground(new java.awt.Color(164, 158, 147));
+        pn_widgetVehicles.add(sp_widgetVehicles, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 10));
 
-        lb_WidgetVehiclesFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
-        pn_WidgetVehicles.add(lb_WidgetVehiclesFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
+        lb_widgetVehiclesFooterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Updated 25px.png"))); // NOI18N
+        pn_widgetVehicles.add(lb_widgetVehiclesFooterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 107, 25, 25));
 
-        lb_WidgetVehiclesFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        lb_WidgetVehiclesFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
-        lb_WidgetVehiclesFooterTitle.setText("Actualizado");
-        pn_WidgetVehicles.add(lb_WidgetVehiclesFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
+        lb_widgetVehiclesFooterTitle.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lb_widgetVehiclesFooterTitle.setForeground(new java.awt.Color(164, 158, 147));
+        lb_widgetVehiclesFooterTitle.setText("Actualizado");
+        pn_widgetVehicles.add(lb_widgetVehiclesFooterTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 109, -1, 20));
 
-        pn_dashboard.add(pn_WidgetVehicles, new org.netbeans.lib.awtextra.AbsoluteConstraints(843, 35, 255, 140));
+        pn_dashboard.add(pn_widgetVehicles, new org.netbeans.lib.awtextra.AbsoluteConstraints(843, 35, 255, 140));
 
         pn_stats.setBackground(new java.awt.Color(255, 255, 255));
         pn_stats.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -474,18 +475,18 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_calculator.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         pn_dashboard.add(pn_calculator, new org.netbeans.lib.awtextra.AbsoluteConstraints(843, 190, 255, 300));
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pn_dashboard.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 505, 255, 210));
+        pn_empty1.setBackground(new java.awt.Color(255, 255, 255));
+        pn_empty1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_dashboard.add(pn_empty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 505, 255, 210));
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        pn_dashboard.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 505, 255, 210));
+        pn_empty2.setBackground(new java.awt.Color(255, 255, 255));
+        pn_dashboard.add(pn_empty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 505, 255, 210));
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        pn_dashboard.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(843, 505, 255, 210));
+        pn_empty3.setBackground(new java.awt.Color(255, 255, 255));
+        pn_dashboard.add(pn_empty3, new org.netbeans.lib.awtextra.AbsoluteConstraints(843, 505, 255, 210));
 
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        pn_dashboard.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 505, 255, 210));
+        pn_empty4.setBackground(new java.awt.Color(255, 255, 255));
+        pn_dashboard.add(pn_empty4, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 505, 255, 210));
 
         getContentPane().add(pn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1130, 740));
 
@@ -1310,10 +1311,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_1MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        item_1.setBackground(new Color(38, 50, 56));  // ON
-        item_2.setBackground(new Color(38, 67, 72));  // OFF
-        item_3.setBackground(new Color(38, 67, 72));  // OFF
-        item_9.setBackground(new Color(102, 0, 0));   // OFF
+        MouseEntered(1);
     }//GEN-LAST:event_item_1MouseEntered
 
     private void item_1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_1MouseExited
@@ -1322,25 +1320,21 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_item_1MouseExited
 
     private void item_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_1MousePressed
-        item = "item_1";
-
         /* ----------------------- MENU CONFIGURATION ----------------------- */
+        item = "item_1";
         SetMenuConfiguration();
 
         /* ----------------------- DASHBOARD WIDGETS ------------------------ */
         GetWidgetsInfo();
 
         /* --------------------- PANELS CONFIGURATION ----------------------- */
+        ClearPanels();
         pn_dashboard.setVisible(true);
-        pn_system.setVisible(false);
     }//GEN-LAST:event_item_1MousePressed
 
     private void item_9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_9MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        item_1.setBackground(new Color(38, 67, 72));  // OFF
-        item_2.setBackground(new Color(38, 67, 72));  // OFF
-        item_3.setBackground(new Color(38, 67, 72));  // OFF
-        item_9.setBackground(new Color(80, 0, 0));    // ON                
+        MouseEntered(9);
     }//GEN-LAST:event_item_9MouseEntered
 
     private void item_9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_9MouseExited
@@ -1374,9 +1368,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void lb_showVehiclesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_showVehiclesMousePressed
         /* ---------------------- SHOW LIST CONTROL ------------------------- */
-        if (mt.ShowListControl == false) {
+        if (cls_methods.ShowListControl == false) {
             new frmShowList().setVisible(true);
-            mt.ShowListControl = true;
+            cls_methods.ShowListControl = true;
         }
     }//GEN-LAST:event_lb_showVehiclesMousePressed
 
@@ -1520,10 +1514,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        item_1.setBackground(new Color(38, 67, 72));  // OFF
-        item_2.setBackground(new Color(38, 67, 72));  // OFF
-        item_3.setBackground(new Color(38, 50, 56));  // ON
-        item_9.setBackground(new Color(102, 0, 0));   // OFF
+        MouseEntered(3);
     }//GEN-LAST:event_item_3MouseEntered
 
     private void item_3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MouseExited
@@ -1651,12 +1642,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
             lb_PlateData.setText(ID_VEHICLE);
 
-
             lb_TypeVehicleData.setText(mt.Capitalize(mt.Decrypt(data.get(5))));
             lb_TypeTicketData.setText(mt.Capitalize(mt.Decrypt(data.get(6))));
 
 //            lb_payment.setText(String.valueOf(mt.CalcPayment(lb_TotalTimeData.getText())));
-
             lb_MarginData.setText(data.get(7));
         }
     }//GEN-LAST:event_btn_showDetailsActionPerformed
@@ -1743,12 +1732,8 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel item_9;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lb_DepartureDate;
     private javax.swing.JLabel lb_DepartureDateData;
     private javax.swing.JLabel lb_DepartureTime;
@@ -1769,26 +1754,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_TypeTicketData;
     private javax.swing.JLabel lb_TypeVehicle;
     private javax.swing.JLabel lb_TypeVehicleData;
-    private javax.swing.JLabel lb_WidgetBlockedFooterIcon;
-    private javax.swing.JLabel lb_WidgetBlockedFooterTitle;
-    private javax.swing.JLabel lb_WidgetBlockedIcon;
-    private javax.swing.JLabel lb_WidgetBlockedTitle;
-    private javax.swing.JLabel lb_WidgetBlockedTotal;
-    private javax.swing.JLabel lb_WidgetPartnersFooterIcon;
-    private javax.swing.JLabel lb_WidgetPartnersFooterTitle;
-    private javax.swing.JLabel lb_WidgetPartnersIcon;
-    private javax.swing.JLabel lb_WidgetPartnersTitle;
-    private javax.swing.JLabel lb_WidgetPartnersTotal;
-    private javax.swing.JLabel lb_WidgetUsersFooterIcon;
-    private javax.swing.JLabel lb_WidgetUsersFooterTitle;
-    private javax.swing.JLabel lb_WidgetUsersIcon;
-    private javax.swing.JLabel lb_WidgetUsersTitle;
-    private javax.swing.JLabel lb_WidgetUsersTotal;
-    private javax.swing.JLabel lb_WidgetVehiclesFooterIcon;
-    private javax.swing.JLabel lb_WidgetVehiclesFooterTitle;
-    private javax.swing.JLabel lb_WidgetVehiclesIcon;
-    private javax.swing.JLabel lb_WidgetVehiclesTitle;
-    private javax.swing.JLabel lb_WidgetVehiclesTotal;
     private javax.swing.JLabel lb_carIcon;
     private javax.swing.JLabel lb_cars;
     private javax.swing.JLabel lb_dailyDepartureD;
@@ -1837,10 +1802,26 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_truck;
     private javax.swing.JLabel lb_truckIcon;
     private javax.swing.JLabel lb_trucks;
-    private javax.swing.JPanel pn_WidgetBlocked;
-    private javax.swing.JPanel pn_WidgetPartners;
-    private javax.swing.JPanel pn_WidgetUsers;
-    private javax.swing.JPanel pn_WidgetVehicles;
+    private javax.swing.JLabel lb_widgetBlockedFooterIcon;
+    private javax.swing.JLabel lb_widgetBlockedFooterTitle;
+    private javax.swing.JLabel lb_widgetBlockedIcon;
+    private javax.swing.JLabel lb_widgetBlockedTitle;
+    private javax.swing.JLabel lb_widgetBlockedTotal;
+    private javax.swing.JLabel lb_widgetPartnersFooterIcon;
+    private javax.swing.JLabel lb_widgetPartnersFooterTitle;
+    private javax.swing.JLabel lb_widgetPartnersIcon;
+    private javax.swing.JLabel lb_widgetPartnersTitle;
+    private javax.swing.JLabel lb_widgetPartnersTotal;
+    private javax.swing.JLabel lb_widgetUsersFooterIcon;
+    private javax.swing.JLabel lb_widgetUsersFooterTitle;
+    private javax.swing.JLabel lb_widgetUsersIcon;
+    private javax.swing.JLabel lb_widgetUsersTitle;
+    private javax.swing.JLabel lb_widgetUsersTotal;
+    private javax.swing.JLabel lb_widgetVehiclesFooterIcon;
+    private javax.swing.JLabel lb_widgetVehiclesFooterTitle;
+    private javax.swing.JLabel lb_widgetVehiclesIcon;
+    private javax.swing.JLabel lb_widgetVehiclesTitle;
+    private javax.swing.JLabel lb_widgetVehiclesTotal;
     private javax.swing.JPanel pn_bottom;
     private javax.swing.JPanel pn_btnShowVehicles;
     private javax.swing.JPanel pn_calculator;
@@ -1848,6 +1829,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_dailyRent;
     private javax.swing.JPanel pn_dashboard;
     private javax.swing.JPanel pn_dataDaily;
+    private javax.swing.JPanel pn_empty1;
+    private javax.swing.JPanel pn_empty2;
+    private javax.swing.JPanel pn_empty3;
+    private javax.swing.JPanel pn_empty4;
     private javax.swing.JPanel pn_inputCar;
     private javax.swing.JPanel pn_inputMotorcycle;
     private javax.swing.JPanel pn_inputTruck;
@@ -1865,10 +1850,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_system;
     private javax.swing.JPanel pn_truck;
     private javax.swing.JPanel pn_type;
-    private javax.swing.JSeparator sp_WidgetBlocked;
-    private javax.swing.JSeparator sp_WidgetPartners;
-    private javax.swing.JSeparator sp_WidgetUsers;
-    private javax.swing.JSeparator sp_WidgetVehicles;
+    private javax.swing.JPanel pn_widgetBlocked;
+    private javax.swing.JPanel pn_widgetPartners;
+    private javax.swing.JPanel pn_widgetUsers;
+    private javax.swing.JPanel pn_widgetVehicles;
     private javax.swing.JSeparator sp_dataDaily;
     private javax.swing.JSeparator sp_date;
     private javax.swing.JSeparator sp_idVehicle;
@@ -1882,6 +1867,10 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator sp_paymentDaily;
     private javax.swing.JSeparator sp_paymentInput;
     private javax.swing.JSeparator sp_paymentInputss1;
+    private javax.swing.JSeparator sp_widgetBlocked;
+    private javax.swing.JSeparator sp_widgetPartners;
+    private javax.swing.JSeparator sp_widgetUsers;
+    private javax.swing.JSeparator sp_widgetVehicles;
     private javax.swing.JTextField tbx_idCar;
     private javax.swing.JTextField tbx_idMotorcycle;
     private javax.swing.JTextField tbx_idTruck;
@@ -1901,13 +1890,32 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         }
     }
 
+    private void ClearPanels() {
+        /* ---------------------- PANELS CONFIGURATION ---------------------- */
+        pn_dashboard.setVisible(false);
+        pn_system.setVisible(false);
+
+        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
+        pn_main.setVisible(false);
+        pn_type.setVisible(false);
+        pn_truck.setVisible(false);
+        pn_car.setVisible(false);
+        pn_motorcycle.setVisible(false);
+        pn_dailyRent.setVisible(false);
+        pn_payment.setVisible(false);
+
+        /* ----------------- PAYMENT PANEL CONFIGURATION -------------------- */
+        pn_paymentInput.setVisible(false);
+        pn_paymentData.setVisible(false);
+    }
+
     private void GetWidgetsInfo() {
         ArrayList<String> data = mt.SP_GetWidgetsInfo();
 
-        lb_WidgetUsersTotal.setText(data.get(0));
-        lb_WidgetPartnersTotal.setText(data.get(1));
-        lb_WidgetBlockedTotal.setText(data.get(2));
-        lb_WidgetVehiclesTotal.setText(data.get(3));
+        lb_widgetUsersTotal.setText(data.get(0));
+        lb_widgetPartnersTotal.setText(data.get(1));
+        lb_widgetBlockedTotal.setText(data.get(2));
+        lb_widgetVehiclesTotal.setText(data.get(3));
     }
 
     private void GetVehiclesCount() {
@@ -1916,6 +1924,35 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_trucks.setText(data.get(0));
         lb_cars.setText(data.get(1));
         lb_motorcycles.setText(data.get(2));
+    }
+
+    private void MouseEntered(int Item) {
+        switch (Item) {
+            case 1:
+                item_1.setBackground(new Color(38, 50, 56));  // ON
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            case 2:
+                item_1.setBackground(new Color(38, 50, 56));  // ON
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            case 3:
+                item_1.setBackground(new Color(38, 50, 56));  // ON
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            case 9:
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(80, 0, 0));    // ON
+                break;
+        }
     }
 
     private void RestorePlate(String TypeVehicle) {
@@ -1990,22 +2027,4 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         }
     }
 
-    private void ClearPanels() {
-        /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
-        pn_system.setVisible(false);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_dailyRent.setVisible(false);
-        pn_payment.setVisible(false);
-
-        /* ----------------- PAYMENT PANEL CONFIGURATION -------------------- */
-        pn_paymentInput.setVisible(false);
-        pn_paymentData.setVisible(false);
-    }
 }
