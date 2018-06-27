@@ -18,13 +18,12 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         /* ------------- ESTABLISH CONNECTION WITH THE DATABASE ------------- */
         mt.Connect();
-        mt.SP();
-        
+
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
         pn_password.setVisible(false);
 
         /* ----------------------------- OTHERS ----------------------------- */
-        setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         new RestrictedTextField(tbx_user).setLimit(20);
         new RestrictedTextField(tbx_password).setLimit(20);
     }
@@ -56,6 +55,7 @@ public class frmLogin extends javax.swing.JFrame {
         lb_version = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
         setName("frmLogin"); // NOI18N
         setUndecorated(true);
         setResizable(false);
@@ -244,47 +244,13 @@ public class frmLogin extends javax.swing.JFrame {
     private void lb_nextMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_nextMousePressed
         /* ----------------------- USER VERIFICATION ------------------------ */
         user = tbx_user.getText();
-
-        if (user.isEmpty()) {
-            mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e inténtelo nuevamente.");
-        } else {
-            switch (mt.FN_Login01(user)) {
-                case 1:
-                    pn_password.setVisible(true);
-                    pn_user.setVisible(false);
-                    break;
-                case 0:
-                    tbx_user.setText(null);
-            }
-        }
+        UserLogin();
     }//GEN-LAST:event_lb_nextMousePressed
 
     private void lb_loginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_loginMousePressed
         /* ------------------ USER & PASSWORD VERIFICATION ------------------ */
         pass = tbx_password.getText();
-
-        if (pass.isEmpty()) {
-            mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e inténtelo nuevamente.");
-        } else {
-            switch (mt.FN_Login02(user, pass)) {
-                case 1:
-                    switch (mt.FN_GetRole(user, pass)) {
-                        case 1:
-                            new frmAdmin().setVisible(true);
-                            cls_methods.USERNAME = mt.Encrypt(user);
-                            this.dispose();
-                            break;
-                        case 2:
-                            new frmUser().setVisible(true);
-                            cls_methods.USERNAME = mt.Encrypt(user);
-                            this.dispose();
-                            break;
-                    }
-                    break;
-                case 0:
-                    tbx_password.setText(null);
-            }
-        }
+        PasswordLogin();
     }//GEN-LAST:event_lb_loginMousePressed
 
     private void lb_returnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_returnMousePressed
@@ -324,47 +290,13 @@ public class frmLogin extends javax.swing.JFrame {
     private void tbx_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_userActionPerformed
         /* ----------------------- USER VERIFICATION ------------------------ */
         user = tbx_user.getText();
-
-        if (user.isEmpty()) {
-            mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e inténtelo nuevamente.");
-        } else {
-            switch (mt.FN_Login01(user)) {
-                case 1:
-                    pn_password.setVisible(true);
-                    pn_user.setVisible(false);
-                    break;
-                case 0:
-                    tbx_user.setText(null);
-            }
-        }
+        UserLogin();
     }//GEN-LAST:event_tbx_userActionPerformed
 
     private void tbx_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_passwordActionPerformed
         /* ------------------ USER & PASSWORD VERIFICATION ------------------ */
         pass = tbx_password.getText();
-
-        if (pass.isEmpty()) {
-            mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e inténtelo nuevamente.");
-        } else {
-            switch (mt.FN_Login02(user, pass)) {
-                case 1:
-                    switch (mt.FN_GetRole(user, pass)) {
-                        case 1:
-                            new frmAdmin().setVisible(true);
-                            cls_methods.USERNAME = mt.Encrypt(user);
-                            this.dispose();
-                            break;
-                        case 2:
-                            new frmUser().setVisible(true);
-                            cls_methods.USERNAME = mt.Encrypt(user);
-                            this.dispose();
-                            break;
-                    }
-                    break;
-                case 0:
-                    tbx_password.setText(null);
-            }
-        }
+        PasswordLogin();
     }//GEN-LAST:event_tbx_passwordActionPerformed
 
     private void tbx_userKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_userKeyTyped
@@ -395,13 +327,7 @@ public class frmLogin extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
@@ -435,4 +361,44 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField tbx_password;
     private javax.swing.JTextField tbx_user;
     // End of variables declaration//GEN-END:variables
+
+    private void UserLogin() {
+        if (user.isEmpty()) {
+            mt.Warning("No ha digitado ningún usuario. \nPor favor digite un usuario e inténtelo nuevamente.");
+        } else {
+            switch (mt.FN_Login01(user)) {
+                case 1:
+                    pn_password.setVisible(true);
+                    pn_user.setVisible(false);
+                    break;
+                case 0:
+                    tbx_user.setText(null);
+            }
+        }
+    }
+    
+    private void PasswordLogin(){
+        if (pass.isEmpty()) {
+            mt.Warning("No ha digitado ningúna contraseña. \nPor favor digite una contraseña e inténtelo nuevamente.");
+        } else {
+            switch (mt.FN_Login02(user, pass)) {
+                case 1:
+                    switch (mt.FN_GetRole(user, pass)) {
+                        case 1:
+                            new frmAdmin().setVisible(true);
+                            cls_methods.USERNAME = mt.Encrypt(user);
+                            this.dispose();
+                            break;
+                        case 2:
+                            new frmUser().setVisible(true);
+                            cls_methods.USERNAME = mt.Encrypt(user);
+                            this.dispose();
+                            break;
+                    }
+                    break;
+                case 0:
+                    tbx_password.setText(null);
+            }
+        }
+    }
 }
