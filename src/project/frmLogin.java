@@ -18,6 +18,7 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         /* ------------- ESTABLISH CONNECTION WITH THE DATABASE ------------- */
         mt.Connect();
+        mt.SP("27/06/2018", "18:43:23", "27/06/2018", "23:59:45");
 
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
         pn_password.setVisible(false);

@@ -1,7 +1,10 @@
 package methods;
 
 import CustomDateTime.GetDateTime;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -12,13 +15,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -50,9 +55,9 @@ public class cls_methods {
     public static String USERNAME = null;
     public static boolean msgControl = false;
     public static boolean ShowListControl = false;
-    private static String secretKey = "F6EWFHQW9JPFWQ0V8QWB";
+    private static final String secretKey = "F6EWFHQW9JPFWQ0V8QWB";
 
-    //-------------------------------------------------------------------------- DBA Settings
+    /* --------------------------- DBA SETTINGS ----------------------------- */
     String Host = "localhost";
     String User = "DBA_PARKING";
     String Password = "DBA_PARKING";
@@ -60,19 +65,19 @@ public class cls_methods {
     String Url = "jdbc:oracle:thin:@" + Host + ":1521:XE";
     String Controller = "oracle.jdbc.OracleDriver";
 
-    //-------------------------------------------------------------------------- Connection
+    /* ---------------------------- CONNECTION ------------------------------ */
     public Connection Connect() {
         Connection cn = null;
         try {
             Class.forName(Controller);
             cn = DriverManager.getConnection(Url, User, Password);
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Error("Error 001: Ha ocurrido un problema al establecer \nla conexión con la base de datos. \nSi el problema persiste contacte con el administrador.");
         }
         return cn;
     }
 
-    //-------------------------------------------------------------------------- Tools    
+    /* ------------------------------ TOOLS --------------------------------- */
     public void Success(String data) {
         if (msgControl == false) {
             new frmSuccess(data).setVisible(true);
@@ -116,7 +121,7 @@ public class cls_methods {
             byte[] buf = cipher.doFinal(plainTextBytes);
             byte[] base64Bytes = Base64.encodeBase64(buf);
             res = new String(base64Bytes);
-        } catch (Exception ex) {
+        } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException ex) {
             Error("Error 002: Ha ocurrido un problema en la encriptación de los \ndatos. \nSi el problema persiste contacte con el administrador.");
         }
         return res;
@@ -136,13 +141,17 @@ public class cls_methods {
             byte[] message = Base64.decodeBase64(data.getBytes("utf-8"));
             byte[] plainText = decipher.doFinal(message);
             res = new String(plainText, "UTF-8");
-        } catch (Exception ex) {
+        } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException ex) {
             Error("Error 003: Ha ocurrido un problema en la desencriptación de \nlos datos. \nSi el problema persiste contacte con el administrador.");
         }
         return res;
     }
 
-    //-------------------------------------------------------------------------- Functions
+    public String Capitalize(String data) {
+        return data.substring(0, 1).toUpperCase() + data.substring(1).toLowerCase();
+    }
+
+    /* -------------------------- DBA FUNCTIONS ----------------------------- */
     public byte FN_Login01(String user) {
         byte exist = 0;
         try {
@@ -162,8 +171,8 @@ public class cls_methods {
             }
 
             cs.close();
-        } catch (Exception ex) {
-            Error(ex + "Error 004: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
+        } catch (SQLException ex) {
+            Error("Error 004: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
         }
         return exist;
     }
@@ -188,7 +197,7 @@ public class cls_methods {
             }
 
             cs.close();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             Error("Error 005: Ha ocurrido un problema al validar la contraseña. \nSi el problema persiste contacte con el administrador.");
         }
         return exist;
@@ -205,112 +214,38 @@ public class cls_methods {
 
             ID_Role = cs.getInt(1);
             cs.close();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             Error("Error 006: Ha ocurrido un problema al verificar el rol del \nusuario. \nSi el problema persiste contacte con el administrador.");
         }
         return ID_Role;
     }
 
-    public int FN_CountTrucks() {
-        int n = 0;
+    public boolean FN_VehicleExist(String ID_VEHICLE) {
+        boolean exist = false;
         try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountTrucks() }");
+            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_VehicleExist(?) }");
             cs.registerOutParameter(1, Types.NUMERIC);
+            cs.setString(2, Encrypt(ID_VEHICLE));
             cs.execute();
-            n = cs.getInt(1);
+
+            switch (cs.getInt(1)) {
+                case 1:
+                    exist = true;
+                    break;
+                default:
+                    Warning("La placa " + ID_VEHICLE + " no se encuentra registrada en el sistema. \nPor favor verifiquela e intentelo nuevamente.");
+                    exist = false;
+                    break;
+            }
 
             cs.close();
-        } catch (Exception ex) {
-            Error("Error 007: Ha ocurrido un problema al verificar la cantidad \nde camiones. \nSi el problema persiste contacte al administrador.");
+        } catch (SQLException ex) {
+            Error("Error 007: Ha ocurrido un problema al verificar el número \nde placa. \nSi el problema persiste contacte con el administrador.");
         }
-        return n;
+        return exist;
     }
 
-    public int FN_CountCars() {
-        int n = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountCars() }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.execute();
-            n = cs.getInt(1);
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 008: Ha ocurrido un problema al verificar la cantidad \nde vehículos. \nSi el problema persiste contacte al administrador.");
-        }
-        return n;
-    }
-
-    public int FN_CountMotorcycles() {
-        int n = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountMotorcycles() }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.execute();
-            n = cs.getInt(1);
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 009: Ha ocurrido un problema al verificar la cantidad \nde motocicletas. \nSi el problema persiste contacte al administrador.");
-        }
-        return n;
-    }
-
-    public int FN_CountUsers() {
-        int n = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountUsers() }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.execute();
-            n = cs.getInt(1);
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 010: Ha ocurrido un problema al verificar la cantidad \nde usuarios. \nSi el problema persiste contacte al administrador.");
-        }
-        return n;
-    }
-
-    public int FN_CountPartners() {
-        int n = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountPartners() }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.execute();
-            n = cs.getInt(1);
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 011: Ha ocurrido un problema al verificar la cantidad \nde socios. \nSi el problema persiste contacte al administrador.");
-        }
-        return n;
-    }
-
-    public int FN_CountBlackList() {
-        int n = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountBlackList() }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.execute();
-            n = cs.getInt(1);
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 012: Ha ocurrido un problema al verificar la cantidad \nde usuarios bloqueados. \nSi el problema persiste contacte al administrador.");
-        }
-        return n;
-    }
-
-    public int FN_CountVehicles() {
-        int n = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_CountVehicles() }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.execute();
-            n = cs.getInt(1);
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 013: Ha ocurrido un problema al verificar la cantidad \nde vehículos. \nSi el problema persiste contacte al administrador.");
-        }
-        return n;
-    }
-
-    //-------------------------------------------------------------------------- Stored Procedures
+    /* ---------------------- DBA STORED PROCEDURES ------------------------- */
     public ArrayList SP_GetWidgetsInfo() {
         ArrayList<String> data = new ArrayList<>(4);
 
@@ -327,8 +262,8 @@ public class cls_methods {
             }
 
             cs.close();
-        } catch (Exception ex) {
-
+        } catch (SQLException ex) {
+            Error("Error 007: Ha ocurrido un problema al verificar la información \nde los widgets. \nSi el problema persiste contacte con el administrador.");
         }
         return data;
     }
@@ -348,8 +283,8 @@ public class cls_methods {
             }
 
             cs.close();
-        } catch (Exception ex) {
-
+        } catch (SQLException ex) {
+            Error("Error 008: Ha ocurrido un problema al verificar la cantidad \nde vehículos. \nSi el problema persiste contacte con el administrador.");
         }
         return data;
     }
@@ -385,100 +320,47 @@ public class cls_methods {
         return Limit;
     }
 
-    public void SP() {
-        ArrayList<String> data = new ArrayList<>(2);
+    public String GetDateFormat(int Days, int Months, int Years) {
+        String Date = null;
 
-        String EntryTime = "19:59:00";
-        String DepartureTime = "20:10:00";
+        if (Days < 10) {
+            Date = "0" + Days + "/";
+        } else {
+            Date = Days + "/";
+        }
 
-        String EntryDate = "01/02/2017";
-        String DepartureDate = "01/01/2019";
+        if (Months < 10) {
+            Date = Date + "0" + Months + "/";
+        } else {
+            Date = Date + Months + "/";
+        }
 
-        int Hours = Integer.parseInt(EntryTime.substring(0, 2));
-        int Minutes = Integer.parseInt(EntryTime.substring(3, 5));
-        int Seconds = Integer.parseInt(EntryTime.substring(6, 8));
+        Date = Date + Years;
 
-        int Days = Integer.parseInt(EntryDate.substring(0, 2));
-        int Months = Integer.parseInt(EntryDate.substring(3, 5));
-        int Years = Integer.parseInt(EntryDate.substring(6, 10));
-        String Date = "";
+        return Date;
+    }
 
-        String total = "";
-        int res1 = 0;
-        int Limit = 0;
+    public String GetTimeFormat(int Hours, int Minutes, int Seconds) {
+        String Time = "";
 
-        do {
-            Days++;
+        if (Hours < 10) {
+            Time = "0" + Hours + ":";
+        } else {
+            Time = Hours + ":";
+        }
 
-            /* ----------------- GET LIMIT OF DAYS PER MONTH ---------------- */
-            Limit = GetLimitOfDays(Months, Years);
+        if (Minutes < 10) {
+            Time = Time + "0" + Minutes + ":";
+        } else {
+            Time = Time + Minutes + ":";
+        }
 
-            /* ------------------------ CALCULATOR -------------------------- */
-            if (Days == Limit + 1) {
-                Months++;
-                Days = 1;
-            }
-
-            if (Months == 13) {
-                Years++;
-                Months = 1;
-            }
-
-            /* --------------- SET DATE FORMAT 01/01/2000 ------------------- */
-            if (Days < 10) {
-                Date = "0" + Days + "/";
-            } else {
-                Date = Days + "/";
-            }
-
-            if (Months < 10) {
-                Date = Date + "0" + Months + "/";
-            } else {
-                Date = Date + Months + "/";
-            }
-
-            Date = Date + Years;
-
-            res1++;
-            System.out.println(Date + " - " + DepartureDate + " - " + (res1 * 86400));
-        } while (!Date.equals(DepartureDate));
-        res1 = res1 * 86400;
-        do {
-            Seconds++;
-
-            if (Seconds == 60) {
-                Minutes++;
-                Seconds = 00;
-            }
-
-            if (Minutes == 60) {
-                Hours++;
-                Minutes = 0;
-            }
-
-            if (Hours < 10) {
-                total = "0" + Hours + ":";
-            } else {
-                total = Hours + ":";
-            }
-
-            if (Minutes < 10) {
-                total = total + "0" + Minutes + ":";
-            } else {
-                total = total + Minutes + ":";
-            }
-
-            if (Seconds < 10) {
-                total = total + "0" + Seconds;
-            } else {
-                total = total + Seconds;
-            }
-
-            res1++;
-            System.out.println("Total: " + total + " Segundos: " + res1);
-        } while (!total.equals(DepartureTime));
-
-        System.out.println("Res: " + ConvertSecondsToHours(res1));
+        if (Seconds < 10) {
+            Time = Time + "0" + Seconds;
+        } else {
+            Time = Time + Seconds;
+        }
+        return Time;
     }
 
     public String ConvertSecondsToHours(int V_Seconds) {
@@ -486,29 +368,108 @@ public class cls_methods {
         int Minutes = (V_Seconds - (3600 * Hours)) / 60;
         int Seconds = V_Seconds - ((Hours * 3600) + (Minutes * 60));
 
-        return GetTimeFormat(Hours, Minutes, Seconds);
+        return (Hours + " Hr " + Minutes + " Min " + Seconds + " Sec");
     }
 
-    public String GetTimeFormat(int Hours, int Minutes, int Seconds) {
-        String total = "";
-        if (Hours < 10) {
-            total = "0" + Hours + ":";
-        } else {
-            total = Hours + ":";
-        }
+    public void SP(String EntryDate, String EntryTime, String DepartureDate, String DepartureTime) {
+        String Date = null;
+        String Time = null;
 
-        if (Minutes < 10) {
-            total = total + "0" + Minutes + ":";
-        } else {
-            total = total + Minutes + ":";
-        }
+        int Limit = 0;
+        int Total = 0;
+        int Daily = 0;
+        int Nightly = 0;
 
-        if (Seconds < 10) {
-            total = total + "0" + Seconds;
+        int Days = Integer.parseInt(EntryDate.substring(0, 2));
+        int Months = Integer.parseInt(EntryDate.substring(3, 5));
+        int Years = Integer.parseInt(EntryDate.substring(6, 10));
+
+        int Hours = Integer.parseInt(EntryTime.substring(0, 2));
+        int Minutes = Integer.parseInt(EntryTime.substring(3, 5));
+        int Seconds = Integer.parseInt(EntryTime.substring(6, 8));
+
+        if (EntryDate.equals(DepartureDate)) {
+            do {
+                Seconds++;
+
+                /* ----------------------- COUNTER -------------------------- */
+                if (Hours >= 6) {
+                    if (Hours < 20) {
+                        Daily++;
+                    } else if (Hours == 20 && Minutes == 0 && Seconds == 0) {
+                        Daily++;
+                    }else{
+                        Nightly++;
+                    }                    
+                } else {
+                    Nightly++;
+                }                
+
+                /* ---------------------- CALCULATOR ------------------------ */
+                if (Seconds == 60) {
+                    Minutes++;
+                    Seconds = 00;
+                }
+
+                if (Minutes == 60) {
+                    Hours++;
+                    Minutes = 0;
+                }
+
+                /* ------------ SET TIME 24H FORMAT 00:00:00 ---------------- */
+                Time = GetTimeFormat(Hours, Minutes, Seconds);
+                Total++;
+            } while (!Time.equals(DepartureTime));
         } else {
-            total = total + Seconds;
+            do {
+                Days++;
+
+                /* --------------- GET LIMIT OF DAYS PER MONTH -------------- */
+                Limit = GetLimitOfDays(Months, Years);
+
+                /* ---------------------- CALCULATOR ------------------------ */
+                if (Days == Limit + 1) {
+                    Months++;
+                    Days = 1;
+                }
+
+                if (Months == 13) {
+                    Years++;
+                    Months = 1;
+                }
+
+                /* --------------- SET DATE FORMAT 01/01/2000 ------------------- */
+                Date = GetDateFormat(Days, Months, Years);
+
+                /* ------------------------ COUNTER ----------------------------- */
+                Total++;
+            } while (!Date.equals(DepartureDate));
+
+            Total = Total * 86400;
+
+            do {
+                Seconds++;
+
+                /* ------------------------ CALCULATOR -------------------------- */
+                if (Seconds == 60) {
+                    Minutes++;
+                    Seconds = 00;
+                }
+
+                if (Minutes == 60) {
+                    Hours++;
+                    Minutes = 0;
+                }
+
+                /* ------------ SET TIME 24H FORMAT 00:00:00 ---------------- */
+                Time = GetTimeFormat(Hours, Minutes, Seconds);
+
+                Total++;
+            } while (!Time.equals(DepartureTime));
         }
-        return total;
+        System.out.println("Daily: " + ConvertSecondsToHours(Daily));
+        System.out.println("Nightly: " + ConvertSecondsToHours(Nightly));
+        System.out.println("Tiempo estimado: " + ConvertSecondsToHours(Total) + " Segundos: " + Total);
     }
 
     public ArrayList SP_GetTicketInfo(String ID_VEHICLE) {
@@ -745,26 +706,6 @@ public class cls_methods {
          */
     }
 
-    public byte FN_VehicleExist(String ID_VEHICLE) {
-        byte exist = 0;
-        try {
-            CallableStatement cs = Connect().prepareCall("{ ? = call FUNC.FN_VEHICLEEXIST(?) }");
-            cs.registerOutParameter(1, Types.NUMERIC);
-            cs.setString(2, ID_VEHICLE);
-            cs.execute();
-            switch (cs.getInt(1)) {
-                case 1:
-                    exist = 1;
-                    break;
-            }
-
-            cs.close();
-        } catch (Exception ex) {
-            Error("Error 002: Ha ocurrido un problema al validar el usuario. \nSi el problema persiste contacte con el administrador.");
-        }
-        return exist;
-    }
-
     public ArrayList<String> SP_GetDetails(String ID_VEHICLE) {
         ArrayList<String> data = new ArrayList<>(4);
 
@@ -919,17 +860,4 @@ public class cls_methods {
         tableName.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(data));
     }
-
-    public long difDiasEntre2fechas(int Y1, int M1, int D1, int Y2, int M2, int D2) {
-        java.util.GregorianCalendar date = new java.util.GregorianCalendar(Y1, M1, D1);
-        java.util.GregorianCalendar date2 = new java.util.GregorianCalendar(Y2, M2, D2);
-        long difms = date2.getTimeInMillis() - date.getTimeInMillis();
-        long difd = difms / (1000 * 60 * 60 * 24);
-        return difd;
-    }
-
-    public String Capitalize(String data) {
-        return data.substring(0, 1).toUpperCase() + data.substring(1).toLowerCase();
-    }
-
 }
