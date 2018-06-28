@@ -392,7 +392,7 @@ public class cls_methods {
             do {
                 Seconds++;
 
-                /* ----------------------- COUNTER -------------------------- */
+                /* ------------------------ COUNTER ------------------------- */
                 if (Hours >= 6) {
                     if (Hours < 20) {
                         Daily++;
@@ -400,12 +400,12 @@ public class cls_methods {
                         Daily++;
                     }else{
                         Nightly++;
-                    }                    
+                    }
                 } else {
                     Nightly++;
-                }                
+                }
 
-                /* ---------------------- CALCULATOR ------------------------ */
+                /* ----------------------- CALCULATOR ----------------------- */
                 if (Seconds == 60) {
                     Minutes++;
                     Seconds = 00;
@@ -416,7 +416,7 @@ public class cls_methods {
                     Minutes = 0;
                 }
 
-                /* ------------ SET TIME 24H FORMAT 00:00:00 ---------------- */
+                /* -------------- SET TIME 24H FORMAT 00:00:00 -------------- */
                 Time = GetTimeFormat(Hours, Minutes, Seconds);
                 Total++;
             } while (!Time.equals(DepartureTime));
@@ -424,10 +424,10 @@ public class cls_methods {
             do {
                 Days++;
 
-                /* --------------- GET LIMIT OF DAYS PER MONTH -------------- */
+                /* -------------- GET LIMIT OF DAYS PER MONTH --------------- */
                 Limit = GetLimitOfDays(Months, Years);
 
-                /* ---------------------- CALCULATOR ------------------------ */
+                /* ----------------------- CALCULATOR ----------------------- */
                 if (Days == Limit + 1) {
                     Months++;
                     Days = 1;
@@ -438,10 +438,10 @@ public class cls_methods {
                     Months = 1;
                 }
 
-                /* --------------- SET DATE FORMAT 01/01/2000 ------------------- */
+                /* --------------- SET DATE FORMAT 01/01/2000 --------------- */
                 Date = GetDateFormat(Days, Months, Years);
 
-                /* ------------------------ COUNTER ----------------------------- */
+                /* ------------------------- COUNTER ------------------------ */
                 Total++;
             } while (!Date.equals(DepartureDate));
 
@@ -450,7 +450,7 @@ public class cls_methods {
             do {
                 Seconds++;
 
-                /* ------------------------ CALCULATOR -------------------------- */
+                /* ---------------------- CALCULATOR ------------------------ */
                 if (Seconds == 60) {
                     Minutes++;
                     Seconds = 00;
@@ -467,6 +467,7 @@ public class cls_methods {
                 Total++;
             } while (!Time.equals(DepartureTime));
         }
+        
         System.out.println("Daily: " + ConvertSecondsToHours(Daily));
         System.out.println("Nightly: " + ConvertSecondsToHours(Nightly));
         System.out.println("Tiempo estimado: " + ConvertSecondsToHours(Total) + " Segundos: " + Total);
