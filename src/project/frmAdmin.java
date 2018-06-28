@@ -152,32 +152,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         sp_inputMotorcycle = new javax.swing.JSeparator();
         btn_calendarMotorcycle = new javax.swing.JButton();
         btn_clockMotorcycle = new javax.swing.JButton();
-        pn_dailyRent = new javax.swing.JPanel();
-        btn_returnDaily = new javax.swing.JButton();
-        pn_dataDaily = new javax.swing.JPanel();
-        lb_titleDataDaily = new javax.swing.JLabel();
-        sp_dataDaily = new javax.swing.JSeparator();
-        lb_dailyType = new javax.swing.JLabel();
-        lb_dailyTypeVehicle = new javax.swing.JLabel();
-        lb_dailyId = new javax.swing.JLabel();
-        lb_dailyIdVehicle = new javax.swing.JLabel();
-        lb_dailyEntryD = new javax.swing.JLabel();
-        lb_dailyEntryDate = new javax.swing.JLabel();
-        lb_dailyEntryT = new javax.swing.JLabel();
-        lb_dailyEntryTime = new javax.swing.JLabel();
-        lb_dailyDepartureD = new javax.swing.JLabel();
-        lb_dailyDepartureDate = new javax.swing.JLabel();
-        lb_dailyDepartureT = new javax.swing.JLabel();
-        lb_dailyDepartureTime = new javax.swing.JLabel();
-        btn_less = new javax.swing.JButton();
-        btn_more = new javax.swing.JButton();
-        pn_paymentDaily = new javax.swing.JPanel();
-        lb_titlePaymentDaily = new javax.swing.JLabel();
-        sp_paymentDaily = new javax.swing.JSeparator();
-        btn_printPaymentDaily = new javax.swing.JButton();
-        lb_titleTruck7 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         pn_payment = new javax.swing.JPanel();
         pn_paymentInput = new javax.swing.JPanel();
         btn_returnPaymentInput = new javax.swing.JButton();
@@ -187,9 +161,9 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_idVehicle = new javax.swing.JLabel();
         tbx_idVehicle = new javax.swing.JTextField();
         sp_idVehicle = new javax.swing.JSeparator();
-        btn_showDetails = new javax.swing.JButton();
+        btn_showPaymentDetails = new javax.swing.JButton();
         pn_paymentData = new javax.swing.JPanel();
-        btn_returnData = new javax.swing.JButton();
+        btn_returnPaymentData = new javax.swing.JButton();
         pn_paymentInputData1 = new javax.swing.JPanel();
         lb_paymentInputTitless = new javax.swing.JLabel();
         sp_paymentInputss1 = new javax.swing.JSeparator();
@@ -342,7 +316,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         getContentPane().add(pn_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 768));
 
-        pn_dashboard.setBackground(new java.awt.Color(244, 243, 239));
         pn_dashboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pn_widgetUsers.setBackground(new java.awt.Color(255, 255, 255));
@@ -492,7 +465,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         pn_system.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pn_main.setBackground(new java.awt.Color(244, 243, 239));
         pn_main.setPreferredSize(new java.awt.Dimension(1130, 640));
         pn_main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -876,163 +848,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         pn_system.add(pn_motorcycle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
 
-        pn_dailyRent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btn_returnDaily.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Return 60px.png"))); // NOI18N
-        btn_returnDaily.setToolTipText("Volver.");
-        btn_returnDaily.setBorder(null);
-        btn_returnDaily.setBorderPainted(false);
-        btn_returnDaily.setContentAreaFilled(false);
-        btn_returnDaily.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_returnDaily.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_returnDailyActionPerformed(evt);
-            }
-        });
-        pn_dailyRent.add(btn_returnDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 60, 60));
-
-        pn_dataDaily.setBackground(new java.awt.Color(38, 50, 56));
-        pn_dataDaily.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lb_titleDataDaily.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_titleDataDaily.setForeground(new java.awt.Color(255, 255, 255));
-        lb_titleDataDaily.setText("Datos del vehículo");
-        pn_dataDaily.add(lb_titleDataDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 40));
-        pn_dataDaily.add(sp_dataDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1070, 10));
-
-        lb_dailyType.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyType.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyType.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_dailyType.setText("Tipo de vehículo:");
-        pn_dataDaily.add(lb_dailyType, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 160, 40));
-
-        lb_dailyTypeVehicle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyTypeVehicle.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyTypeVehicle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pn_dataDaily.add(lb_dailyTypeVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 110, 40));
-
-        lb_dailyId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyId.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_dailyId.setText("Placa del vehículo:");
-        pn_dataDaily.add(lb_dailyId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 160, 40));
-
-        lb_dailyIdVehicle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyIdVehicle.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyIdVehicle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pn_dataDaily.add(lb_dailyIdVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 110, 40));
-
-        lb_dailyEntryD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyEntryD.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyEntryD.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_dailyEntryD.setText("Fecha de entrada:");
-        pn_dataDaily.add(lb_dailyEntryD, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 160, 40));
-
-        lb_dailyEntryDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyEntryDate.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyEntryDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pn_dataDaily.add(lb_dailyEntryDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 110, 40));
-
-        lb_dailyEntryT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyEntryT.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyEntryT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_dailyEntryT.setText("Hora de entrada:");
-        pn_dataDaily.add(lb_dailyEntryT, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 160, 40));
-
-        lb_dailyEntryTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyEntryTime.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyEntryTime.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pn_dataDaily.add(lb_dailyEntryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, 110, 40));
-
-        lb_dailyDepartureD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyDepartureD.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyDepartureD.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_dailyDepartureD.setText("Fecha de salida:");
-        pn_dataDaily.add(lb_dailyDepartureD, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 160, 40));
-
-        lb_dailyDepartureDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyDepartureDate.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyDepartureDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pn_dataDaily.add(lb_dailyDepartureDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 110, 40));
-
-        lb_dailyDepartureT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyDepartureT.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyDepartureT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_dailyDepartureT.setText("Hora de salida:");
-        pn_dataDaily.add(lb_dailyDepartureT, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 160, 40));
-
-        lb_dailyDepartureTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_dailyDepartureTime.setForeground(new java.awt.Color(255, 255, 255));
-        lb_dailyDepartureTime.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pn_dataDaily.add(lb_dailyDepartureTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 180, 110, 40));
-
-        btn_less.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Subtract 60px.png"))); // NOI18N
-        btn_less.setToolTipText("Renta Diaria / Nocturna.");
-        btn_less.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        btn_less.setContentAreaFilled(false);
-        btn_less.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_less.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_lessActionPerformed(evt);
-            }
-        });
-        pn_dataDaily.add(btn_less, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, -1, -1));
-
-        btn_more.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Plus 60px.png"))); // NOI18N
-        btn_more.setToolTipText("Renta por horas.");
-        btn_more.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        btn_more.setContentAreaFilled(false);
-        btn_more.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_more.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_moreActionPerformed(evt);
-            }
-        });
-        pn_dataDaily.add(btn_more, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 70, -1, -1));
-
-        pn_dailyRent.add(pn_dataDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 1070, 320));
-
-        pn_paymentDaily.setBackground(new java.awt.Color(38, 50, 56));
-        pn_paymentDaily.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lb_titlePaymentDaily.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lb_titlePaymentDaily.setForeground(new java.awt.Color(255, 255, 255));
-        lb_titlePaymentDaily.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_titlePaymentDaily.setText("Total  a cancelar");
-        pn_paymentDaily.add(lb_titlePaymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 40));
-        pn_paymentDaily.add(sp_paymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1070, 10));
-
-        btn_printPaymentDaily.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clock 60px.png"))); // NOI18N
-        btn_printPaymentDaily.setToolTipText("Renta por horas.");
-        btn_printPaymentDaily.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        btn_printPaymentDaily.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_printPaymentDaily.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_printPaymentDailyActionPerformed(evt);
-            }
-        });
-        pn_paymentDaily.add(btn_printPaymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
-
-        lb_titleTruck7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lb_titleTruck7.setForeground(new java.awt.Color(255, 255, 255));
-        lb_titleTruck7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_titleTruck7.setText("Monto:");
-        pn_paymentDaily.add(lb_titleTruck7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 130, 40));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel2.setText("5000");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 420, 60));
-
-        pn_paymentDaily.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 660, 60));
-
-        pn_dailyRent.add(pn_paymentDaily, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 1070, 170));
-
-        pn_system.add(pn_dailyRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 740));
-
         pn_payment.setPreferredSize(new java.awt.Dimension(1130, 640));
         pn_payment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1085,16 +900,16 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_paymentInputData.add(tbx_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 270, 50));
         pn_paymentInputData.add(sp_idVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 270, 10));
 
-        btn_showDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Continue 60px.png"))); // NOI18N
-        btn_showDetails.setToolTipText("Ver detalles");
-        btn_showDetails.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        btn_showDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_showDetails.addActionListener(new java.awt.event.ActionListener() {
+        btn_showPaymentDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Continue 60px.png"))); // NOI18N
+        btn_showPaymentDetails.setToolTipText("Ver detalles");
+        btn_showPaymentDetails.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        btn_showPaymentDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_showPaymentDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_showDetailsActionPerformed(evt);
+                btn_showPaymentDetailsActionPerformed(evt);
             }
         });
-        pn_paymentInputData.add(btn_showDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, -1, -1));
+        pn_paymentInputData.add(btn_showPaymentDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, -1, -1));
 
         pn_paymentInput.add(pn_paymentInputData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 970, 180));
 
@@ -1105,18 +920,18 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_paymentData.setPreferredSize(new java.awt.Dimension(1130, 740));
         pn_paymentData.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_returnData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Return 60px.png"))); // NOI18N
-        btn_returnData.setToolTipText("Volver.");
-        btn_returnData.setBorder(null);
-        btn_returnData.setBorderPainted(false);
-        btn_returnData.setContentAreaFilled(false);
-        btn_returnData.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_returnData.addActionListener(new java.awt.event.ActionListener() {
+        btn_returnPaymentData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Return 60px.png"))); // NOI18N
+        btn_returnPaymentData.setToolTipText("Volver.");
+        btn_returnPaymentData.setBorder(null);
+        btn_returnPaymentData.setBorderPainted(false);
+        btn_returnPaymentData.setContentAreaFilled(false);
+        btn_returnPaymentData.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_returnPaymentData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_returnDataActionPerformed(evt);
+                btn_returnPaymentDataActionPerformed(evt);
             }
         });
-        pn_paymentData.add(btn_returnData, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 60, 60));
+        pn_paymentData.add(btn_returnPaymentData, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 60, 60));
 
         pn_paymentInputData1.setBackground(new java.awt.Color(38, 50, 56));
         pn_paymentInputData1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1311,7 +1126,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_1MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        MouseEntered(1);
+        MenuMouseEntered(1);
     }//GEN-LAST:event_item_1MouseEntered
 
     private void item_1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_1MouseExited
@@ -1334,7 +1149,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_9MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        MouseEntered(9);
+        MenuMouseEntered(9);
     }//GEN-LAST:event_item_9MouseEntered
 
     private void item_9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_9MouseExited
@@ -1410,25 +1225,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_system.setVisible(true);
         pn_main.setVisible(true);
     }//GEN-LAST:event_btn_returnTypeActionPerformed
-
-    private void btn_returnDailyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnDailyActionPerformed
-        /* ---------------------- PANELS CONFIGURATION ---------------------- */
-        pn_dashboard.setVisible(false);
-        pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
-        pn_main.setVisible(false);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(true);
-        pn_dailyRent.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
-    }//GEN-LAST:event_btn_returnDailyActionPerformed
-
-    private void btn_printPaymentDailyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printPaymentDailyActionPerformed
-
-    }//GEN-LAST:event_btn_printPaymentDailyActionPerformed
 
     private void btn_returnCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnCarActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
@@ -1514,7 +1310,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
     private void item_3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        MouseEntered(3);
+        MenuMouseEntered(3);
     }//GEN-LAST:event_item_3MouseEntered
 
     private void item_3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MouseExited
@@ -1523,20 +1319,17 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_item_3MouseExited
 
     private void item_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_3MousePressed
-        item = "item_3";
-
         /* ----------------------- MENU CONFIGURATION ----------------------- */
+        item = "item_3";
         SetMenuConfiguration();
 
         /* --------------------- PANELS CONFIGURATION ----------------------- */
+        ClearPanels();
     }//GEN-LAST:event_item_3MousePressed
 
     private void item_2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_2MouseEntered
         /* ----------------------- MENU CONFIGURATION ----------------------- */
-        item_1.setBackground(new Color(38, 67, 72));  // OFF
-        item_2.setBackground(new Color(38, 50, 56));  // ON
-        item_3.setBackground(new Color(38, 67, 72));  // OFF
-        item_9.setBackground(new Color(102, 0, 0));   // OFF
+        MenuMouseEntered(2);
     }//GEN-LAST:event_item_2MouseEntered
 
     private void item_2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_2MouseExited
@@ -1545,25 +1338,17 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_item_2MouseExited
 
     private void item_2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_2MousePressed
-        item = "item_2";
-
         /* ----------------------- MENU CONFIGURATION ----------------------- */
+        item = "item_2";
         SetMenuConfiguration();
 
-        /* ------------------------ VEHICLE COUNTER ------------------------- */
+        /* ----------------------- DASHBOARD WIDGETS ------------------------ */
         GetVehiclesCount();
 
         /* --------------------- PANELS CONFIGURATION ----------------------- */
-        pn_dashboard.setVisible(false);
+        ClearPanels();
         pn_system.setVisible(true);
-
-        /* ------------------ SYSTEM PANEL CONFIGURATION -------------------- */
         pn_main.setVisible(true);
-        pn_type.setVisible(false);
-        pn_truck.setVisible(false);
-        pn_car.setVisible(false);
-        pn_motorcycle.setVisible(false);
-        pn_payment.setVisible(false);
     }//GEN-LAST:event_item_2MousePressed
 
     private void tbx_idTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idTruckActionPerformed
@@ -1603,14 +1388,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         tbx_idTruck.setText(null);
     }//GEN-LAST:event_btn_returnTruckActionPerformed
 
-    private void btn_lessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lessActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_lessActionPerformed
-
-    private void btn_moreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_moreActionPerformed
-
     private void btn_returnPaymentInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnPaymentInputActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
         ClearPanels();
@@ -1621,38 +1398,16 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         tbx_idVehicle.setText(null);
     }//GEN-LAST:event_btn_returnPaymentInputActionPerformed
 
-    private void btn_showDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showDetailsActionPerformed
+    private void btn_showPaymentDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showPaymentDetailsActionPerformed
+        /* ---------------------- GET PAYMENT DETAILS ----------------------- */
         ID_VEHICLE = tbx_idVehicle.getText();
-
-        if (!ID_VEHICLE.isEmpty()) {
-            /* -------------------- PANELS CONFIGURATION -------------------- */
-            ClearPanels();
-            pn_system.setVisible(true);
-            pn_payment.setVisible(true);
-            pn_paymentData.setVisible(true);
-
-            /* -------------------------- SET DATA -------------------------- */
-            ArrayList<String> data = mt.SP_GetTicketInfo(ID_VEHICLE);
-
-            lb_EntryDateData.setText(data.get(0));
-            lb_EntryTimeData.setText(data.get(1));
-            lb_DepartureDateData.setText(data.get(2));
-            lb_DepartureTimeData.setText(data.get(3));
-            lb_TotalTimeData.setText(data.get(4));
-
-            lb_PlateData.setText(ID_VEHICLE);
-
-            lb_TypeVehicleData.setText(mt.Capitalize(mt.Decrypt(data.get(5))));
-            lb_TypeTicketData.setText(mt.Capitalize(mt.Decrypt(data.get(6))));
-
-//            lb_payment.setText(String.valueOf(mt.CalcPayment(lb_TotalTimeData.getText())));
-            lb_MarginData.setText(data.get(7));
-        }
-    }//GEN-LAST:event_btn_showDetailsActionPerformed
+        ShowPaymentDetails();
+    }//GEN-LAST:event_btn_showPaymentDetailsActionPerformed
 
     private void tbx_idVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbx_idVehicleActionPerformed
-
-
+        /* ---------------------- GET PAYMENT DETAILS ----------------------- */
+        ID_VEHICLE = tbx_idVehicle.getText();
+        ShowPaymentDetails();
     }//GEN-LAST:event_tbx_idVehicleActionPerformed
 
     private void tbx_idVehicleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbx_idVehicleKeyTyped
@@ -1665,16 +1420,17 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_tbx_idVehicleKeyTyped
 
-    private void btn_returnDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnDataActionPerformed
+    private void btn_returnPaymentDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnPaymentDataActionPerformed
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
         ClearPanels();
         pn_system.setVisible(true);
         pn_payment.setVisible(true);
         pn_paymentInput.setVisible(true);
 
-        /* ----------------------------- OTHERS ----------------------------- */
+        /* ---------------------------- OTHERS ------------------------------ */
         tbx_idVehicle.setText(null);
-    }//GEN-LAST:event_btn_returnDataActionPerformed
+        tbx_idVehicle.requestFocus();
+    }//GEN-LAST:event_btn_returnPaymentDataActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -1684,13 +1440,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
@@ -1710,29 +1460,23 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_clockMotorcycle;
     private javax.swing.JButton btn_clockTruck;
     private javax.swing.JButton btn_entrance;
-    private javax.swing.JButton btn_less;
-    private javax.swing.JButton btn_more;
     private javax.swing.JButton btn_motorcycle;
     private javax.swing.JButton btn_payment;
-    private javax.swing.JButton btn_printPaymentDaily;
     private javax.swing.JButton btn_returnCar;
-    private javax.swing.JButton btn_returnDaily;
-    private javax.swing.JButton btn_returnData;
     private javax.swing.JButton btn_returnMotorcycle;
+    private javax.swing.JButton btn_returnPaymentData;
     private javax.swing.JButton btn_returnPaymentInput;
     private javax.swing.JButton btn_returnTruck;
     private javax.swing.JButton btn_returnType;
-    private javax.swing.JButton btn_showDetails;
     private javax.swing.JButton btn_showDetails3;
     private javax.swing.JButton btn_showDetailsaaa;
+    private javax.swing.JButton btn_showPaymentDetails;
     private javax.swing.JButton btn_truck;
     private javax.swing.JPanel item_1;
     private javax.swing.JPanel item_2;
     private javax.swing.JPanel item_3;
     private javax.swing.JPanel item_9;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lb_DepartureDate;
     private javax.swing.JLabel lb_DepartureDateData;
@@ -1756,18 +1500,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_TypeVehicleData;
     private javax.swing.JLabel lb_carIcon;
     private javax.swing.JLabel lb_cars;
-    private javax.swing.JLabel lb_dailyDepartureD;
-    private javax.swing.JLabel lb_dailyDepartureDate;
-    private javax.swing.JLabel lb_dailyDepartureT;
-    private javax.swing.JLabel lb_dailyDepartureTime;
-    private javax.swing.JLabel lb_dailyEntryD;
-    private javax.swing.JLabel lb_dailyEntryDate;
-    private javax.swing.JLabel lb_dailyEntryT;
-    private javax.swing.JLabel lb_dailyEntryTime;
-    private javax.swing.JLabel lb_dailyId;
-    private javax.swing.JLabel lb_dailyIdVehicle;
-    private javax.swing.JLabel lb_dailyType;
-    private javax.swing.JLabel lb_dailyTypeVehicle;
     private javax.swing.JLabel lb_fecha;
     private javax.swing.JLabel lb_hour;
     private javax.swing.JLabel lb_iconCar;
@@ -1794,11 +1526,8 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lb_textMotorcycle;
     private javax.swing.JLabel lb_title;
     private javax.swing.JLabel lb_titleCar;
-    private javax.swing.JLabel lb_titleDataDaily;
     private javax.swing.JLabel lb_titleMotorcycle;
-    private javax.swing.JLabel lb_titlePaymentDaily;
     private javax.swing.JLabel lb_titleTruck;
-    private javax.swing.JLabel lb_titleTruck7;
     private javax.swing.JLabel lb_truck;
     private javax.swing.JLabel lb_truckIcon;
     private javax.swing.JLabel lb_trucks;
@@ -1826,9 +1555,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_btnShowVehicles;
     private javax.swing.JPanel pn_calculator;
     private javax.swing.JPanel pn_car;
-    private javax.swing.JPanel pn_dailyRent;
     private javax.swing.JPanel pn_dashboard;
-    private javax.swing.JPanel pn_dataDaily;
     private javax.swing.JPanel pn_empty1;
     private javax.swing.JPanel pn_empty2;
     private javax.swing.JPanel pn_empty3;
@@ -1840,7 +1567,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_menu;
     private javax.swing.JPanel pn_motorcycle;
     private javax.swing.JPanel pn_payment;
-    private javax.swing.JPanel pn_paymentDaily;
     private javax.swing.JPanel pn_paymentData;
     private javax.swing.JPanel pn_paymentDetails;
     private javax.swing.JPanel pn_paymentInput;
@@ -1854,7 +1580,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel pn_widgetPartners;
     private javax.swing.JPanel pn_widgetUsers;
     private javax.swing.JPanel pn_widgetVehicles;
-    private javax.swing.JSeparator sp_dataDaily;
     private javax.swing.JSeparator sp_date;
     private javax.swing.JSeparator sp_idVehicle;
     private javax.swing.JSeparator sp_inputCar;
@@ -1864,7 +1589,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator sp_inputTitleTruck;
     private javax.swing.JSeparator sp_inputTruck;
     private javax.swing.JSeparator sp_menu;
-    private javax.swing.JSeparator sp_paymentDaily;
     private javax.swing.JSeparator sp_paymentInput;
     private javax.swing.JSeparator sp_paymentInputss1;
     private javax.swing.JSeparator sp_widgetBlocked;
@@ -1901,7 +1625,6 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         pn_truck.setVisible(false);
         pn_car.setVisible(false);
         pn_motorcycle.setVisible(false);
-        pn_dailyRent.setVisible(false);
         pn_payment.setVisible(false);
 
         /* ----------------- PAYMENT PANEL CONFIGURATION -------------------- */
@@ -1926,7 +1649,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
         lb_motorcycles.setText(data.get(2));
     }
 
-    private void MouseEntered(int Item) {
+    private void MenuMouseEntered(int Item) {
         switch (Item) {
             case 1:
                 item_1.setBackground(new Color(38, 50, 56));  // ON
@@ -1935,15 +1658,15 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                 item_9.setBackground(new Color(102, 0, 0));   // OFF
                 break;
             case 2:
-                item_1.setBackground(new Color(38, 50, 56));  // ON
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 50, 56));  // ON
                 item_3.setBackground(new Color(38, 67, 72));  // OFF
                 item_9.setBackground(new Color(102, 0, 0));   // OFF
                 break;
             case 3:
-                item_1.setBackground(new Color(38, 50, 56));  // ON
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
                 item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 50, 56));  // ON
                 item_9.setBackground(new Color(102, 0, 0));   // OFF
                 break;
             case 9:
@@ -1954,6 +1677,81 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                 break;
         }
     }
+
+    private void SetMenuConfiguration() {
+        switch (item) {
+            case "item_1":
+                item_1.setBackground(new Color(38, 50, 56));  // ON
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            case "item_2":
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 50, 56));  // ON
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            case "item_3":
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 50, 56));  // ON
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+            default:
+                item_1.setBackground(new Color(38, 67, 72));  // OFF
+                item_2.setBackground(new Color(38, 67, 72));  // OFF
+                item_3.setBackground(new Color(38, 67, 72));  // OFF
+                item_9.setBackground(new Color(102, 0, 0));   // OFF
+                break;
+        }
+    }
+
+    private void ShowPaymentDetails() {
+        if (ID_VEHICLE.isEmpty()) {
+            mt.Warning("No ha colocado ningúna placa. \nPor favor digite la placa del vehículo e inténtelo nuevamente.");
+        } else {
+            if (mt.FN_VehicleExist(ID_VEHICLE)) {
+                /* ------------------ PANELS CONFIGURATION ------------------ */
+                ClearPanels();
+                pn_system.setVisible(true);
+                pn_payment.setVisible(true);
+                pn_paymentData.setVisible(true);
+
+                /* ------------------------ SET DATA ------------------------ */
+                ArrayList<String> data = mt.SP_GetTicketInfo(ID_VEHICLE);
+
+                lb_EntryDateData.setText(data.get(0));
+                lb_EntryTimeData.setText(data.get(1));
+                lb_DepartureDateData.setText(data.get(2));
+                lb_DepartureTimeData.setText(data.get(3));
+                lb_TotalTimeData.setText(data.get(4));
+
+                lb_PlateData.setText(ID_VEHICLE);
+
+                lb_TypeVehicleData.setText(mt.Capitalize(mt.Decrypt(data.get(5))));
+                lb_TypeTicketData.setText(mt.Capitalize(mt.Decrypt(data.get(6))));
+
+//            lb_payment.setText(String.valueOf(mt.CalcPayment(lb_TotalTimeData.getText())));
+                lb_MarginData.setText(data.get(7));
+            }else{
+                tbx_idVehicle.setText(null);
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     private void RestorePlate(String TypeVehicle) {
         switch (TypeVehicle) {
@@ -1997,34 +1795,4 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
             }
         }
     }
-
-    private void SetMenuConfiguration() {
-        switch (item) {
-            case "item_1":
-                item_1.setBackground(new Color(38, 50, 56));  // ON
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_2":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 50, 56));  // ON
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            case "item_3":
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 50, 56));  // ON
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-            default:
-                item_1.setBackground(new Color(38, 67, 72));  // OFF
-                item_2.setBackground(new Color(38, 67, 72));  // OFF
-                item_3.setBackground(new Color(38, 67, 72));  // OFF
-                item_9.setBackground(new Color(102, 0, 0));   // OFF
-                break;
-        }
-    }
-
 }
