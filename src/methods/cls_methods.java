@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -371,58 +372,102 @@ public class cls_methods {
         return (Hours + " Hr " + Minutes + " Min " + Seconds + " Sec");
     }
 
-    public void SP(String EntryDate, String EntryTime, String DepartureDate, String DepartureTime) {
-        String Date = null;
-        String Time = null;
-
-        int Limit = 0;
-        int Total = 0;
-        int Daily = 0;
-        int Nightly = 0;
-
-        int Days = Integer.parseInt(EntryDate.substring(0, 2));
-        int Months = Integer.parseInt(EntryDate.substring(3, 5));
-        int Years = Integer.parseInt(EntryDate.substring(6, 10));
-
+    public int ConvertTimeToSeconds(String EntryTime) {
+        int res = 0;
         int Hours = Integer.parseInt(EntryTime.substring(0, 2));
         int Minutes = Integer.parseInt(EntryTime.substring(3, 5));
         int Seconds = Integer.parseInt(EntryTime.substring(6, 8));
 
+        res = (Hours * 3600) + (Minutes * 60) + Seconds;
+        return res;
+    }
+
+    public ArrayList TimeCalculator(String EntryTime, String DepartureTime) {
+        /* ---------------------------- RESULT ------------------------------ */
+        ArrayList<Integer> data = new ArrayList<>();
+
+        /* --------------------- GET VALUES IN SECONDS ---------------------- */
+        int V_Time = 0;
+        int V_EntryTime = ConvertTimeToSeconds(EntryTime);
+        int V_DepartureTime = ConvertTimeToSeconds(DepartureTime);
+
+        /* --------------------------- GET TIME ----------------------------- */
+        int Hours = Integer.parseInt(EntryTime.substring(0, 2));
+        int Minutes = Integer.parseInt(EntryTime.substring(3, 5));
+        int Seconds = Integer.parseInt(EntryTime.substring(6, 8));
+
+        /* ---------------------------- COUNTER ----------------------------- */
+        int Daily = 0, Nightly = 0;
+
+        /* -------------------- COUNTER (DAILY + NIGHLY) -------------------- */
+        int Total = 0;
+
+        do {
+            Seconds++;
+
+            /* -------------------------- COUNTER --------------------------- */
+            V_Time = ConvertTimeToSeconds(GetTimeFormat(Hours, Minutes, Seconds));
+
+            if (V_Time >= 21600 && V_Time <= 71999) {
+                Daily++;
+                System.out.println("Day: " + ConvertSecondsToHours(V_Time) + " --- " + Daily);
+            } else {
+                Nightly++;
+                System.out.println("Night: " + ConvertSecondsToHours(V_Time) + " --- " + Nightly);
+            }
+
+            /* ------------------------- CALCULATOR ------------------------- */
+
+            if (Seconds == 60) {
+                Minutes++;
+                Seconds = 00;
+            }
+
+            if (Minutes == 60) {
+                Hours++;
+                Minutes = 0;
+            }
+            Total++;
+        } while (V_Time != V_DepartureTime);
+
+        data.add(Daily);
+        data.add(Nightly);
+        data.add(Total);
+        
+        return data;
+    }
+
+    public void SP(String EntryDate, String EntryTime, String DepartureDate, String DepartureTime) {
+        /* ----------------------------- RESULT ----------------------------- */
+        ArrayList<Integer> data = new ArrayList();
+
+        /* --------------------------- GET DATE ----------------------------- */
+        int Days = Integer.parseInt(EntryDate.substring(0, 2));
+        int Months = Integer.parseInt(EntryDate.substring(3, 5));
+        int Years = Integer.parseInt(EntryDate.substring(6, 10));
+
+        /* -------------------- LIMIT OF DAYS PER MONTH --------------------- */
+        int Limit = 0;
+
+        /* -------------------- COUNTER (DAILY + NIGHLY) -------------------- */
+        int Total = 0;
+
+        String Date = null;
+        int s1 = 0;
+        int s2 = 0;
+        int s3 = 0;
+
         if (EntryDate.equals(DepartureDate)) {
-            do {
-                Seconds++;
-
-                /* ------------------------ COUNTER ------------------------- */
-                if (Hours >= 6) {
-                    if (Hours < 20) {
-                        Daily++;
-                    } else if (Hours == 20 && Minutes == 0 && Seconds == 0) {
-                        Daily++;
-                    }else{
-                        Nightly++;
-                    }
-                } else {
-                    Nightly++;
-                }
-
-                /* ----------------------- CALCULATOR ----------------------- */
-                if (Seconds == 60) {
-                    Minutes++;
-                    Seconds = 00;
-                }
-
-                if (Minutes == 60) {
-                    Hours++;
-                    Minutes = 0;
-                }
-
-                /* -------------- SET TIME 24H FORMAT 00:00:00 -------------- */
-                Time = GetTimeFormat(Hours, Minutes, Seconds);
-                Total++;
-            } while (!Time.equals(DepartureTime));
+            data = TimeCalculator(EntryTime, DepartureTime);
         } else {
             do {
                 Days++;
+
+                data = TimeCalculator("00:00:00", "24:00:00");
+
+                s1 = s1 + data.get(0);
+                s2 = s2 + data.get(1);
+                s3 = s3 + data.get(2);
 
                 /* -------------- GET LIMIT OF DAYS PER MONTH --------------- */
                 Limit = GetLimitOfDays(Months, Years);
@@ -444,33 +489,19 @@ public class cls_methods {
                 /* ------------------------- COUNTER ------------------------ */
                 Total++;
             } while (!Date.equals(DepartureDate));
-
-            Total = Total * 86400;
-
-            do {
-                Seconds++;
-
-                /* ---------------------- CALCULATOR ------------------------ */
-                if (Seconds == 60) {
-                    Minutes++;
-                    Seconds = 00;
-                }
-
-                if (Minutes == 60) {
-                    Hours++;
-                    Minutes = 0;
-                }
-
-                /* ------------ SET TIME 24H FORMAT 00:00:00 ---------------- */
-                Time = GetTimeFormat(Hours, Minutes, Seconds);
-
-                Total++;
-            } while (!Time.equals(DepartureTime));
+            data = TimeCalculator(EntryTime, DepartureTime);
         }
-        
-        System.out.println("Daily: " + ConvertSecondsToHours(Daily));
-        System.out.println("Nightly: " + ConvertSecondsToHours(Nightly));
-        System.out.println("Tiempo estimado: " + ConvertSecondsToHours(Total) + " Segundos: " + Total);
+        System.out.println("Total: " + s3);
+        System.out.println("Diario: " + s1);
+        System.out.println("Noche: " + s2);
+        System.out.println("-----------------------");
+        System.out.println("Total: " + data.get(2));
+        System.out.println("D: " + data.get(0));
+        System.out.println("N: " + data.get(1));
+        System.out.println("-----------------------");
+        System.out.println("Total: " + (data.get(2) + s3) + " - " + ConvertSecondsToHours(data.get(2) + s3));
+        System.out.println("Daily: " + (data.get(0) + s1) + " - " + ConvertSecondsToHours(data.get(0) + s1));
+        System.out.println("Nightly: " + (data.get(1) + s2) + " - " + ConvertSecondsToHours(data.get(1) + s2));
     }
 
     public ArrayList SP_GetTicketInfo(String ID_VEHICLE) {
