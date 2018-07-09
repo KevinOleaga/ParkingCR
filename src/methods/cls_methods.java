@@ -18,7 +18,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -290,278 +289,49 @@ public class cls_methods {
         return data;
     }
 
-    public int GetLimitOfDays(int Month, int Years) {
-        int Limit = 0;
-        GregorianCalendar ca = new GregorianCalendar();
+    public ArrayList SP_GetVehicleInfo(String ID_VEHICLE) {
+        ArrayList<String> data = new ArrayList<>();
 
-        switch (Month) {
-            case 2:
-                if (ca.isLeapYear(Years)) {
-                    Limit = 29;
-                } else {
-                    Limit = 28;
-                }
-                break;
-            case 4:
-                Limit = 30;
-                break;
-            case 6:
-                Limit = 30;
-                break;
-            case 9:
-                Limit = 30;
-                break;
-            case 11:
-                Limit = 30;
-                break;
-            default:
-                Limit = 31;
-                break;
-        }
-        return Limit;
-    }
-
-    public String GetDateFormat(int Days, int Months, int Years) {
-        String Date = null;
-
-        if (Days < 10) {
-            Date = "0" + Days + "/";
-        } else {
-            Date = Days + "/";
-        }
-
-        if (Months < 10) {
-            Date = Date + "0" + Months + "/";
-        } else {
-            Date = Date + Months + "/";
-        }
-
-        Date = Date + Years;
-
-        return Date;
-    }
-
-    public String GetTimeFormat(int Hours, int Minutes, int Seconds) {
-        String Time = "";
-
-        if (Hours < 10) {
-            Time = "0" + Hours + ":";
-        } else {
-            Time = Hours + ":";
-        }
-
-        if (Minutes < 10) {
-            Time = Time + "0" + Minutes + ":";
-        } else {
-            Time = Time + Minutes + ":";
-        }
-
-        if (Seconds < 10) {
-            Time = Time + "0" + Seconds;
-        } else {
-            Time = Time + Seconds;
-        }
-        return Time;
-    }
-
-    public String ConvertSecondsToHours(int V_Seconds) {
-        int Hours = V_Seconds / 3600;
-        int Minutes = (V_Seconds - (3600 * Hours)) / 60;
-        int Seconds = V_Seconds - ((Hours * 3600) + (Minutes * 60));
-
-        return (Hours + " Hr " + Minutes + " Min " + Seconds + " Sec");
-    }
-
-    public int ConvertTimeToSeconds(String EntryTime) {
-        int res = 0;
-        int Hours = Integer.parseInt(EntryTime.substring(0, 2));
-        int Minutes = Integer.parseInt(EntryTime.substring(3, 5));
-        int Seconds = Integer.parseInt(EntryTime.substring(6, 8));
-
-        res = (Hours * 3600) + (Minutes * 60) + Seconds;
-        return res;
-    }
-
-    public ArrayList TimeCalculator(String EntryTime, String DepartureTime) {
-        /* ---------------------------- RESULT ------------------------------ */
-        ArrayList<Integer> data = new ArrayList<>();
-
-        /* --------------------- GET VALUES IN SECONDS ---------------------- */
-        int V_Time = 0;
-        int V_EntryTime = ConvertTimeToSeconds(EntryTime);
-        int V_DepartureTime = ConvertTimeToSeconds(DepartureTime);
-
-        /* --------------------------- GET TIME ----------------------------- */
-        int Hours = Integer.parseInt(EntryTime.substring(0, 2));
-        int Minutes = Integer.parseInt(EntryTime.substring(3, 5));
-        int Seconds = Integer.parseInt(EntryTime.substring(6, 8));
-
-        /* ---------------------------- COUNTER ----------------------------- */
-        int Daily = 0, Nightly = 0;
-
-        /* -------------------- COUNTER (DAILY + NIGHLY) -------------------- */
-        int Total = 0;
-
-        do {
-            Seconds++;
-
-            /* -------------------------- COUNTER --------------------------- */
-            V_Time = ConvertTimeToSeconds(GetTimeFormat(Hours, Minutes, Seconds));
-
-            if (V_Time >= 21600 && V_Time <= 71999) {
-                Daily++;
-                System.out.println("Day: " + ConvertSecondsToHours(V_Time) + " --- " + Daily);
-            } else {
-                Nightly++;
-                System.out.println("Night: " + ConvertSecondsToHours(V_Time) + " --- " + Nightly);
-            }
-
-            /* ------------------------- CALCULATOR ------------------------- */
-
-            if (Seconds == 60) {
-                Minutes++;
-                Seconds = 00;
-            }
-
-            if (Minutes == 60) {
-                Hours++;
-                Minutes = 0;
-            }
-            Total++;
-        } while (V_Time != V_DepartureTime);
-
-        data.add(Daily);
-        data.add(Nightly);
-        data.add(Total);
-        
-        return data;
-    }
-
-    public void SP(String EntryDate, String EntryTime, String DepartureDate, String DepartureTime) {
-        /* ----------------------------- RESULT ----------------------------- */
-        ArrayList<Integer> data = new ArrayList();
-
-        /* --------------------------- GET DATE ----------------------------- */
-        int Days = Integer.parseInt(EntryDate.substring(0, 2));
-        int Months = Integer.parseInt(EntryDate.substring(3, 5));
-        int Years = Integer.parseInt(EntryDate.substring(6, 10));
-
-        /* -------------------- LIMIT OF DAYS PER MONTH --------------------- */
-        int Limit = 0;
-
-        /* -------------------- COUNTER (DAILY + NIGHLY) -------------------- */
-        int Total = 0;
-
-        String Date = null;
-        int s1 = 0;
-        int s2 = 0;
-        int s3 = 0;
-
-        if (EntryDate.equals(DepartureDate)) {
-            data = TimeCalculator(EntryTime, DepartureTime);
-        } else {
-            do {
-                Days++;
-
-                data = TimeCalculator("00:00:00", "24:00:00");
-
-                s1 = s1 + data.get(0);
-                s2 = s2 + data.get(1);
-                s3 = s3 + data.get(2);
-
-                /* -------------- GET LIMIT OF DAYS PER MONTH --------------- */
-                Limit = GetLimitOfDays(Months, Years);
-
-                /* ----------------------- CALCULATOR ----------------------- */
-                if (Days == Limit + 1) {
-                    Months++;
-                    Days = 1;
-                }
-
-                if (Months == 13) {
-                    Years++;
-                    Months = 1;
-                }
-
-                /* --------------- SET DATE FORMAT 01/01/2000 --------------- */
-                Date = GetDateFormat(Days, Months, Years);
-
-                /* ------------------------- COUNTER ------------------------ */
-                Total++;
-            } while (!Date.equals(DepartureDate));
-            data = TimeCalculator(EntryTime, DepartureTime);
-        }
-        System.out.println("Total: " + s3);
-        System.out.println("Diario: " + s1);
-        System.out.println("Noche: " + s2);
-        System.out.println("-----------------------");
-        System.out.println("Total: " + data.get(2));
-        System.out.println("D: " + data.get(0));
-        System.out.println("N: " + data.get(1));
-        System.out.println("-----------------------");
-        System.out.println("Total: " + (data.get(2) + s3) + " - " + ConvertSecondsToHours(data.get(2) + s3));
-        System.out.println("Daily: " + (data.get(0) + s1) + " - " + ConvertSecondsToHours(data.get(0) + s1));
-        System.out.println("Nightly: " + (data.get(1) + s2) + " - " + ConvertSecondsToHours(data.get(1) + s2));
-    }
-
-    public ArrayList SP_GetTicketInfo(String ID_VEHICLE) {
-        ArrayList<String> data = new ArrayList<>(8);
-
-        try {
-            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GetTicketInfo(?,?,?,?,?,?,?,?,?) }");
+        try {  
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GetVehicleInfo(?,?,?,?,?,?,?,?,?,?,?) }");
             cs.setString(1, Encrypt(ID_VEHICLE));
-            cs.registerOutParameter(2, Types.VARCHAR);
-            cs.registerOutParameter(3, Types.VARCHAR);
-            cs.registerOutParameter(4, Types.VARCHAR);
-            cs.registerOutParameter(5, Types.VARCHAR);
-            cs.registerOutParameter(6, Types.VARCHAR);
-            cs.registerOutParameter(7, Types.VARCHAR);
-            cs.registerOutParameter(8, Types.VARCHAR);
-            cs.registerOutParameter(9, Types.VARCHAR);
+            cs.registerOutParameter(2, Types.VARCHAR); // ENTRYDATE
+            cs.registerOutParameter(3, Types.VARCHAR); // ENTRYTIME
+            cs.registerOutParameter(4, Types.VARCHAR); // DEPARTUREDATE
+            cs.registerOutParameter(5, Types.VARCHAR); // DEPARTURETIME
+            cs.registerOutParameter(6, Types.VARCHAR); // TOTALTIME  
+            cs.registerOutParameter(7, Types.VARCHAR); // TypeVehicle  
+            cs.registerOutParameter(8, Types.VARCHAR); // TypeTicket
+            cs.registerOutParameter(9, Types.VARCHAR); // MARGIN
+            cs.registerOutParameter(10, Types.VARCHAR); // MARGIN
+            cs.registerOutParameter(11, Types.VARCHAR); // PAYMENT
             cs.execute();
-
-            for (int i = 2; i < 10; i++) {
-                data.add(cs.getString(i));
-            }
-
+            
+            data.add(cs.getString(2));
+            data.add(cs.getString(3));
+            data.add(cs.getString(4));
+            data.add(cs.getString(5));
+            data.add(cs.getString(6));
+            data.add(Decrypt(cs.getString(7)));
+            data.add(Decrypt(cs.getString(8)));
+            data.add(cs.getString(9));
+            data.add(cs.getString(10));
+            data.add(cs.getString(11));
+            
             cs.close();
-        } catch (Exception ex) {
-
+           } catch (SQLException ex) {
+               System.out.println(ex);
         }
         return data;
     }
 
-    public int MakePositive(int data) {
-        if (data <= 0) {
-            data = data * -1;
-        }
-        return data;
-    }
 
-    public int CalcPayment(String Time) {
-        System.out.println(Time);
-        int h = Integer.parseInt(Time.substring(0, 1));
-        int m = Integer.parseInt(Time.substring(5, 7));
-        int s = Integer.parseInt(Time.substring(12, 14));
 
-        int total = 0;
-        if (h == 0) {
-            if (m >= 5) {                                              //MARGEN DE 5 MINUTOS
-                total = 900;                                               //LA PRIMERA HORA SE COBRA COMPLETA
-            } else {
-                total = 0;
-            }
-        } else if (h >= 1) {
-            total = 900 * h;
-            if (m >= 5 && m <= 30) {
-                total = total + 350;
-            } else if (m >= 5 && m >= 30) {
-                total = total + 900;
-            }
-        }
-        return total;
-    }
 
+    
+    
+    
+    
     public void SP_History(String USERNAME, String DESCRIPTION, String DATAENTERED) {
         try {
             CallableStatement cs = Connect().prepareCall("{ call STPR.SP_HISTORY(?,?,?) }");
@@ -594,8 +364,8 @@ public class cls_methods {
             cs.setString(1, Encrypt(ID_VEHICLE));
             cs.setString(2, Encrypt(TYPEVEHICLE));
             cs.setString(3, Encrypt(TYPETICKET));
-            cs.setString(4, Encrypt(DATE));
-            cs.setString(5, Encrypt(TIME));
+            cs.setString(4, DATE);
+            cs.setString(5, TIME);
             cs.setString(6, USERNAME);
             cs.execute();
             status = cs.getString(7);

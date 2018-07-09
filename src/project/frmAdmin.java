@@ -999,7 +999,7 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
 
         lb_TotalTimeData.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_TotalTimeData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pn_paymentDetails.add(lb_TotalTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 240, 30));
+        pn_paymentDetails.add(lb_TotalTimeData, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 330, 30));
 
         lb_Plate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lb_Plate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1719,21 +1719,19 @@ public class frmAdmin extends javax.swing.JFrame implements Runnable {
                 pn_paymentData.setVisible(true);
 
                 /* ------------------------ SET DATA ------------------------ */
-                ArrayList<String> data = mt.SP_GetTicketInfo(ID_VEHICLE);
-
+                ArrayList<String> data = mt.SP_GetVehicleInfo(ID_VEHICLE);
+                
                 lb_EntryDateData.setText(data.get(0));
                 lb_EntryTimeData.setText(data.get(1));
                 lb_DepartureDateData.setText(data.get(2));
                 lb_DepartureTimeData.setText(data.get(3));
-                lb_TotalTimeData.setText(data.get(4));
-
+                lb_TotalTimeData.setText(data.get(4));                
                 lb_PlateData.setText(ID_VEHICLE);
-
-                lb_TypeVehicleData.setText(mt.Capitalize(mt.Decrypt(data.get(5))));
-                lb_TypeTicketData.setText(mt.Capitalize(mt.Decrypt(data.get(6))));
-
-//            lb_payment.setText(String.valueOf(mt.CalcPayment(lb_TotalTimeData.getText())));
+                lb_TypeVehicleData.setText(mt.Capitalize(data.get(5)));
+                lb_TypeTicketData.setText(mt.Capitalize(data.get(6)));
                 lb_MarginData.setText(data.get(7));
+                lb_TotalTimeRoundedData.setText(data.get(8));
+                lb_payment.setText(data.get(9));
             }else{
                 tbx_idVehicle.setText(null);
             }
