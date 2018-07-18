@@ -393,6 +393,7 @@ public class cls_methods {
     }
 
     //-------------------------------------------------------------------------- Tickets    
+
     public void printEntrance(String ID_VEHICLE, String TYPETICKET, String TYPEVEHICLE, String ENTRYDATE, String ENTRYTIME) {
         ArrayList<String> data = new ArrayList<>(3);
 
@@ -422,6 +423,46 @@ public class cls_methods {
             parameters.put("ID_VEHICLE", ID_VEHICLE);
             parameters.put("TYPEVEHICLE", Capitalize(TYPEVEHICLE));
             parameters.put("PRINT", "Impreso el " + ENTRYDATE + " a las " + new GetDateTime().Get12hTime());
+
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
+            JasperPrintManager.printReport(print, false);
+        } catch (Exception ex) {
+            Error(ex + "Error 010: Ha ocurrido un problema en la impresión del \ntiquete. \nSi el problema persiste contacte al administrador.");
+        }
+    }
+
+
+    public void rp_CasualPayment(String IdVehicle, String TypeVehicle, String Entry, String Departure, String StayTime, String Payment) {
+        ArrayList<String> data = new ArrayList<>(3);
+
+        try {
+            CallableStatement cs = Connect().prepareCall("{ call STPR.SP_GetConfigTicket(?,?,?) }");
+            cs.registerOutParameter(1, Types.VARCHAR);
+            cs.registerOutParameter(2, Types.VARCHAR);
+            cs.registerOutParameter(3, Types.VARCHAR);
+            cs.execute();
+
+            for (int i = 1; i < 4; i++) {
+                data.add(Decrypt(cs.getString(i)));
+            }
+
+            cs.close();
+
+            JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("src/reports/rp_payment.jasper");
+
+            Map parameters = new HashMap();
+            parameters.put("NAME", data.get(1));
+            parameters.put("ID_PARKING", "Céd. Jurídica: " + data.get(0));
+            parameters.put("TELEPHONE", "Teléfono: " + data.get(2));
+            
+            parameters.put("ID_VEHICLE", IdVehicle);
+            parameters.put("TYPEVEHICLE", TypeVehicle);
+            parameters.put("ENTRY", Entry);
+            parameters.put("DEPARTURE", Departure);
+            parameters.put("STAYTIME", StayTime);
+            parameters.put("PAYMENT", Payment);
+
+            parameters.put("PRINT", "Impreso el " + new GetDateTime().GetDate() + " a las " + new GetDateTime().Get12hTime());
 
             JasperPrint print = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
             JasperPrintManager.printReport(print, false);

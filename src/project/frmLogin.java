@@ -18,8 +18,7 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         /* ------------- ESTABLISH CONNECTION WITH THE DATABASE ------------- */
         mt.Connect();
-        System.out.println(mt.Encrypt("CAMM"));
-        
+
         /* ---------------------- PANELS CONFIGURATION ---------------------- */
         pn_password.setVisible(false);
 
